@@ -33,8 +33,8 @@ a {
   text-decoration: none;
 }
 
-*:focus { 
-    outline: none; 
+*:focus {
+  outline: none;
 }
 
 /* Helper classes */
@@ -109,11 +109,11 @@ a {
 }
 
 .btn-primary:hover {
-    background: var(--white);
-    color: var(--secondary-blue);
-    border: 2px solid var(--secondary-blue);
-    transition: 0.3s;
-  }
+  background: var(--white);
+  color: var(--secondary-blue);
+  border: 2px solid var(--secondary-blue);
+  transition: 0.3s;
+}
 
 .btn-hollow {
   background: var(--white);
@@ -122,11 +122,11 @@ a {
 }
 
 .btn-hollow:hover {
-    background: var(--secondary-blue);
-    color: var(--white);
-    border: 2px solid var(--secondary-blue);
-    transition: 0.3s;
-  }
+  background: var(--secondary-blue);
+  color: var(--white);
+  border: 2px solid var(--secondary-blue);
+  transition: 0.3s;
+}
 
 .btn-danger {
   background: var(--white);
@@ -135,11 +135,11 @@ a {
 }
 
 .btn-danger:hover {
-    background: var(--danger);
-    color: var(--white);
-    border: 2px solid --danger;
-    transition: 0.3s;
-  }
+  background: var(--danger);
+  color: var(--white);
+  border: 2px solid --danger;
+  transition: 0.3s;
+}
 
 .bb {
   border-bottom: 1px solid #757575;
@@ -189,6 +189,14 @@ nav ul {
   margin-top: 20px;
 }
 
+.open-nav {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: var(--secondary-blue);
+  font-size: 40px;
+}
+
 .current {
   font-weight: bold;
 }
@@ -215,7 +223,7 @@ nav li:hover {
       rgba(94, 82, 202, 0.9)
     ),
     url("../img/bg.jpg") no-repeat;
-  height: 100vh;
+  height: 1200px;
   background-size: cover;
   margin: auto;
   color: var(--white);
@@ -286,9 +294,141 @@ textarea {
   color: var(--secondary-text);
 }
 
+input[type="radio"] {
+  margin-right: 24px;
+}
+
+input[type="radio"] + label {
+  cursor: pointer;
+}
+
+select {
+  background: transparent;
+  padding: 5px;
+  line-height: 1;
+  border-radius: 5px;
+  border-color: #dadada;
+  height: 40px;
+}
+
+select:focus {
+  outline: none;
+}
+
+/* ads */
+
+.top-ads {
+  margin-top: 150px;
+  width: 800px;
+  float: right;
+}
+
+.card {
+  background: var(--white);
+  margin: 15px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  font-size: 12px;
+}
+
+.card h3,
+.price {
+  color: var(--primary-text);
+}
+
+.price {
+  margin: 10px 0;
+}
+
+.card p {
+  margin: 0 5px;
+  text-align: left;
+  color: var(--secondary-text);
+}
+
+.column {
+  width: 25%;
+  float: left;
+  padding: 0 10px;
+}
+
+.card-img {
+  width: 180px;
+  height: 100px;
+}
+
+.home-btn {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 130px;
+  background: var(--secondary-blue);
+  margin: 15px;
+  color: var(--white);
+  border: 2px solid var(--secondary-blue);
+  border-radius: 1px;
+}
+
+.home-btn:hover {
+  background: var(--white);
+  color: var(--secondary-blue);
+  border: 2px solid var(--white);
+  transition: 0.3s;
+}
+
+.home-btn-hollow {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 130px;
+  background: var(--white);
+  margin: 15px;
+  color: var(--secondary-blue);
+  border: 2px solid var(--white);
+  border-radius: 1px;
+}
+
+.home-btn-hollow:hover {
+  background: var(--secondary-blue);
+  color: var(--white);
+  border: 2px solid var(--secondary-blue);
+  transition: 0.3s;
+}
+
+@media (min-height: 1024px) {
+  #showcase {
+    height: 100vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .top-ads {
+    width: 100%;
+    margin-top: 30px;
+  }
+}
+
 @media (max-width: 768px) {
   #logo {
     margin-top: 7px;
+  }
+
+  .open-nav {
+    display: block;
+  }
+
+  nav li {
+    display: none;
+  }
+
+  #log-out {
+    display: block;
   }
 
   #logo h1 {
@@ -310,15 +450,9 @@ textarea {
     font-size: 23px;
   }
 
-  .container2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
   .signup {
-    float: none;
     margin-top: 50px;
   }
+
+
 }
