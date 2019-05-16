@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Auto-Mart | My Ads</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Auto Mart is an online marketplace for automobiles of diverse makes, model or body type."
+    />
+    <meta name="keywords" content="Cars, Order" />
+    <meta name="author" content="Viola" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" href="./assets/img/icon.ico" />
+  </head>
+
+  <body>
+    <header class="header bb">
+      <div id="logo">
+        <a href="#">
+          <h1>Auto Mart</h1>
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="current">Home</a></li>
+          <li><a href="myAds.html">My Ads</a></li>
+          <li><a href="postAd.html">Place Ad</a></li>
+          <li id="log-out"><a href="login.html">Sign Out</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section id="showcase">
+      <div class="container">
+        <div class="container2">
+          <div class="search">
+            <h3 class="mt-2 mb-2">Search Cars</h3>
+            <form action="#" class="flex-column">
+              <div class="radio mb-2">
+                <label for="all">All</label>
+                <input type="radio" name="cars" id="all" checked />
+                <label for="used">Used</label>
+                <input type="radio" name="cars" id="used" />
+                <label for="new">New</label>
+                <input type="radio" name="cars" id="new" />
+              </div>
+              <select class="mb-2">
+                <option selected hidden>Make(Manufacturer)</option>
+                <option value="">Audi</option>
+                <option value="">Bentley</option>
+                <option value="">BMW</option>
+                <option value="">Cadillac</option>
+                <option value="">Chevrolet</option>
+                <option value="">Chrysler</option>
+                <option value="">Datsun</option>
+                <option value="">Ferrari</option>
+                <option value="">Mercedes</option>
+                <option value="">Toyota</option>
+              </select>
+              <select class="mb-2">
+                <option selected hidden>Price Range</option>
+                <option value="">Below $10k</option>
+                <option value="">$10k - $15k</option>
+                <option value="">$15k - $20k</option>
+                <option value="">$20k - $25k</option>
+                <option value="">$25k - $30k</option>
+                <option value="">$30k - $35k</option>
+                <option value="">$35k - $40k</option>
+                <option value="">$40k - $45k</option>
+                <option value="">$45k - $50k</option>
+                <option value="">Above $50k</option>
+              </select>
+              <button type="submit" class="btn btn-primary mt-2 mb-5">
+                Search
+              </button>
+            </form>
+          </div>
+          <div class="top-ads">
+            <h3 class="center mt-5">Buy/Sell your cars on Auto Mart</h3>
+            <p class="mt-2 mb-5">
+              Auto Mart is an online marketplace for automobiles of diverse
+              makes, model or body type. Buy yours today from trusted
+              dealerships or private sellers. Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Fugit temporibus incidunt quos
+              suscipit minima sit excepturi magni numquam, laborum illum. Lorem,
+              ipsum dolor sit amet consectetur adipisicing elit. Minima id dolor
+              accusantium nostrum provident veniam maxime, sed enim alias ex
+              aliquam sint, ipsa reiciendis animi explicabo, doloremque quos!
+              Provident, facere.
+            </p>
+            <div class="center">
+              <button class="btn home-btn">Place Ad</button>
+              <button class="btn home-btn-hollow">My Ads</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
