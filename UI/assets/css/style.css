@@ -278,6 +278,14 @@ textarea {
   border-radius: 5px;
 }
 
+.switch {
+  color: var(--primary-text);
+}
+
+.switch:hover {
+  color: var(--secondary-text);
+}
+
 @media (max-width: 768px) {
   #logo {
     margin-top: 7px;
