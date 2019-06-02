@@ -22,7 +22,7 @@
     <link rel="shortcut icon" href="./assets/img/icon.ico" />
   </head>
 
-  <body>
+  <body class="bg-blue">
     <header class="header bb">
       <div id="logo">
         <a href="home.html">
@@ -36,142 +36,250 @@
           <li><a href="postAd.html">Place Ad</a></li>
           <li><a href="login.html">Sign Out</a></li>
         </ul>
-        <button class="open-nav" onclick="openNav()">&#9776;</button>
       </nav>
     </header>
-    <div id="sidepanel" class="side-panel flex flex-column">
-      <button id="close-btn" onclick="closeNav()">&times;</button>
-      <a href="home.html">Home</a>
-      <a href="myAds.html">My Ads</a>
-      <a href="postAd.html">Place Ad</a>
-      <a href="login.html">Sign Out</a>
-    </div>
-    <div id="modal2" class="modal-div">
-      <span id="close-form">&times;</span>
-      <div class="container flex flex-center">
-        <div class="login">
-          <h3 class="mt-2">Update Price</h3>
-          <form class="flex-column mt-2">
-            <input
-              type="text"
-              placeholder="Price.."
-              id="email"
-              class="form-unit mb-2"
-              autofocus
-              required
-            />
-            <button type="submit" class="btn btn-primary mt-2 mb-2">
-              Submit
-            </button>
-          </form>
+    <div id="modal" class="modal-div flex flex-center">
+      <span id="close-modal">&times;</span>
+      <div id="top-modal" class="top-modal bg-blue hidden">
+        <img src="" alt="" id="mod-image" class="modal-image" />
+        <div class="left">
+          <div>
+            <p id="make"></p>
+            <p id="state"></p>
+          </div>
+          <br />
+          <p id="model" class="cl-blue"></p>
+          <p id="body-type"></p>
+          <em id="price"></em>
+          <p id="description" class="mb-1"></p>
         </div>
+        <form class="flex-column modal-form hidden">
+          <h3 class="mb-1">Make Offer</h3>
+          <input type="text" placeholder="Offer.." id="offer" required />
+          <div class="center mt-2">
+            <button type="submit" class="btn-small btn-primary">
+              Place Order
+            </button>
+          </div>
+        </form>
+        <button
+          onclick="flag()"
+          class="flag-btn btn-small btn-danger mt-2 mb-1 hidden"
+        >
+          Flag
+        </button>
+        <button
+          onclick="del()"
+          class="del-btn btn-small btn-danger mt-2 mb-1 hidden"
+        >
+          Delete
+        </button>
+      </div>
+      <div id="mod-flag" class="hidden">
+        <form class="flex-column">
+          <div class="center mb-5"><h2>Report Ad</h2></div>
+          <input type="text" placeholder="Reason.." id="flag-reason" required />
+          <textarea placeholder="Description.."></textarea>
+          <div class="center mt-5">
+            <button type="submit" class="btn-small btn-danger">
+              Report
+            </button>
+          </div>
+        </form>
+      </div>
+      <div id="mod-edit" class="hidden">
+        <form class="flex-column">
+          <div class="center mb-5"><h2>Update Price</h2></div>
+          <input type="text" placeholder="New Price.." id="flag-reason" />
+          <div class="center mt-5">
+            <button type="submit" class="btn-small btn-primary">
+              Update
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-    <div id="modal" class="modal-div">
-      <span id="close-pic">&times;</span>
-      <img class="modal-img" id="mod-img" />
-      <div id="caption"></div>
-    </div>
-    <div class="container flex flex-center">
-      <div class="ads flex-column mb-5">
-        <div class="ad flex mb-2">
-          <img
-            class="ad-img"
-            src="./assets/img/car1.png"
-            alt="Toyota Corolla"
-          />
-          <div class="car-details">
-            <h3>Toyota Corolla</h3>
-            <h4>1.6 Sedan</h4>
-            <p class="description mb-1">
-              2012 Corolla quest, mileage is 89,000km the car is in very good
-              condition, full service history available
+    <div class="my-ads container center">
+      <h2 class="">My Ads</h2>
+      <div class="my-cars mt-2 mb-5">
+        <div id="my-card1" class="my-card bg-blue">
+          <div>
+            <img src="./assets/img/image1.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">McLaren</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">720S</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$300,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
             </p>
-            <h5 class="mb-1">$13,000</h5>
-            <div class="two-btn">
-              <button class="ad-btn btn-small btn-primary mb-1">Edit</button>
-              <button class="btn-small btn-danger mb-1">Delete</button>
-            </div>
+          </div>
+          <div class="sold-check left">
+            <label for="sold">Sold</label>
+            <input type="checkbox" name="mark-sold" id="sold" />
+          </div>
+          <div class="two-btn right">
+            <button onclick="review(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="edit(event)" class="btn-small btn-primary mb-1">
+              Edit
+            </button>
           </div>
         </div>
-        <div class="ad flex mb-2">
-          <img
-            class="ad-img"
-            src="./assets/img/car2.png"
-            alt="Toyota Corolla"
-          />
-          <div class="car-details">
-            <h3>Toyota Corolla</h3>
-            <h4>1.6 Sedan</h4>
-            <p class="description mb-1">
-              2012 Corolla quest, mileage is 89,000km the car is in very good
-              condition, full service history available
+        <div id="my-card2" class="my-card bg-blue">
+          <div>
+            <img src="./assets/img/image2.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">Porsche</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">911 Carrera</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$220,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
             </p>
-            <h5 class="mb-1">$13,000</h5>
-            <div class="two-btn">
-              <button class="ad-btn btn-small btn-primary mb-1">Edit</button>
-              <button class="btn-small btn-danger mb-1">Delete</button>
-            </div>
+          </div>
+          <div class="sold-check left">
+            <label for="sold">Sold</label>
+            <input type="checkbox" name="mark-sold" id="sold" />
+          </div>
+          <div class="two-btn right">
+            <button onclick="review(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="edit(event)" class="btn-small btn-primary mb-1">
+              Edit
+            </button>
           </div>
         </div>
-        <div class="ad flex mb-2">
-          <img
-            class="ad-img"
-            src="./assets/img/car3.png"
-            alt="Toyota Corolla"
-          />
-          <div class="car-details">
-            <h3>Toyota Corolla</h3>
-            <h4>1.6 Sedan</h4>
-            <p class="description mb-1">
-              2012 Corolla quest, mileage is 89,000km the car is in very good
-              condition, full service history available
+        <div id="my-card3" class="my-card bg-blue">
+          <div>
+            <img src="./assets/img/image1.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">McLaren</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">720S</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$300,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
             </p>
-            <h5 class="mb-1">$13,000</h5>
-            <div class="two-btn">
-              <button class="ad-btn btn-small btn-primary mb-1">Edit</button>
-              <button class="btn-small btn-danger mb-1">Delete</button>
-            </div>
+          </div>
+          <div class="sold-check left">
+            <label for="sold">Sold</label>
+            <input type="checkbox" name="mark-sold" id="sold" />
+          </div>
+          <div class="two-btn right">
+            <button onclick="review(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="edit(event)" class="btn-small btn-primary mb-1">
+              Edit
+            </button>
           </div>
         </div>
-        <div class="ad flex mb-2">
-          <img
-            class="ad-img"
-            src="./assets/img/car4.png"
-            alt="Toyota Corolla"
-          />
-          <div class="car-details">
-            <h3>Toyota Corolla</h3>
-            <h4>1.6 Sedan</h4>
-            <p class="description mb-1">
-              2012 Corolla quest, mileage is 89,000km the car is in very good
-              condition, full service history available
+        <div id="my-card4" class="my-card bg-blue">
+          <div>
+            <img src="./assets/img/image2.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">Porsche</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">911 Carrera</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$220,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
             </p>
-            <h5 class="mb-1">$13,000</h5>
-            <div class="two-btn">
-              <button class="ad-btn btn-small btn-primary mb-1">Edit</button>
-              <button class="btn-small btn-danger mb-1">Delete</button>
-            </div>
+          </div>
+          <div class="sold-check left">
+            <label for="sold">Sold</label>
+            <input type="checkbox" name="mark-sold" id="sold" />
+          </div>
+          <div class="two-btn right">
+            <button onclick="review(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="edit(event)" class="btn-small btn-primary mb-1">
+              Edit
+            </button>
           </div>
         </div>
-        <div class="ad flex mb-2">
-          <img
-            class="ad-img"
-            src="./assets/img/car1.png"
-            alt="Toyota Corolla"
-          />
-          <div class="car-details">
-            <h3>Toyota Corolla</h3>
-            <h4>1.6 Sedan</h4>
-            <p class="description mb-1">
-              2012 Corolla quest, mileage is 89,000km the car is in very good
-              condition, full service history available
+        <div id="my-card5" class="my-card bg-blue">
+          <div>
+            <img src="./assets/img/image2.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">Porsche</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">911 Carrera</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$220,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
             </p>
-            <h5 class="mb-1">$13,000</h5>
-            <div class="two-btn">
-              <button class="ad-btn btn-small btn-primary mb-1">Edit</button>
-              <button class="btn-small btn-danger mb-1">Delete</button>
-            </div>
+          </div>
+          <div class="sold-check left">
+            <label for="sold">Sold</label>
+            <input type="checkbox" name="mark-sold" id="sold" />
+          </div>
+          <div class="two-btn right">
+            <button onclick="review(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="edit(event)" class="btn-small btn-primary mb-1">
+              Edit
+            </button>
+          </div>
+        </div>
+        <div id="my-card6" class="my-card bg-blue">
+          <div>
+            <img src="./assets/img/image2.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">Porsche</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">911 Carrera</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$220,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="sold-check left">
+            <label for="sold">Sold</label>
+            <input type="checkbox" name="mark-sold" id="sold" />
+          </div>
+          <div class="two-btn right">
+            <button onclick="review(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="edit(event)" class="btn-small btn-primary mb-1">
+              Edit
+            </button>
           </div>
         </div>
       </div>
