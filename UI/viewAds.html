@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Auto-Mart | Ads</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Auto Mart is an online marketplace for automobiles of diverse makes, model or body type."
+    />
+    <meta name="keywords" content="Cars, Order" />
+    <meta name="author" content="Viola" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" href="./assets/img/icon.ico" />
+  </head>
+
+  <body>
+    <header class="header bb">
+      <div id="logo">
+        <a href="home.html">
+          <h1>Auto Mart</h1>
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="myAds.html">My Ads</a></li>
+          <li><a href="postAd.html">Place Ad</a></li>
+          <li><a href="login.html">Sign Out</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="modal" class="modal-div flex flex-center">
+      <span id="close-modal">&times;</span>
+      <div id="top-modal" class="top-modal bg-blue hidden">
+        <img src="" alt="" id="mod-image" class="modal-image" />
+        <div class="left">
+          <div>
+            <p id="make"></p>
+            <p id="state"></p>
+          </div>
+          <br />
+          <p id="model" class="cl-blue"></p>
+          <p id="body-type"></p>
+          <em id="price"></em>
+          <p id="description" class="mb-1"></p>
+        </div>
+        <form class="flex-column modal-form hidden">
+          <h3 class="mb-1">Make Offer</h3>
+          <input type="text" placeholder="Offer.." id="offer" required />
+          <div class="center mt-2">
+            <button type="submit" class="btn-small btn-primary">
+              Place Order
+            </button>
+          </div>
+        </form>
+        <button
+          onclick="flag()"
+          class="flag-btn btn-small btn-danger mt-2 mb-1 hidden"
+        >
+          Flag
+        </button>
+      </div>
+      <div id="mod-flag" class="hidden">
+        <form class="flex-column">
+          <div class="center mb-5"><h2>Report Ad</h2></div>
+          <input type="text" placeholder="Reason.." id="flag-reason" required />
+          <textarea placeholder="Description.."></textarea>
+          <div class="center mt-5">
+            <button type="submit" class="btn-small btn-danger">
+              Report
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="container unsold">
+      <h2 class="mt-2 center">Unsold Cars</h2>
+      <div class="top-cars center mt-2 mb-5">
+        <div id="top-card5" class="top-card bg-blue">
+          <div>
+            <img src="./assets/img/image1.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">McLaren</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">720S</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$300,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="two-btn right">
+            <button onclick="view(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="order(event)" class="btn-small btn-primary mb-1">
+              Order
+            </button>
+          </div>
+        </div>
+        <div id="top-card6" class="top-card bg-blue">
+          <div>
+            <img src="./assets/img/image2.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">Porsche</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">911 Carrera</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$220,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="two-btn right">
+            <button onclick="view(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="order(event)" class="btn-small btn-primary mb-1">
+              Order
+            </button>
+          </div>
+        </div>
+        <div id="top-card7" class="top-card bg-blue">
+          <div>
+            <img src="./assets/img/image1.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">McLaren</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">720S</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$300,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="two-btn right">
+            <button onclick="view(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="order(event)" class="btn-small btn-primary mb-1">
+              Order
+            </button>
+          </div>
+        </div>
+        <div id="top-card8" class="top-card bg-blue">
+          <div>
+            <img src="./assets/img/image2.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">Porsche</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">911 Carrera</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$220,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="two-btn right">
+            <button onclick="view(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="order(event)" class="btn-small btn-primary mb-1">
+              Order
+            </button>
+          </div>
+        </div>
+        <div id="top-card9" class="top-card bg-blue">
+          <div>
+            <img src="./assets/img/image1.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">McLaren</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">720S</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$300,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="two-btn right">
+            <button onclick="view(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="order(event)" class="btn-small btn-primary mb-1">
+              Order
+            </button>
+          </div>
+        </div>
+        <div id="top-card10" class="top-card bg-blue">
+          <div>
+            <img src="./assets/img/image2.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">Porsche</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">911 Carrera</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$220,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="two-btn right">
+            <button onclick="view(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="order(event)" class="btn-small btn-primary mb-1">
+              Order
+            </button>
+          </div>
+        </div>
+        <div id="top-card11" class="top-card bg-blue">
+          <div>
+            <img src="./assets/img/image1.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">McLaren</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">720S</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$300,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="two-btn right">
+            <button onclick="view(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="order(event)" class="btn-small btn-primary mb-1">
+              Order
+            </button>
+          </div>
+        </div>
+        <div id="top-card12" class="top-card bg-blue">
+          <div>
+            <img src="./assets/img/image2.jpg" alt="McLaren" class="top-img" />
+          </div>
+          <div class="left mb-2">
+            <h3 class="make">Porsche</h3>
+            <p class="state hidden">New</p>
+            <h3 class="model cl-blue">911 Carrera</h3>
+            <p class="body-type hidden">Sedan</p>
+            <p class="price">$220,000</p>
+            <p class="describe hidden">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              aut consequuntur eos eveniet harum alias corrupti reiciendis vel
+              neque culpa natus provident illum impedit beatae ab voluptatibus
+              a, ipsam autem.
+            </p>
+          </div>
+          <div class="two-btn right">
+            <button onclick="view(event)" class="btn-small btn-primary mb-1">
+              View
+            </button>
+            <button onclick="order(event)" class="btn-small btn-primary mb-1">
+              Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>
