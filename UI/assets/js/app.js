@@ -4,6 +4,7 @@ const modal = document.getElementById("modal");
 const modImage = document.getElementById("mod-image");
 const make = document.getElementById("make");
 const state = document.getElementById("state");
+const status = document.getElementById("status");
 const model = document.getElementById("model");
 const bodyType = document.getElementById("body-type");
 const price = document.getElementById("price");
@@ -16,8 +17,10 @@ const delBtn = document.querySelector(".del-btn");
 const modalForm = document.querySelector(".modal-form");
 
 const reset = () => {
-  if (!modFlag.classList.contains("hidden")) {
-    modFlag.classList.add("hidden");
+  if (modFlag) {
+    if (!modFlag.classList.contains("hidden")) {
+      modFlag.classList.add("hidden");
+    }
   }
   if (!topModal.classList.contains("hidden")) {
     topModal.classList.add("hidden");
@@ -41,6 +44,7 @@ const reset = () => {
   modImage.src = "";
   make.innerHTML = "";
   state.innerHTML = "";
+  status.innerHTML = "";
   model.innerHTML = "";
   bodyType.innerHTML = "";
   price.innerHTML = "";
@@ -127,6 +131,37 @@ const order = event => {
     "#" + parentCont + " " + ".price"
   ).innerHTML;
   modalForm.classList.remove("hidden");
+};
+
+const review2 = event => {
+  reset();
+  modal.style.display = "flex";
+  const target = event.target;
+  topModal.classList.remove("hidden");
+  const parentCont = target.parentNode.parentNode.id;
+  modImage.src = document.querySelector("#" + parentCont + " " + "img").src;
+  make.innerHTML = document.querySelector(
+    "#" + parentCont + " " + ".make"
+  ).innerHTML;
+  state.innerHTML = document.querySelector(
+    "#" + parentCont + " " + ".state"
+  ).innerHTML;
+  model.innerHTML = document.querySelector(
+    "#" + parentCont + " " + ".model"
+  ).innerHTML;
+  status.innerHTML = document.querySelector(
+    "#" + parentCont + " " + ".status"
+  ).innerHTML;
+  bodyType.innerHTML = document.querySelector(
+    "#" + parentCont + " " + ".body-type"
+  ).innerHTML;
+  price.innerHTML = document.querySelector(
+    "#" + parentCont + " " + ".price"
+  ).innerHTML;
+  description.innerHTML = document.querySelector(
+    "#" + parentCont + " " + ".describe"
+  ).innerHTML;
+  delBtn.classList.remove("hidden");
 };
 
 const closeModal = document.getElementById("close-modal");
