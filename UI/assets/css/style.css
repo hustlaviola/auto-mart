@@ -397,7 +397,7 @@ nav li:hover {
 /* My Cars*/
 
 .my-ads, .unsold {
-  margin-top: 150px;
+  margin-top: 100px;
 }
 
 .my-cars {
@@ -536,11 +536,18 @@ select:focus {
   float: left;
 }
 
-#state {
+#state, #status {
   float: right;
   margin-right: 20px;
-  color: #148a53;
+  right: 0;
+}
 
+#state {
+  color: #148a53;
+}
+
+#status {
+  color: #5c5d03;
 }
 
 #body-type {
@@ -549,10 +556,6 @@ select:focus {
 
 #price {
   color: var(--secondary-text);
-}
-
-#state {
-  right: 0;
 }
 
 #description {
@@ -576,7 +579,7 @@ select:focus {
   transition: 0.3s;
 }
 
-/* Flag */
+/* Modal Contents */
 
 #mod-flag, #mod-edit {
   background: var(--white);
@@ -598,7 +601,7 @@ select:focus {
   padding: 0 5px;
 }
 
-.modal-form .btn-small {
+.modal-form .btn-small, .del-btn {
   width: 150px;
 }
 
@@ -741,7 +744,7 @@ footer p {
     width: 100%;
   }
 
-  #sidepanel a {
-    font-size: 20px;
+  #mod-flag, #mod-edit {
+    width: 90%;
   }
 }
