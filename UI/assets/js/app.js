@@ -25,16 +25,20 @@ const reset = () => {
   if (!topModal.classList.contains("hidden")) {
     topModal.classList.add("hidden");
   }
-  if (!flagBtn.classList.contains("hidden")) {
-    flagBtn.classList.add("hidden");
+  if (flagBtn) {
+    if (!flagBtn.classList.contains("hidden")) {
+      flagBtn.classList.add("hidden");
+    }
   }
   if (delBtn) {
     if (!delBtn.classList.contains("hidden")) {
       delBtn.classList.add("hidden");
     }
   }
-  if (!modalForm.classList.contains("hidden")) {
-    modalForm.classList.add("hidden");
+  if (modalForm) {
+    if (!modalForm.classList.contains("hidden")) {
+      modalForm.classList.add("hidden");
+    }
   }
   if (modEdit) {
     if (!modEdit.classList.contains("hidden")) {
@@ -44,7 +48,7 @@ const reset = () => {
   modImage.src = "";
   make.innerHTML = "";
   state.innerHTML = "";
-  status.innerHTML = "";
+  if (status) status.innerHTML = "";
   model.innerHTML = "";
   bodyType.innerHTML = "";
   price.innerHTML = "";
@@ -161,7 +165,9 @@ const review2 = event => {
   description.innerHTML = document.querySelector(
     "#" + parentCont + " " + ".describe"
   ).innerHTML;
-  delBtn.classList.remove("hidden");
+  if (delBtn) {
+    delBtn.classList.remove("hidden");
+  }
 };
 
 const closeModal = document.getElementById("close-modal");
