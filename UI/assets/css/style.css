@@ -379,7 +379,7 @@ nav li:hover {
 
 /* Top Cars */
 
-.top-cars {
+.top-cars, .stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
@@ -603,6 +603,17 @@ select:focus {
 
 .modal-form .btn-small, .del-btn {
   width: 150px;
+}
+
+/* Admin Stats */
+
+.stats {
+  justify-items: center;
+}
+
+.availability {
+  border: 2px solid var(--secondary-text);
+  width: 300px
 }
 
 /* Footer */
