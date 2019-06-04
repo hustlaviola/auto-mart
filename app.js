@@ -1,4 +1,5 @@
 import express from 'express';
+import router from './server/routes/router';
 
 const app = express();
 
@@ -8,6 +9,8 @@ app.use(
     extended: false,
   }),
 );
+
+app.use('/api/v1', router);
 
 app.get('/', (req, res) => {
   res.status(200).send({
