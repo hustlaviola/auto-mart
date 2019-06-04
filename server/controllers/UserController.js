@@ -31,13 +31,41 @@ class UserController {
     const result = {
       id: user.id,
       email: user.email,
-      username: user.username,
     };
     const token = Helper.generateToken(result);
     users.push(user);
     return res.status(201).send({
       status: 'success',
       data: { token, id, first_name: firstname, last_name: lastname, email },
+    });
+  }
+
+  /**
+  * @method signIn
+  * @description Sign in a user
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof UserController
+  */
+  static signIn(req, res) {
+    const { email } = req.body;
+    let user;
+
+    users.forEach(owner => {
+      if (owner.email === email) {
+        user = owner;
+      }
+    });
+    const result = {
+      id: user.id,
+      email: user.email,
+    };
+    const token = Helper.generateToken(result);
+    return res.status(200).send({
+      status: 'success',
+      data: { token, id: user.id, first_name: user.first_name, last_name: user.last_name, email },
     });
   }
 }
