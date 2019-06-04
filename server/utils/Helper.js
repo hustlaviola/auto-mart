@@ -35,6 +35,19 @@ class Helper {
   }
 
   /**
+   * @method verifyPassword
+   * @description verify if given and database password match
+   * @static
+   * @param {string} password
+   * @param {string} hashed
+   * @returns {boolean} boolean response
+   * @memberof Helper
+   */
+  static verifyPassword(password, hashed) {
+    return bcrypt.compareSync(password, hashed);
+  }
+
+  /**
    * @method regEx
    * @description contain regular expressions for validating user input
    * @static

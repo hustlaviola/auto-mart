@@ -17,4 +17,8 @@ router.post('/auth/signup',
   UserValidator.validateExistingUser,
   UserController.signUp);
 
+router.post('/auth/login',
+  UserValidator.validateSignIn,
+  UserController.signIn);
+
 export default router;
