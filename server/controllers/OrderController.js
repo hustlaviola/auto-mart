@@ -1,4 +1,5 @@
 import orders from '../models/orderModel';
+import cars from '../models/carModel';
 
 /**
  * @class OrderController
@@ -16,24 +17,33 @@ class OrderController {
   * @memberof OrderController
   */
   static postOrder(req, res) {
-    const { amount } = req.body;
+    const { carId, amount } = req.body;
 
     const id = orders.length > 0
       ? orders[orders.length - 1].id + 1 : 1;
-
-    const carId = 1;
     const createdOn = new Date();
     const status = 'pending';
     const buyer = 1;
 
-    const order = {
-      id, carId, buyer, createdOn, amount, status,
-    };
+    cars.forEach(car => {
+      if (carId === car.id) {
+        const order = {
+          id, carId, buyer, createdOn, amount, status,
+        };
 
-    orders.push(order);
-    return res.status(201).send({
-      status: 'success',
-      data: order,
+        orders.push(order);
+        return res.status(201).send({
+          status: 'success',
+          data: {
+            id,
+            carId,
+            createdOn,
+            status,
+            price: car.price,
+            priceOffered: amount,
+          },
+        });
+      }
     });
   }
 }
