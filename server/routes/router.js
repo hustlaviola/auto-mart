@@ -3,6 +3,8 @@ import UserValidator from '../middlewares/UserValidator';
 import UserController from '../controllers/UserController';
 import CarController from '../controllers/CarController';
 import CarValidator from '../middlewares/CarValidator';
+import OrderValidator from '../middlewares/OrderValidator';
+import OrderController from '../controllers/OrderController';
 
 const router = express.Router();
 
@@ -26,5 +28,9 @@ router.post('/auth/login',
 router.post('/car',
   CarValidator.validatePostCar,
   CarController.postCar);
+
+router.post('/order',
+  OrderValidator.validatePostOrder,
+  OrderController.postOrder);
 
 export default router;
