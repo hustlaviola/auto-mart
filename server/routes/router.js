@@ -33,4 +33,8 @@ router.post('/order',
   OrderValidator.validatePostOrder,
   OrderController.postOrder);
 
+router.patch('/order/:id/price',
+  OrderValidator.validatePrice,
+  OrderController.updateOrder);
+
 export default router;
