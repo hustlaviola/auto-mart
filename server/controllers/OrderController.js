@@ -46,6 +46,40 @@ class OrderController {
       }
     });
   }
+
+  /**
+  * @method updateOrder
+  * @description Update price of purchase order
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof OrderController
+  */
+  static updateOrder(req, res) {
+    const { amount } = req.body;
+
+    const order = orders
+      .find(purchase => purchase.id === parseInt(req.params.id, 10));
+
+    const oldPriceOffered = order.amount;
+
+    order.amount = amount;
+
+    const updatedOn = new Date();
+
+    return res.status(200).send({
+      status: 'success',
+      data: {
+        id: order.id,
+        carId: order.carId,
+        status: order.status,
+        oldPriceOffered,
+        newPriceOffered: order.amount,
+        updatedOn,
+      },
+    });
+  }
 }
 
 export default OrderController;
