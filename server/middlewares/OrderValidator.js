@@ -1,5 +1,6 @@
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
+import cars from '../models/carModel';
 
 /**
  * @class OrderValidator
@@ -19,16 +20,25 @@ class OrderValidator {
   */
   static validatePostOrder(req, res, next) {
     const regEx = Helper.regEx();
-    const { amount } = req.body;
+    const { carId, amount } = req.body;
 
     let err;
 
-    if (!amount) err = 'amount field cannot be empty';
+    if (!carId) err = 'carId field cannot be empty';
+    else if (!regEx.id.test(carId)) err = 'invalid id format';
+    else if (!amount) err = 'amount field cannot be empty';
     else if (!regEx.price.test(amount)) err = 'invalid amount format';
 
     if (err) return ErrorHandler.validationError(res, 400, err);
+    let go;
 
-    return next();
+    cars.forEach(car => {
+      if (carId === car.id) {
+        go = true;
+      }
+    });
+    if (go) return next();
+    return ErrorHandler.validationError(res, 404, 'car does not exist');
   }
 }
 
