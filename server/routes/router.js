@@ -1,6 +1,8 @@
 import express from 'express';
 import UserValidator from '../middlewares/UserValidator';
 import UserController from '../controllers/UserController';
+import CarController from '../controllers/CarController';
+import CarValidator from '../middlewares/CarValidator';
 
 const router = express.Router();
 
@@ -20,5 +22,9 @@ router.post('/auth/signup',
 router.post('/auth/login',
   UserValidator.validateSignIn,
   UserController.signIn);
+
+router.post('/car',
+  CarValidator.validatePostCar,
+  CarController.postCar);
 
 export default router;
