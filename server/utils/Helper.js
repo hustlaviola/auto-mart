@@ -58,6 +58,7 @@ class Helper {
     return {
       id: /^[1-9](\d+)?$/,
       name: /^[a-zA-Z]{3,30}$/,
+      price: /^[\d]+.[\d]{2}$/,
       email: /^[\w]+@[\w]+.[a-z]{2,5}$/,
       phonenumber: /^\+?[0-9]{11,14}$/,
     };
