@@ -117,6 +117,25 @@ class CarController {
       },
     });
   }
+
+  /**
+  * @method getCar
+  * @description Update price of an ad
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof CarController
+  */
+  static getCar(req, res) {
+    const car = cars
+      .find(carItem => carItem.id === parseInt(req.params.id, 10));
+
+    return res.status(200).send({
+      status: res.statusCode,
+      data: car,
+    });
+  }
 }
 
 export default CarController;
