@@ -55,23 +55,34 @@ class OrderValidator {
   static validatePrice(req, res, next) {
     const regEx = Helper.regEx();
     const { amount } = req.body;
-    const orderId = Number(req.params.id);
+    const id = Number(req.params.id);
     let err;
 
-    if (Number.isNaN(orderId)) err = 'Invalid Id, Please input a number';
-    else if (!regEx.id.test(orderId)) err = 'Invalid id format';
+    if (Number.isNaN(id)) err = 'Invalid Id, Please input a number';
+    else if (!regEx.id.test(id)) err = 'Invalid id format';
     else if (!amount) err = 'amount field cannot be empty';
     else if (!regEx.price.test(amount)) err = 'invalid amount format';
 
     if (err) return ErrorHandler.validationError(res, 400, err);
 
-    const order = orders
-      .find(purchase => purchase.id === parseInt(req.params.id, 10));
-    if (!order) return ErrorHandler.validationError(res, 404, 'Order record not found');
-    if (order.status !== 'pending') {
-      return ErrorHandler.validationError(res, 400, 'Only pending offers can be updated');
+    const type = req.url.split('/')[1];
+
+    if (type === 'order') {
+      const order = orders
+        .find(purchase => purchase.id === parseInt(req.params.id, 10));
+      if (!order) return ErrorHandler.validationError(res, 404, 'Order record not found');
+      if (order.status !== 'pending') {
+        return ErrorHandler.validationError(res, 400, 'Only pending offers can be updated');
+      }
+      return next();
     }
-    return next();
+
+    if (type === 'car') {
+      const car = cars
+        .find(carItem => carItem.id === parseInt(req.params.id, 10));
+      if (!car) return ErrorHandler.validationError(res, 404, 'Car record not found');
+      return next();
+    }
   }
 }
 
