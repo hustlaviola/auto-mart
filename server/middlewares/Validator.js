@@ -70,6 +70,25 @@ class Validator {
       return next();
     }
   }
+
+  /**
+  * @method validateStatus
+  * @description Check if id is valid
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof CarValidator
+  */
+  static validateStatus(req, res, next) {
+    const { status } = req.query;
+    if (!status) return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
+    if (status !== 'available') {
+      return ErrorHandler.validationError(res, 400, 'status must be \'available\'');
+    }
+    return next();
+  }
 }
 
 export default Validator;

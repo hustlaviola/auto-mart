@@ -53,4 +53,8 @@ router.get('/car/:id/',
   Validator.validateId,
   CarController.getCar);
 
+router.get('/car?',
+  Validator.validateStatus,
+  CarController.getUnsoldCars);
+
 export default router;
