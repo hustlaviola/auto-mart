@@ -81,11 +81,24 @@ class Validator {
   * @returns {object} next
   * @memberof CarValidator
   */
-  static validateStatus(req, res, next) {
+  static validateQuery(req, res, next) {
     const { status } = req.query;
+    const minPrice = Number(req.query.min_price);
+    const maxPrice = Number(req.query.max_price);
     if (!status) return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
     if (status !== 'available') {
       return ErrorHandler.validationError(res, 400, 'status must be \'available\'');
+    }
+    let err;
+    if (minPrice || maxPrice) {
+      if (!req.query.min_price) err = 'query \'min_price\' must be provided';
+      else if (Number.isNaN(minPrice)) err = 'min_price must be a number';
+      else if (!req.query.max_price) err = 'query \'max_price\' must be provided';
+      else if (Number.isNaN(maxPrice)) err = 'max_price must be a number';
+      else if (maxPrice <= minPrice) err = 'max_price must be greater than min_price';
+      if (err) {
+        return ErrorHandler.validationError(res, 400, err);
+      }
     }
     return next();
   }

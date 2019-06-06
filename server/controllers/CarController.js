@@ -148,13 +148,24 @@ class CarController {
   */
   static getUnsoldCars(req, res) {
     const { status } = req.query;
+    const minPrice = Number(req.query.min_price);
+    const maxPrice = Number(req.query.max_price);
     const unsoldCars = [];
+    const unsoldCarsWithinRange = [];
     cars.forEach(car => {
-      if (car.status === status) {
-        unsoldCars.push(car);
+      if (car.status === status) unsoldCars.push(car);
+      if ((minPrice && maxPrice) && car.status === status) {
+        if (car.price >= minPrice && car.price <= maxPrice) {
+          unsoldCarsWithinRange.push(car);
+        }
       }
     });
-
+    if (minPrice && maxPrice) {
+      return res.status(200).send({
+        status: 'success',
+        data: unsoldCarsWithinRange,
+      });
+    }
     return res.status(200).send({
       status: 'success',
       data: unsoldCars,
