@@ -532,4 +532,81 @@ describe('/GET CAR route', () => {
         done(err);
       });
   });
+
+  it('should return an error if min_price is not provided', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&max_price=2000000')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('query \'min_price\' must be provided');
+        done(err);
+      });
+  });
+
+  it('should return an error if min_price is not a number', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&min_price=20t0000&max_price=2050000')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('min_price must be a number');
+        done(err);
+      });
+  });
+
+  it('should return an error if max_price is not provided', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&min_price=2000000')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('query \'max_price\' must be provided');
+        done(err);
+      });
+  });
+
+  it('should return an error if max_price is not a number', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&min_price=200000&max_price=20t0000')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('max_price must be a number');
+        done(err);
+      });
+  });
+
+  it('should return an error if max_price is not greater than min_price', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&min_price=2000000&max_price=1000000')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('max_price must be greater than min_price');
+        done(err);
+      });
+  });
+
+  it('should retrieve all unsold cars within the price range if all details are valid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&min_price=200000&max_price=3000000')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.have.property('owner');
+        done(err);
+      });
+  });
 });
