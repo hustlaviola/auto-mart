@@ -37,4 +37,8 @@ router.patch('/order/:id/price',
   OrderValidator.validatePrice,
   OrderController.updateOrder);
 
+router.patch('/car/:id/status',
+  CarValidator.validateAvailability,
+  CarController.markAsSold);
+
 export default router;
