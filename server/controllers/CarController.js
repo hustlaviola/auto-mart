@@ -120,7 +120,7 @@ class CarController {
 
   /**
   * @method getCar
-  * @description Update price of an ad
+  * @description Retrieve a specific car
   * @static
   * @param {object} req - The request object
   * @param {object} res - The response object
@@ -132,8 +132,32 @@ class CarController {
       .find(carItem => carItem.id === parseInt(req.params.id, 10));
 
     return res.status(200).send({
-      status: res.statusCode,
+      status: 'success',
       data: car,
+    });
+  }
+
+  /**
+  * @method getUnsoldCars
+  * @description Retrieve all unsold cars
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof CarController
+  */
+  static getUnsoldCars(req, res) {
+    const { status } = req.query;
+    const unsoldCars = [];
+    cars.forEach(car => {
+      if (car.status === status) {
+        unsoldCars.push(car);
+      }
+    });
+
+    return res.status(200).send({
+      status: 'success',
+      data: unsoldCars,
     });
   }
 }

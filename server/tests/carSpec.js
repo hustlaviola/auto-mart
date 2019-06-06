@@ -494,4 +494,42 @@ describe('/GET CAR route', () => {
         done(err);
       });
   });
+
+  it('should return an error if status is not provided in the query', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?sttus=available')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('query \'status\' must be provided');
+        done(err);
+      });
+  });
+
+  it('should return an error if status is not equal to available', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=sold')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('status must be \'available\'');
+        done(err);
+      });
+  });
+
+  it('should retrieve all unsold cars if details are valid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.have.property('state');
+        done(err);
+      });
+  });
 });
