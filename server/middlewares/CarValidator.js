@@ -50,14 +50,10 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validateAvailability(req, res, next) {
-    const regEx = Helper.regEx();
     const { status } = req.body;
-    const carId = Number(req.params.id);
     let err;
 
-    if (Number.isNaN(carId)) err = 'Invalid Id, Please input a number';
-    else if (!regEx.id.test(carId)) err = 'Invalid id format';
-    else if (!status) err = 'status field cannot be empty';
+    if (!status) err = 'status field cannot be empty';
     else if (status !== 'sold') err = 'status must be sold';
 
     if (err) return ErrorHandler.validationError(res, 400, err);
@@ -69,28 +65,6 @@ class CarValidator {
     if (car.status === 'sold') {
       return ErrorHandler.validationError(res, 400, 'Car has already been marked as sold');
     }
-    return next();
-  }
-
-  /**
-  * @method validateId
-  * @description Check if id is valid
-  * @static
-  * @param {object} req - The request object
-  * @param {object} res - The response object
-  * @param {object} next
-  * @returns {object} next
-  * @memberof CarValidator
-  */
-  static validateId(req, res, next) {
-    const regEx = Helper.regEx();
-    const id = Number(req.params.id);
-    let err;
-
-    if (Number.isNaN(id)) err = 'Invalid Id, Please input a number';
-    else if (!regEx.id.test(id)) err = 'Invalid id format';
-
-    if (err) return ErrorHandler.validationError(res, 400, err);
     return next();
   }
 }

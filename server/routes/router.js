@@ -5,6 +5,7 @@ import CarController from '../controllers/CarController';
 import CarValidator from '../middlewares/CarValidator';
 import OrderValidator from '../middlewares/OrderValidator';
 import OrderController from '../controllers/OrderController';
+import Validator from '../middlewares/Validator';
 
 const router = express.Router();
 
@@ -34,19 +35,22 @@ router.post('/order',
   OrderController.postOrder);
 
 router.patch('/order/:id/price',
-  OrderValidator.validatePrice,
+  Validator.validateId,
+  Validator.validatePrice,
   OrderController.updateOrder);
 
 router.patch('/car/:id/status',
+  Validator.validateId,
   CarValidator.validateAvailability,
   CarController.markAsSold);
 
 router.patch('/car/:id/price',
-  OrderValidator.validatePrice,
+  Validator.validateId,
+  Validator.validatePrice,
   CarController.updateAd);
 
 router.get('/car/:id/',
-  CarValidator.validateId,
+  Validator.validateId,
   CarController.getCar);
 
 export default router;
