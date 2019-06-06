@@ -45,4 +45,8 @@ router.patch('/car/:id/price',
   OrderValidator.validatePrice,
   CarController.updateAd);
 
+router.get('/car/:id/',
+  CarValidator.validateId,
+  CarController.getCar);
+
 export default router;
