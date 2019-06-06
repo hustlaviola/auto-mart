@@ -77,6 +77,46 @@ class CarController {
       },
     });
   }
+
+  /**
+  * @method updateAd
+  * @description Update price of an ad
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof CarController
+  */
+  static updateAd(req, res) {
+    const { amount } = req.body;
+
+    const car = cars
+      .find(carItem => carItem.id === parseInt(req.params.id, 10));
+    const owner = users
+      .find(user => user.id === car.owner);
+
+    const oldPrice = car.price;
+
+    car.price = amount;
+
+    const updatedOn = new Date();
+
+    return res.status(200).send({
+      status: 'success',
+      data: {
+        id: car.id,
+        email: owner.email,
+        createdOn: car.createdOn,
+        manufacturer: car.manufacturer,
+        model: car.model,
+        oldPrice,
+        newPrice: car.price,
+        state: car.state,
+        status: car.status,
+        updatedOn,
+      },
+    });
+  }
 }
 
 export default CarController;

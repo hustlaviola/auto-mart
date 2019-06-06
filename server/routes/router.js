@@ -41,4 +41,8 @@ router.patch('/car/:id/status',
   CarValidator.validateAvailability,
   CarController.markAsSold);
 
+router.patch('/car/:id/price',
+  OrderValidator.validatePrice,
+  CarController.updateAd);
+
 export default router;
