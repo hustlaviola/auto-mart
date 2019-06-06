@@ -1,5 +1,6 @@
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
+import cars from '../models/carModel';
 
 /**
  * @class CarValidator
@@ -35,6 +36,39 @@ class CarValidator {
     else if (!bodyType) err = 'bodyType field cannot be empty';
     if (err) return ErrorHandler.validationError(res, 400, err);
 
+    return next();
+  }
+
+  /**
+  * @method validateAvailability
+  * @description Check if update details are valid
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof CarValidator
+  */
+  static validateAvailability(req, res, next) {
+    const regEx = Helper.regEx();
+    const { status } = req.body;
+    const carId = Number(req.params.id);
+    let err;
+
+    if (Number.isNaN(carId)) err = 'Invalid Id, Please input a number';
+    else if (!regEx.id.test(carId)) err = 'Invalid id format';
+    else if (!status) err = 'status field cannot be empty';
+    else if (status !== 'sold') err = 'status must be sold';
+
+    if (err) return ErrorHandler.validationError(res, 400, err);
+
+    const car = cars
+      .find(ad => ad.id === parseInt(req.params.id, 10));
+
+    if (!car) return ErrorHandler.validationError(res, 404, 'Car record not found');
+    if (car.status === 'sold') {
+      return ErrorHandler.validationError(res, 400, 'Car has already been marked as sold');
+    }
     return next();
   }
 }
