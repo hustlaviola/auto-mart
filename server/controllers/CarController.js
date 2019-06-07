@@ -138,20 +138,27 @@ class CarController {
   }
 
   /**
-  * @method getUnsoldCars
-  * @description Retrieve all unsold cars
+  * @method getCars
+  * @description Retrieve car records
   * @static
   * @param {object} req - The request object
   * @param {object} res - The response object
   * @returns {object} JSON response
   * @memberof CarController
   */
-  static getUnsoldCars(req, res) {
+  static getCars(req, res) {
     const { status } = req.query;
     const minPrice = Number(req.query.min_price);
     const maxPrice = Number(req.query.max_price);
     const unsoldCars = [];
     const unsoldCarsWithinRange = [];
+
+    if (!status) {
+      return res.status(200).send({
+        status: 'success',
+        data: cars,
+      });
+    }
     cars.forEach(car => {
       if (car.status === status) unsoldCars.push(car);
       if ((minPrice && maxPrice) && car.status === status) {

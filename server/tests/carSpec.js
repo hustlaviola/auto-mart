@@ -514,7 +514,7 @@ describe('/GET CAR route', () => {
   it('should return an error if status is not provided in the query', done => {
     chai
       .request(app)
-      .get('/api/v1/car?sttus=available')
+      .get('/api/v1/car?sttus=available&min_price=2000000')
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -618,6 +618,18 @@ describe('/GET CAR route', () => {
     chai
       .request(app)
       .get('/api/v1/car?status=available&min_price=200000&max_price=3000000')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.have.property('owner');
+        done(err);
+      });
+  });
+
+  it('should retrieve the list of all cars if all details are valid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car')
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
