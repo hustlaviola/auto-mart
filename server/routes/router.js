@@ -57,4 +57,8 @@ router.get('/car',
   Validator.validateQuery,
   CarController.getUnsoldCars);
 
+router.delete('/car/:id/',
+  Validator.validateId,
+  CarController.deleteAd);
+
 export default router;

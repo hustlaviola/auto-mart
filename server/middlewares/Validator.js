@@ -28,6 +28,21 @@ class Validator {
     else if (!regEx.id.test(id)) err = 'Invalid id format';
 
     if (err) return ErrorHandler.validationError(res, 400, err);
+    const type = req.url.split('/')[1];
+
+    if (type === 'order') {
+      const order = orders
+        .find(purchase => purchase.id === parseInt(req.params.id, 10));
+      if (!order) return ErrorHandler.validationError(res, 404, 'Order record not found');
+      return next();
+    }
+
+    if (type === 'car') {
+      const car = cars
+        .find(carItem => carItem.id === parseInt(req.params.id, 10));
+      if (!car) return ErrorHandler.validationError(res, 404, 'Car record not found');
+      return next();
+    }
     return next();
   }
 
