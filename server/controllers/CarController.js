@@ -171,6 +171,28 @@ class CarController {
       data: unsoldCars,
     });
   }
+
+  /**
+  * @method deleteAd
+  * @description Delete a specific ad
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof CarController
+  */
+  static deleteAd(req, res) {
+    const { id } = req.params;
+    const car = cars
+      .find(carItem => carItem.id === parseInt(id, 10));
+    const index = cars.indexOf(car);
+
+    cars.splice(index, 1);
+    return res.status(200).send({
+      status: 'success',
+      message: 'Car Ad successfully deleted',
+    });
+  }
 }
 
 export default CarController;

@@ -480,6 +480,22 @@ describe('/GET CAR route', () => {
       });
   });
 
+  it('should return an error if car record does not exist', done => {
+    const car = {
+      id: 48,
+    };
+    chai
+      .request(app)
+      .get(`/api/v1/car/${car.id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Car record not found');
+        done(err);
+      });
+  });
+
   it('should retrieve a specific car if details are valid', done => {
     const car = {
       id: 1,
@@ -606,6 +622,72 @@ describe('/GET CAR route', () => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body.data[0]).to.have.property('owner');
+        done(err);
+      });
+  });
+});
+
+describe('/DELETE CAR route', () => {
+  it('should return an error if id is not a number', done => {
+    const car = {
+      id: '1t',
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid Id, Please input a number');
+        done(err);
+      });
+  });
+
+  it('should return an error if id is badly formatted', done => {
+    const car = {
+      id: 1.6,
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid id format');
+        done(err);
+      });
+  });
+
+  it('should return an error if car record does not exist', done => {
+    const car = {
+      id: 48,
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Car record not found');
+        done(err);
+      });
+  });
+
+  it('should delete a specific car record if details are valid', done => {
+    const car = {
+      id: 2,
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('message')
+          .eql('Car Ad successfully deleted');
         done(err);
       });
   });
