@@ -154,29 +154,18 @@ class CarController {
     const unsoldCarsWithinRange = [];
 
     if (!status) {
-      return res.status(200).send({
-        status: 'success',
-        data: cars,
-      });
+      return res.status(200).send({ status: 'success', data: cars });
     }
     cars.forEach(car => {
       if (car.status === status) unsoldCars.push(car);
       if ((minPrice && maxPrice) && car.status === status) {
-        if (car.price >= minPrice && car.price <= maxPrice) {
-          unsoldCarsWithinRange.push(car);
-        }
+        if (car.price >= minPrice && car.price <= maxPrice) unsoldCarsWithinRange.push(car);
       }
     });
     if (minPrice && maxPrice) {
-      return res.status(200).send({
-        status: 'success',
-        data: unsoldCarsWithinRange,
-      });
+      return res.status(200).send({ status: 'success', data: unsoldCarsWithinRange });
     }
-    return res.status(200).send({
-      status: 'success',
-      data: unsoldCars,
-    });
+    return res.status(200).send({ status: 'success', data: unsoldCars });
   }
 
   /**

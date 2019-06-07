@@ -94,10 +94,12 @@ class UserValidator {
     users.forEach(owner => {
       if (owner.email === email) user = owner;
     });
+
     if (!user) return ErrorHandler.validationError(res, 404, 'User does not exist');
     if (!Helper.verifyPassword(password, user.password)) {
       return ErrorHandler.validationError(res, 400, 'Password is incorrect');
     }
+
     return next();
   }
 }

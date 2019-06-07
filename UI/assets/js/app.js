@@ -17,32 +17,20 @@ const modalForm = document.querySelector('.modal-form');
 
 const reset = () => {
   if (modFlag) {
-    if (!modFlag.classList.contains('hidden')) {
-      modFlag.classList.add('hidden');
-    }
+    if (!modFlag.classList.contains('hidden')) modFlag.classList.add('hidden');
   }
-  if (!topModal.classList.contains('hidden')) {
-    topModal.classList.add('hidden');
-  }
+  if (!topModal.classList.contains('hidden')) topModal.classList.add('hidden');
   if (flagBtn) {
-    if (!flagBtn.classList.contains('hidden')) {
-      flagBtn.classList.add('hidden');
-    }
+    if (!flagBtn.classList.contains('hidden')) flagBtn.classList.add('hidden');
   }
   if (delBtn) {
-    if (!delBtn.classList.contains('hidden')) {
-      delBtn.classList.add('hidden');
-    }
+    if (!delBtn.classList.contains('hidden')) delBtn.classList.add('hidden');
   }
   if (modalForm) {
-    if (!modalForm.classList.contains('hidden')) {
-      modalForm.classList.add('hidden');
-    }
+    if (!modalForm.classList.contains('hidden')) modalForm.classList.add('hidden');
   }
   if (modEdit) {
-    if (!modEdit.classList.contains('hidden')) {
-      modEdit.classList.add('hidden');
-    }
+    if (!modEdit.classList.contains('hidden')) modEdit.classList.add('hidden');
   }
   modImage.src = '';
   make.innerHTML = '';
@@ -61,24 +49,12 @@ const view = event => {
   topModal.classList.remove('hidden');
   const parentCont = target.parentNode.parentNode.id;
   modImage.src = document.querySelector(`#${parentCont} img`).src;
-  make.innerHTML = document.querySelector(
-    `#${parentCont} .make`,
-  ).innerHTML;
-  state.innerHTML = document.querySelector(
-    `#${parentCont} .state`,
-  ).innerHTML;
-  model.innerHTML = document.querySelector(
-    `#${parentCont} .model`,
-  ).innerHTML;
-  bodyType.innerHTML = document.querySelector(
-    `#${parentCont} .body-type`,
-  ).innerHTML;
-  price.innerHTML = document.querySelector(
-    `#${parentCont} .price`,
-  ).innerHTML;
-  description.innerHTML = document.querySelector(
-    `#${parentCont} .describe`,
-  ).innerHTML;
+  make.innerHTML = document.querySelector(`#${parentCont} .make`).innerHTML;
+  state.innerHTML = document.querySelector(`#${parentCont} .state`).innerHTML;
+  model.innerHTML = document.querySelector(`#${parentCont} .model`).innerHTML;
+  bodyType.innerHTML = document.querySelector(`#${parentCont} .body-type`).innerHTML;
+  price.innerHTML = document.querySelector(`#${parentCont} .price`).innerHTML;
+  description.innerHTML = document.querySelector(`#${parentCont} .describe`).innerHTML;
   flagBtn.classList.remove('hidden');
 };
 
@@ -89,24 +65,12 @@ const review = event => {
   topModal.classList.remove('hidden');
   const parentCont = target.parentNode.parentNode.id;
   modImage.src = document.querySelector(`#${parentCont} img`).src;
-  make.innerHTML = document.querySelector(
-    `#${parentCont} .make`,
-  ).innerHTML;
-  state.innerHTML = document.querySelector(
-    `#${parentCont} .state`,
-  ).innerHTML;
-  model.innerHTML = document.querySelector(
-    `#${parentCont} .model`,
-  ).innerHTML;
-  bodyType.innerHTML = document.querySelector(
-    `#${parentCont} .body-type`,
-  ).innerHTML;
-  price.innerHTML = document.querySelector(
-    `#${parentCont} .price`,
-  ).innerHTML;
-  description.innerHTML = document.querySelector(
-    `#${parentCont} .describe`,
-  ).innerHTML;
+  make.innerHTML = document.querySelector(`#${parentCont} .make`).innerHTML;
+  state.innerHTML = document.querySelector(`#${parentCont} .state`).innerHTML;
+  model.innerHTML = document.querySelector(`#${parentCont} .model`).innerHTML;
+  bodyType.innerHTML = document.querySelector(`#${parentCont} .body-type`).innerHTML;
+  price.innerHTML = document.querySelector(`#${parentCont} .price`).innerHTML;
+  description.innerHTML = document.querySelector(`#${parentCont} .describe`).innerHTML;
   delBtn.classList.remove('hidden');
 };
 
@@ -118,21 +82,11 @@ const order = event => {
 
   const parentCont = target.parentNode.parentNode.id;
   modImage.src = document.querySelector(`#${parentCont} img`).src;
-  make.innerHTML = document.querySelector(
-    `#${parentCont} .make`,
-  ).innerHTML;
-  state.innerHTML = document.querySelector(
-    `#${parentCont} .state`,
-  ).innerHTML;
-  model.innerHTML = document.querySelector(
-    `#${parentCont} .model`,
-  ).innerHTML;
-  bodyType.innerHTML = document.querySelector(
-    `#${parentCont} .body-type`,
-  ).innerHTML;
-  price.innerHTML = document.querySelector(
-    `#${parentCont} .price`,
-  ).innerHTML;
+  make.innerHTML = document.querySelector(`#${parentCont} .make`).innerHTML;
+  state.innerHTML = document.querySelector(`#${parentCont} .state`).innerHTML;
+  model.innerHTML = document.querySelector(`#${parentCont} .model`).innerHTML;
+  bodyType.innerHTML = document.querySelector(`#${parentCont} .body-type`).innerHTML;
+  price.innerHTML = document.querySelector(`#${parentCont} .price`).innerHTML;
   modalForm.classList.remove('hidden');
 };
 
@@ -143,30 +97,14 @@ const review2 = event => {
   topModal.classList.remove('hidden');
   const parentCont = target.parentNode.parentNode.id;
   modImage.src = document.querySelector(`#${parentCont} img`).src;
-  make.innerHTML = document.querySelector(
-    `#${parentCont} .make`,
-  ).innerHTML;
-  state.innerHTML = document.querySelector(
-    `#${parentCont} .state`,
-  ).innerHTML;
-  model.innerHTML = document.querySelector(
-    `#${parentCont} .model`,
-  ).innerHTML;
-  status.innerHTML = document.querySelector(
-    `#${parentCont} .status`,
-  ).innerHTML;
-  bodyType.innerHTML = document.querySelector(
-    `#${parentCont} .body-type`,
-  ).innerHTML;
-  price.innerHTML = document.querySelector(
-    `#${parentCont} .price`,
-  ).innerHTML;
-  description.innerHTML = document.querySelector(
-    `#${parentCont} .describe`,
-  ).innerHTML;
-  if (delBtn) {
-    delBtn.classList.remove('hidden');
-  }
+  make.innerHTML = document.querySelector(`#${parentCont} .make`).innerHTML;
+  state.innerHTML = document.querySelector(`#${parentCont} .state`).innerHTML;
+  model.innerHTML = document.querySelector(`#${parentCont} .model`).innerHTML;
+  status.innerHTML = document.querySelector(`#${parentCont} .status`).innerHTML;
+  bodyType.innerHTML = document.querySelector(`#${parentCont} .body-type`).innerHTML;
+  price.innerHTML = document.querySelector(`#${parentCont} .price`).innerHTML;
+  description.innerHTML = document.querySelector(`#${parentCont} .describe`).innerHTML;
+  if (delBtn) delBtn.classList.remove('hidden');
 };
 
 const closeModal = document.getElementById('close-modal');
