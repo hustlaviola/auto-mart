@@ -55,7 +55,7 @@ router.get('/car/:id/',
 
 router.get('/car',
   Validator.validateQuery,
-  CarController.getUnsoldCars);
+  CarController.getCars);
 
 router.delete('/car/:id/',
   Validator.validateId,

@@ -100,7 +100,11 @@ class Validator {
     const { status } = req.query;
     const minPrice = Number(req.query.min_price);
     const maxPrice = Number(req.query.max_price);
-    if (!status) return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
+    if (!status) {
+      if (req.query.min_price || req.query.max_price) {
+        return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
+      } return next();
+    }
     if (status !== 'available') {
       return ErrorHandler.validationError(res, 400, 'status must be \'available\'');
     }
