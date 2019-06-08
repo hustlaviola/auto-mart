@@ -2,6 +2,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger.json';
 import router from './routes/router';
+import ErrorHandler from './utils/ErrorHandler';
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', router);
+
+app.all('/*', (req, res) => ErrorHandler.routeError(res));
 
 app.get('/', (req, res) => {
   res.status(200).send({

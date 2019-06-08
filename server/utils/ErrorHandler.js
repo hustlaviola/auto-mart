@@ -20,6 +20,21 @@ class ErrorHandler {
       error: message,
     });
   }
+
+  /**
+   * @method routeError
+   * @description An error handler for all invalid routes
+   * @static
+   * @param {object} res - Response object
+   * @returns {object} JSON response
+   * @memberof ErrorHandler
+   */
+  static routeError(res) {
+    return res.status(404).send({
+      status: 'error',
+      error: 'The requested url was not found on this server',
+    });
+  }
 }
 
 export default ErrorHandler;
