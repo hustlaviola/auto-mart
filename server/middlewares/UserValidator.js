@@ -9,8 +9,8 @@ import users from '../models/userModel';
  */
 class UserValidator {
   /**
-  * @method validateSignUp
-  * @description Check if sign up details are valid
+  * @method auth
+  * @description Check if email and password are valid
   * @static
   * @param {object} req - The request object
   * @param {object} res - The response object
@@ -18,33 +18,76 @@ class UserValidator {
   * @returns {object} next
   * @memberof UserValidator
   */
-  static validateSignUp(req, res, next) {
+  static auth(req, res, next) {
     const regEx = Helper.regEx();
-    const { email, firstname, lastname, password } = req.body;
+    const { email, password } = req.body;
 
-    let errorMessage;
+    let error;
 
-    if (!email) errorMessage = 'email field cannot be empty';
-    else if (!regEx.email.test(email)) errorMessage = 'Invalid email format';
-    else if (!firstname) errorMessage = 'firstname field cannot be empty';
-    else if (!regEx.name.test(firstname)) {
-      errorMessage = 'first name must be alphabets only between 3 and 30';
-    } else if (!lastname) errorMessage = 'lastname field cannot be empty';
-    else if (!regEx.name.test(lastname)) {
-      errorMessage = 'last name must be alphabets only between 3 and 30';
-    } else if (!password) errorMessage = 'password field cannot be empty';
-    else if (password.length < 6) errorMessage = 'password must be at least 6 characters';
+    if (!email) error = 'email field cannot be empty';
+    else if (!regEx.email.test(email)) error = 'Invalid email format';
+    else if (!password) error = 'password field cannot be empty';
+    else if (password.length < 6) error = 'password must be at least 6 characters';
 
-    if (errorMessage) {
-      return ErrorHandler.validationError(res, 400, errorMessage);
+    if (error) return ErrorHandler.validationError(res, 400, error);
+    return next();
+  }
+
+  /**
+  * @method validateFirstName
+  * @description Check if first name is valid
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof UserValidator
+  */
+  static validateFirstName(req, res, next) {
+    const regEx = Helper.regEx();
+    const { firstname } = req.body;
+
+    let err;
+
+    if (!firstname) err = 'firstname field cannot be empty';
+    else if (!regEx.name.test(firstname)) err = 'firstname must be alphabets only';
+    else if (firstname.length < 3 || firstname.length > 30) {
+      err = 'firstname must be between within the range of 3 to 30';
     }
 
+    if (err) return ErrorHandler.validationError(res, 400, err);
+    return next();
+  }
+
+  /**
+  * @method validatelastName
+  * @description Check if last name is valid
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof UserValidator
+  */
+  static validateLastName(req, res, next) {
+    const regEx = Helper.regEx();
+    const { lastname } = req.body;
+
+    let err;
+
+    if (!lastname) err = 'lastname field cannot be empty';
+    else if (!regEx.name.test(lastname)) err = 'lastname must be alphabets only';
+    else if (lastname.length < 3 || lastname.length > 30) {
+      err = 'lastname must be between within the range of 3 to 30';
+    }
+
+    if (err) return ErrorHandler.validationError(res, 400, err);
     return next();
   }
 
   /**
   * @method validateExistingUser
-  * @description Check if sign up details already exist
+  * @description Check if user already exists
   * @static
   * @param {object} req - The request object
   * @param {object} res - The response object

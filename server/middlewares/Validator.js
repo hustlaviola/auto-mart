@@ -10,36 +10,43 @@ import orders from '../models/orderModel';
  */
 class Validator {
   /**
- * @method checkType
+ * @method checkCar
+ * @description Check if car record exists
+ * @static
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {object} next
+ * @returns {object} next
+ * @memberof Validator
+ */
+  static checkCar(req, res, next) {
+    const car = cars
+      .find(carItem => carItem.id === parseInt(req.params.id, 10));
+    if (!car) return ErrorHandler.validationError(res, 404, 'Car record not found');
+    return next();
+  }
+
+  /**
+ * @method checkOrder
  * @description Check for rquest type
  * @static
  * @param {object} req - The request object
  * @param {object} res - The response object
  * @param {object} next
  * @returns {object} next
- * @memberof CarValidator
+ * @memberof Validator
  */
-  static checkType(req, res, next) {
+  static checkOrder(req, res, next) {
     const { amount } = req.body;
-    const type = req.url.split('/')[1];
-    if (type === 'order') {
-      const order = orders
-        .find(purchase => purchase.id === parseInt(req.params.id, 10));
-      if (!order) return ErrorHandler.validationError(res, 404, 'Order record not found');
-      if (amount) {
-        if (order.status !== 'pending') {
-          return ErrorHandler.validationError(res, 400, 'Only pending offers can be updated');
-        }
+    const order = orders
+      .find(purchase => purchase.id === parseInt(req.params.id, 10));
+    if (!order) return ErrorHandler.validationError(res, 404, 'Order record not found');
+    if (amount) {
+      if (order.status !== 'pending') {
+        return ErrorHandler.validationError(res, 400, 'Only pending offers can be updated');
       }
-      return next();
     }
-
-    if (type === 'car') {
-      const car = cars
-        .find(carItem => carItem.id === parseInt(req.params.id, 10));
-      if (!car) return ErrorHandler.validationError(res, 404, 'Car record not found');
-      return next();
-    }
+    return next();
   }
 
   /**
@@ -50,7 +57,7 @@ class Validator {
   * @param {object} res - The response object
   * @param {object} next
   * @returns {object} next
-  * @memberof CarValidator
+  * @memberof Validator
   */
   static validateId(req, res, next) {
     const regEx = Helper.regEx();
@@ -73,7 +80,7 @@ class Validator {
   * @param {object} res - The response object
   * @param {object} next
   * @returns {object} next
-  * @memberof OrderValidator
+  * @memberof Validator
   */
   static validatePrice(req, res, next) {
     const regEx = Helper.regEx();
@@ -89,14 +96,14 @@ class Validator {
   }
 
   /**
-  * @method validateStatus
-  * @description Check if id is valid
+  * @method validateQuery
+  * @description Check if query parameters are valid
   * @static
   * @param {object} req - The request object
   * @param {object} res - The response object
   * @param {object} next
   * @returns {object} next
-  * @memberof CarValidator
+  * @memberof Validator
   */
   static validateQuery(req, res, next) {
     const { status } = req.query;

@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('/POST Signup route', () => {
-  it('should return an error if first name field is empty', done => {
+  it('should return an error if firstname field is empty', done => {
     chai
       .request(app)
       .post('/api/v1/auth/signup')
@@ -28,7 +28,7 @@ describe('/POST Signup route', () => {
       });
   });
 
-  it('should return an error if first name field is badly formatted', done => {
+  it('should return an error if firstname field is badly formatted', done => {
     chai
       .request(app)
       .post('/api/v1/auth/signup')
@@ -43,12 +43,32 @@ describe('/POST Signup route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('first name must be alphabets only between 3 and 30');
+          .eql('firstname must be alphabets only');
         done(err);
       });
   });
 
-  it('should return an error if last name field is empty', done => {
+  it('should return an error if firstname field is too long or too short', done => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstname: 'Vi',
+        lastname: 'Violin',
+        email: 'viola10@gmail.com',
+        password: 'viola10',
+        address: 'No 12, le blue sheridan, Viola state.',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('firstname must be between within the range of 3 to 30');
+        done(err);
+      });
+  });
+
+  it('should return an error if lastname field is empty', done => {
     chai
       .request(app)
       .post('/api/v1/auth/signup')
@@ -68,7 +88,7 @@ describe('/POST Signup route', () => {
       });
   });
 
-  it('should return an error if last name field is badly formatted', done => {
+  it('should return an error if lastname field is badly formatted', done => {
     chai
       .request(app)
       .post('/api/v1/auth/signup')
@@ -83,7 +103,27 @@ describe('/POST Signup route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('last name must be alphabets only between 3 and 30');
+          .eql('lastname must be alphabets only');
+        done(err);
+      });
+  });
+
+  it('should return an error if lastname is too short or too long', done => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstname: 'Viola',
+        lastname: 'vi',
+        email: 'viola10@gmail.com',
+        password: 'viola10',
+        address: 'No 12, le blue sheridan, Viola state.',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('lastname must be between within the range of 3 to 30');
         done(err);
       });
   });

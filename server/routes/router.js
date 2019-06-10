@@ -18,7 +18,9 @@ router.get('/', (req, res) => {
 
 // Handle signup endpoint
 router.post('/auth/signup',
-  UserValidator.validateSignUp,
+  UserValidator.auth,
+  UserValidator.validateFirstName,
+  UserValidator.validateLastName,
   UserValidator.validateExistingUser,
   UserController.signUp);
 
@@ -27,6 +29,8 @@ router.post('/auth/login',
   UserController.signIn);
 
 router.post('/car',
+  CarValidator.validateState,
+  CarValidator.validateCarPrice,
   CarValidator.validatePostCar,
   CarController.postCar);
 
@@ -37,24 +41,24 @@ router.post('/order',
 router.patch('/order/:id/price',
   Validator.validateId,
   Validator.validatePrice,
-  Validator.checkType,
+  Validator.checkOrder,
   OrderController.updateOrder);
 
 router.patch('/car/:id/status',
   Validator.validateId,
-  Validator.checkType,
+  Validator.checkCar,
   CarValidator.validateAvailability,
   CarController.markAsSold);
 
 router.patch('/car/:id/price',
   Validator.validateId,
   Validator.validatePrice,
-  Validator.checkType,
+  Validator.checkCar,
   CarController.updateAd);
 
 router.get('/car/:id/',
   Validator.validateId,
-  Validator.checkType,
+  Validator.checkCar,
   CarController.getCar);
 
 router.get('/car',
@@ -63,7 +67,7 @@ router.get('/car',
 
 router.delete('/car/:id/',
   Validator.validateId,
-  Validator.checkType,
+  Validator.checkCar,
   CarController.deleteAd);
 
 export default router;
