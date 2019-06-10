@@ -19,18 +19,18 @@ router.get('/', (req, res) => {
 // Handle signup endpoint
 router.post('/auth/signup',
   UserValidator.auth,
-  UserValidator.validateFirstName,
-  UserValidator.validateLastName,
+  UserValidator.validateName,
   UserValidator.validateExistingUser,
   UserController.signUp);
 
 router.post('/auth/login',
+  UserValidator.auth,
   UserValidator.validateSignIn,
   UserController.signIn);
 
 router.post('/car',
   CarValidator.validateState,
-  CarValidator.validateCarPrice,
+  Validator.validatePrice,
   CarValidator.validatePostCar,
   CarController.postCar);
 

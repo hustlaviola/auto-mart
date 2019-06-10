@@ -19,7 +19,7 @@ class CarController {
   */
   static postCar(req, res) {
     const {
-      state, price, manufacturer, model, bodyType,
+      state, amount, manufacturer, model, bodyType,
     } = req.body;
 
     const id = cars.length > 0
@@ -28,6 +28,7 @@ class CarController {
     const createdOn = new Date();
     const status = 'available';
     const owner = 1;
+    const price = amount;
 
     const car = {
       id, owner, createdOn, state, status, price, manufacturer, model, bodyType,

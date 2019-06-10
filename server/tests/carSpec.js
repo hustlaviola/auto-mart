@@ -9,10 +9,10 @@ const { expect } = chai;
 
 describe('/POST CAR route', () => {
   it('should return an error if state field is empty', done => {
-    const price = 23346.89;
+    const amount = 23346.89;
     const car = {
       state: '',
-      price,
+      amount,
       manufacturer: 'Toyota',
       model: 'Yaris',
       bodyType: 'Sedan',
@@ -31,10 +31,10 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if state is neither "new" nor "used"', done => {
-    const price = 23346.89;
+    const amount = 23346.89;
     const car = {
       state: 'red',
-      price,
+      amount,
       manufacturer: 'Toyota',
       model: 'Yaris',
       bodyType: 'Sedan',
@@ -52,7 +52,7 @@ describe('/POST CAR route', () => {
       });
   });
 
-  it('should return an error if price field is empty', done => {
+  it('should return an error if amount field is empty', done => {
     const car = {
       state: 'new',
       manufacturer: 'Toyota',
@@ -67,16 +67,16 @@ describe('/POST CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('price field cannot be empty');
+          .eql('amount field cannot be empty');
         done(err);
       });
   });
 
-  it('should return an error if price is badly formatted', done => {
-    const price = 23346.809;
+  it('should return an error if amount is badly formatted', done => {
+    const amount = 23346.809;
     const car = {
       state: 'new',
-      price,
+      amount,
       manufacturer: 'Toyota',
       model: 'Yaris',
       bodyType: 'Sedan',
@@ -89,16 +89,16 @@ describe('/POST CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('invalid price format');
+          .eql('invalid amount format');
         done(err);
       });
   });
 
   it('should return an error if manufacturer field is empty', done => {
-    const price = 23346.89;
+    const amount = 23346.89;
     const car = {
       state: 'new',
-      price,
+      amount,
       manufacturer: '',
       model: 'Yaris',
       bodyType: 'Sedan',
@@ -117,10 +117,10 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if model field is empty', done => {
-    const price = 23346.89;
+    const amount = 23346.89;
     const car = {
       state: 'new',
-      price,
+      amount,
       manufacturer: 'Toyota',
       model: '',
       bodyType: 'Sedan',
@@ -139,10 +139,10 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if body type field is empty', done => {
-    const price = 23346.89;
+    const amount = 23346.89;
     const car = {
       state: 'new',
-      price,
+      amount,
       manufacturer: 'Toyota',
       model: 'Yaris',
       bodyType: '',
@@ -161,10 +161,10 @@ describe('/POST CAR route', () => {
   });
 
   it('should create a car sale advertisement if details are valid', done => {
-    const price = 23346.89;
+    const amount = 23346.89;
     const car = {
       state: 'new',
-      price,
+      amount,
       manufacturer: 'Toyota',
       model: 'Yaris',
       bodyType: 'Sedan',
@@ -178,7 +178,7 @@ describe('/POST CAR route', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.data).to.be.an('object');
         expect(res.body.data).to.have.property('price')
-          .eql(car.price);
+          .eql(car.amount);
         expect(res.body.data).to.have.property('status')
           .eql('available');
         done(err);

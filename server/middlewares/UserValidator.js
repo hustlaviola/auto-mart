@@ -34,8 +34,8 @@ class UserValidator {
   }
 
   /**
-  * @method validateFirstName
-  * @description Check if first name is valid
+  * @method validateName
+  * @description Check if first and last names are valid
   * @static
   * @param {object} req - The request object
   * @param {object} res - The response object
@@ -43,9 +43,9 @@ class UserValidator {
   * @returns {object} next
   * @memberof UserValidator
   */
-  static validateFirstName(req, res, next) {
+  static validateName(req, res, next) {
     const regEx = Helper.regEx();
-    const { firstname } = req.body;
+    const { firstname, lastname } = req.body;
 
     let err;
 
@@ -56,24 +56,6 @@ class UserValidator {
     }
 
     if (err) return ErrorHandler.validationError(res, 400, err);
-    return next();
-  }
-
-  /**
-  * @method validatelastName
-  * @description Check if last name is valid
-  * @static
-  * @param {object} req - The request object
-  * @param {object} res - The response object
-  * @param {object} next
-  * @returns {object} next
-  * @memberof UserValidator
-  */
-  static validateLastName(req, res, next) {
-    const regEx = Helper.regEx();
-    const { lastname } = req.body;
-
-    let err;
 
     if (!lastname) err = 'lastname field cannot be empty';
     else if (!regEx.name.test(lastname)) err = 'lastname must be alphabets only';
@@ -121,17 +103,7 @@ class UserValidator {
   * @memberof UserValidator
   */
   static validateSignIn(req, res, next) {
-    const regEx = Helper.regEx();
     const { email, password } = req.body;
-
-    let errorMessage;
-
-    if (!email) errorMessage = 'email field cannot be empty';
-    else if (!regEx.email.test(email)) errorMessage = 'Invalid email format';
-    else if (!password) errorMessage = 'password field cannot be empty';
-    else if (password.length < 6) errorMessage = 'password must be at least 6 characters';
-
-    if (errorMessage) return ErrorHandler.validationError(res, 400, errorMessage);
 
     let user;
     users.forEach(owner => {

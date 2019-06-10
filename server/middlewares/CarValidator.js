@@ -1,5 +1,4 @@
 import ErrorHandler from '../utils/ErrorHandler';
-import Helper from '../utils/Helper';
 import cars from '../models/carModel';
 
 /**
@@ -27,28 +26,6 @@ class CarValidator {
     else if (!((state === 'new') || (state === 'used'))) {
       err = 'state can either be \'new\' or \'used\'';
     }
-    if (err) return ErrorHandler.validationError(res, 400, err);
-    return next();
-  }
-
-  /**
-* @method validateCarPrice
-* @description Check if car price is valid
-* @static
-* @param {object} req - The request object
-* @param {object} res - The response object
-* @param {object} next
-* @returns {object} next
-* @memberof CarValidator
-*/
-  static validateCarPrice(req, res, next) {
-    const regEx = Helper.regEx();
-    const { price } = req.body;
-
-    let err;
-
-    if (!price) err = 'price field cannot be empty';
-    else if (!regEx.price.test(price)) err = 'invalid price format';
     if (err) return ErrorHandler.validationError(res, 400, err);
     return next();
   }

@@ -33,9 +33,7 @@ class OrderValidator {
     let go;
 
     cars.forEach(car => {
-      if (carId === car.id) {
-        go = true;
-      }
+      if (carId === car.id) go = true;
     });
     if (go) return next();
     return ErrorHandler.validationError(res, 404, 'car record does not exist');
