@@ -37,20 +37,24 @@ router.post('/order',
 router.patch('/order/:id/price',
   Validator.validateId,
   Validator.validatePrice,
+  Validator.checkType,
   OrderController.updateOrder);
 
 router.patch('/car/:id/status',
   Validator.validateId,
+  Validator.checkType,
   CarValidator.validateAvailability,
   CarController.markAsSold);
 
 router.patch('/car/:id/price',
   Validator.validateId,
   Validator.validatePrice,
+  Validator.checkType,
   CarController.updateAd);
 
 router.get('/car/:id/',
   Validator.validateId,
+  Validator.checkType,
   CarController.getCar);
 
 router.get('/car',
@@ -59,6 +63,7 @@ router.get('/car',
 
 router.delete('/car/:id/',
   Validator.validateId,
+  Validator.checkType,
   CarController.deleteAd);
 
 export default router;
