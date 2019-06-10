@@ -15,48 +15,27 @@ const flagBtn = document.querySelector('.flag-btn');
 const delBtn = document.querySelector('.del-btn');
 const modalForm = document.querySelector('.modal-form');
 
-const checkModFlag = () => {
+const resetModalContents = () => {
   if (modFlag) {
     if (!modFlag.classList.contains('hidden')) modFlag.classList.add('hidden');
   }
-};
-
-const checkTopModal = () => {
   if (!topModal.classList.contains('hidden')) topModal.classList.add('hidden');
-};
-
-const checkFlagBtn = () => {
   if (flagBtn) {
     if (!flagBtn.classList.contains('hidden')) flagBtn.classList.add('hidden');
   }
-};
-
-const checkDelBtn = () => {
   if (delBtn) {
     if (!delBtn.classList.contains('hidden')) delBtn.classList.add('hidden');
   }
-};
-
-const checkModalForm = () => {
   if (modalForm) {
     if (!modalForm.classList.contains('hidden')) modalForm.classList.add('hidden');
   }
-};
-
-const checkModEdit = () => {
   if (modEdit) {
     if (!modEdit.classList.contains('hidden')) modEdit.classList.add('hidden');
   }
 };
 
 const reset = () => {
-  checkModFlag();
-  checkTopModal();
-  checkFlagBtn();
-  checkDelBtn();
-  checkModalForm();
-  checkModEdit();
-
+  resetModalContents();
   modImage.src = '';
   make.innerHTML = '';
   state.innerHTML = '';

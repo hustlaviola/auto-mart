@@ -49,21 +49,23 @@ class UserValidator {
 
     let err;
 
-    if (!firstname) err = 'firstname field cannot be empty';
-    else if (!regEx.name.test(firstname)) err = 'firstname must be alphabets only';
-    else if (firstname.length < 3 || firstname.length > 30) {
-      err = 'firstname must be between within the range of 3 to 30';
+    if (!firstname) err = 'firstname';
+    else if (!lastname) err = 'lastname';
+
+    if (err) return ErrorHandler.validationError(res, 400, `${err} field cannot be empty`);
+
+    if (!regEx.name.test(firstname)) err = 'firstname';
+    else if (!regEx.name.test(lastname)) err = 'lastname';
+
+    if (err) return ErrorHandler.validationError(res, 400, `${err} must be alphabets only`);
+
+    if (firstname.length < 3 || firstname.length > 30) err = 'firstname';
+    else if (lastname.length < 3 || lastname.length > 30) err = 'lastname';
+
+    if (err) {
+      return ErrorHandler.validationError(res, 400,
+        `${err} must be between within the range of 3 to 30`);
     }
-
-    if (err) return ErrorHandler.validationError(res, 400, err);
-
-    if (!lastname) err = 'lastname field cannot be empty';
-    else if (!regEx.name.test(lastname)) err = 'lastname must be alphabets only';
-    else if (lastname.length < 3 || lastname.length > 30) {
-      err = 'lastname must be between within the range of 3 to 30';
-    }
-
-    if (err) return ErrorHandler.validationError(res, 400, err);
     return next();
   }
 
