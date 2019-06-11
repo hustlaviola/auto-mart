@@ -125,6 +125,11 @@ const openMyAds = () => {
   window.location.href = 'myAds.html';
 };
 
+const viewAds = event => {
+  event.preventDefault();
+  window.location.href = 'viewAds.html';
+};
+
 const openOrders = () => {
   window.location.href = 'orders.html';
 };
