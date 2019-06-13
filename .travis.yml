@@ -3,5 +3,8 @@ language: node_js
 node_js:
   - "stable"
 
+before_script:
+  - psql -c 'create database auto_mart;' -U postgres
+
 after_success:
   - npm run coverage

@@ -9,6 +9,8 @@
     "start": "npm run build && node ./build/app.js",
     "dev": "cross-env NODE_ENV=development nodemon ./server/app --exec babel-node",
     "migrate-db": "cross-env NODE_ENV=development babel-node ./server/models",
+    "pretest": "cross-env NODE_ENV=test babel-node ./server/seeds",
+    "test": "cross-env NODE_ENV=test nyc mocha --require @babel/register ./server/tests --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
