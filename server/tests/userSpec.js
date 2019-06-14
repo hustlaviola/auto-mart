@@ -271,3 +271,130 @@ describe('/POST Signup route', () => {
       });
   });
 });
+
+describe('/POST Login route', () => {
+  it('should return an error if email field is empty', done => {
+    const loginDetails = {
+      email: '',
+      password: 'viola10',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(loginDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('email field cannot be empty');
+        done(err);
+      });
+  });
+
+  it('should return an error if email is badly formatted', done => {
+    const loginDetails = {
+      email: 'viola10mail.com',
+      password: 'viola10',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(loginDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid email format');
+        done(err);
+      });
+  });
+
+  it('should return an error if password field is empty', done => {
+    const loginDetails = {
+      email: 'viola1@mail.com',
+      password: '',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(loginDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('password field cannot be empty');
+        done(err);
+      });
+  });
+
+  it('should return an error if password field is less than 6 characters', done => {
+    const loginDetails = {
+      email: 'viola1@mail.com',
+      password: 'viola',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(loginDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('password must be at least 6 characters');
+        done(err);
+      });
+  });
+
+  it('should return an error if email does not exist', done => {
+    const loginDetails = {
+      email: 'viola54@gmail.com',
+      password: 'viola123',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(loginDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('User does not exist');
+        done(err);
+      });
+  });
+
+  it('should return an error if email does not match password', done => {
+    const loginDetails = {
+      email: 'viola1@mail.com',
+      password: 'viola12',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(loginDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Password is incorrect');
+        done(err);
+      });
+  });
+
+  it('should log user in if details are valid', done => {
+    const loginDetails = {
+      email: 'viola1@mail.com',
+      password: 'vvvvvv',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(loginDetails)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data).to.have.property('token');
+        done(err);
+      });
+  });
+});
