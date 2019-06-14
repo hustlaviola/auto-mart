@@ -117,6 +117,36 @@ class UserValidator {
     }
     return next();
   }
+
+  /**
+  * @method validateSignIn
+  * @description Check if login credentials are valid
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof UserValidator
+  */
+  static validateSignIn(req, res, next) {
+    const { email, password } = req.body;
+
+    const query = 'SELECT * FROM users WHERE email = $1';
+    const value = [email];
+    pool.query(query, value, (err, data) => {
+      if (err) return ErrorHandler.databaseError(res);
+      const user = data.rows[0];
+      if (!user) {
+        return ErrorHandler.validationError(res, 404,
+          'User does not exist');
+      }
+      if (!Helper.verifyPassword(password, user.password)) {
+        return ErrorHandler.validationError(res, 400,
+          'Password is incorrect');
+      }
+      return next();
+    });
+  }
 }
 
 export default UserValidator;

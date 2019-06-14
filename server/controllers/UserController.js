@@ -41,6 +41,34 @@ class UserController {
       });
     });
   }
+
+  /**
+  * @method signIn
+  * @description Login existing user
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof UserController
+  */
+  static signIn(req, res) {
+    const { email } = req.body;
+    const query = 'SELECT * FROM users WHERE email = $1';
+    pool.query(query, [email], (err, data) => {
+      if (err) return ErrorHandler.databaseError(res);
+      const user = data.rows[0];
+      const result = {
+        id: user.id,
+        email: user.email,
+        isAdmin: user.is_admin,
+      };
+      const token = Helper.generateToken(result);
+      return res.status(200).send({
+        status: 'success',
+        data: { token, id: user.id, firstname: user.first_name, lastname: user.last_name, email },
+      });
+    });
+  }
 }
 
 export default UserController;
