@@ -106,9 +106,11 @@ const review2 = event => {
 
 const closeModal = document.getElementById('close-modal');
 
-closeModal.onclick = () => {
-  modal.style.display = 'none';
-};
+if (closeModal) {
+  closeModal.addEventListener('click', event => {
+    modal.style.display = 'none';
+  });
+}
 
 const flag = () => {
   topModal.classList.add('hidden');
@@ -132,4 +134,14 @@ const viewAds = event => {
 
 const openOrders = () => {
   window.location.href = 'orders.html';
+};
+
+const login = event => {
+  event.preventDefault();
+  window.location.href = 'home.html';
+};
+
+const signUp = event => {
+  event.preventDefault();
+  window.location.href = 'login.html';
 };
