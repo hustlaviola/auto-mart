@@ -1,5 +1,5 @@
 import pool from './database';
-import createTablesQuery from './createTables';
+import createTablesQuery from './createTables/createTables';
 import dropTablesQuery from './dropTables';
 
 const queries = `${dropTablesQuery}${createTablesQuery}`;

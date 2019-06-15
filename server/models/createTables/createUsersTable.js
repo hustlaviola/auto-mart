@@ -11,6 +11,4 @@ const createUsersTable = `
   );
 `;
 
-const createTablesQuery = `${createUsersTable}`;
-
-export default createTablesQuery;
+export default createUsersTable;

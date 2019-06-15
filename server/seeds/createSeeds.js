@@ -66,6 +66,52 @@ const createUser = `
   RETURNING *;
 `;
 
-const createSeedsQuery = `${createUser}`;
+const createCar = `
+  INSERT INTO cars(owner,
+    state,
+    price,
+    manufacturer,
+    model,
+    body_type)
+  VALUES(1,
+    'used',
+    349956.45,
+    'Toyota',
+    'Yaris',
+    'Sedan')
+  RETURNING *;
+  
+  INSERT INTO cars(owner,
+    state,
+    status,
+    price,
+    manufacturer,
+    model,
+    body_type)
+  VALUES(2,
+    'new',
+    'sold',
+    757644.44,
+    'Porsche',
+    '911 Carrera',
+    'Sedan')
+  RETURNING *;
+
+  INSERT INTO cars(owner,
+    state,
+    price,
+    manufacturer,
+    model,
+    body_type)
+  VALUES(2,
+    'new',
+    222990.65,
+    'McLaren',
+    '720 S',
+    'Convertible')
+  RETURNING *;
+  `;
+
+const createSeedsQuery = `${createUser}${createCar}`;
 
 export default createSeedsQuery;
