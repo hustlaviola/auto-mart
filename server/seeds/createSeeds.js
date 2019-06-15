@@ -112,6 +112,34 @@ const createCar = `
   RETURNING *;
   `;
 
-const createSeedsQuery = `${createUser}${createCar}`;
+const createOrder = `
+  INSERT INTO orders(buyer,
+    car_id,
+    amount)
+  VALUES(3,
+    2,
+    9000.45)
+  RETURNING *;
+  
+  INSERT INTO orders(buyer,
+    car_id,
+    status,
+    amount)
+  VALUES(2,
+    1,
+    'accepted',
+    40000.45)
+  RETURNING *;
+  
+  INSERT INTO orders(buyer,
+    car_id,
+    amount)
+  VALUES(1,
+    3,
+    550000.45)
+  RETURNING *;
+`;
+
+const createSeedsQuery = `${createUser}${createCar}${createOrder}`;
 
 export default createSeedsQuery;
