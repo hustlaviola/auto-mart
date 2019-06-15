@@ -4,6 +4,7 @@ import swaggerDocument from '../swagger.json';
 import userRoute from './routes/userRoute';
 import ErrorHandler from './utils/ErrorHandler';
 import carRoute from './routes/carRoute';
+import orderRoute from './routes/orderRoute';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', userRoute);
 app.use('/api/v1', carRoute);
+app.use('/api/v1', orderRoute);
 
 app.all('/*', (req, res) => ErrorHandler.routeError(res));
 

@@ -4,13 +4,6 @@ import UserController from '../controllers/UserController';
 
 const userRoute = express.Router();
 
-// Handle /api/v1 endpoint
-userRoute.get('/', (req, res) => {
-  res.status(200).send({
-    message: 'Welcome to Auto-Mart API version 1',
-  });
-});
-
 // Handle signup endpoint
 userRoute.post('/auth/signup',
   UserValidator.auth,
