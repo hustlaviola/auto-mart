@@ -33,4 +33,10 @@ carRoute.patch('/car/:id/price',
   CarValidator.checkCar,
   CarController.updateCarPrice);
 
+carRoute.get('/car/:id',
+  Auth.userAuth,
+  Validator.validateId,
+  CarValidator.checkCar,
+  CarController.getCar);
+
 export default carRoute;
