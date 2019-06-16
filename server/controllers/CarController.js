@@ -107,6 +107,26 @@ class CarController {
       });
     });
   }
+
+  /**
+  * @method getUnsoldCars
+  * @description Retrieve unsold car records
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof CarController
+  */
+  static getUnsoldCars(req, res) {
+    const query = 'SELECT * FROM cars WHERE status = \'available\'';
+    return pool.query(query, (err, data) => {
+      if (err) return ErrorHandler.databaseError(res);
+      return res.status(200).send({
+        status: 'success',
+        data: data.rows,
+      });
+    });
+  }
 }
 
 export default CarController;
