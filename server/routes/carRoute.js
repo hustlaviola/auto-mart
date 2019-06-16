@@ -39,4 +39,9 @@ carRoute.get('/car/:id',
   CarValidator.checkCar,
   CarController.getCar);
 
+carRoute.get('/car',
+  Auth.userAuth,
+  Validator.validateQuery,
+  CarController.getUnsoldCars);
+
 export default carRoute;

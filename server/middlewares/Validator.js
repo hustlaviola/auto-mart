@@ -51,6 +51,25 @@ class Validator {
     if (err) return ErrorHandler.validationError(res, 400, err);
     return next();
   }
+
+  /**
+  * @method validateQuery
+  * @description Check if query parameters are valid
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof Validator
+  */
+  static validateQuery(req, res, next) {
+    const { status } = req.query;
+    if (!status) return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
+    if (status !== 'available') {
+      return ErrorHandler.validationError(res, 400, 'status must be \'available\'');
+    }
+    return next();
+  }
 }
 
 export default Validator;

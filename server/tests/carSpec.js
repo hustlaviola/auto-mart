@@ -656,4 +656,73 @@ describe('/GET CAR route', () => {
         done(err);
       });
   });
+
+  it('should return an error if user is not authenticated', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car')
+      .set('authorization', '')
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('You are not logged in');
+        done(err);
+      });
+  });
+
+  it('should return an error if token cannot be authenticated', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car')
+      .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Authentication failed');
+        done(err);
+      });
+  });
+
+  it('should return an error if status is not provided in the query', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?sttus=available')
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('query \'status\' must be provided');
+        done(err);
+      });
+  });
+
+  it('should return an error if status is not equal to available', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=sold')
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('status must be \'available\'');
+        done(err);
+      });
+  });
+
+  it('should retrieve all unsold cars if details are valid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available')
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.have.property('state');
+        done(err);
+      });
+  });
 });
