@@ -29,6 +29,28 @@ class Validator {
 
     return next();
   }
+
+  /**
+  * @method validateId
+  * @description Check if id is valid
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof Validator
+  */
+  static validateId(req, res, next) {
+    const regEx = Helper.regEx();
+    const id = Number(req.params.id);
+    let err;
+
+    if (Number.isNaN(id)) err = 'Invalid Id, Please input a number';
+    else if (!regEx.id.test(id)) err = 'Invalid id format';
+
+    if (err) return ErrorHandler.validationError(res, 400, err);
+    return next();
+  }
 }
 
 export default Validator;

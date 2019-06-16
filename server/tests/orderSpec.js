@@ -175,3 +175,166 @@ describe('/POST ORDER route', () => {
       });
   });
 });
+
+
+describe('/PATCH ORDER route', () => {
+  it('should return an error if user is not authenticated', done => {
+    const update = {
+      amount: 26700000.00,
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/order/1/price')
+      .set('authorization', '')
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('You are not logged in');
+        done(err);
+      });
+  });
+
+  it('should return an error if token cannot be authenticated', done => {
+    const update = {
+      amount: 26700000.00,
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/order/1/price')
+      .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Authentication failed');
+        done(err);
+      });
+  });
+
+  it('should return an error if id is not a number', done => {
+    const update = {
+      amount: 26700000.00,
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/order/t1/price')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid Id, Please input a number');
+        done(err);
+      });
+  });
+
+  it('should return an error if id is in invalid format', done => {
+    const update = {
+      amount: 26700000.00,
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/order/5.6/price')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid id format');
+        done(err);
+      });
+  });
+
+  it('should return an error if amount field is empty', done => {
+    const update = {};
+    chai
+      .request(app)
+      .patch('/api/v1/order/1/price')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('amount field cannot be empty');
+        done(err);
+      });
+  });
+
+  it('should return an error if amount is in invalid format', done => {
+    const update = {
+      amount: 26,
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/order/1/price')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('invalid amount format');
+        done(err);
+      });
+  });
+
+  it('should return an error if order record is not found', done => {
+    const update = {
+      amount: 26000000.09,
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/order/17/price')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Order record not found');
+        done(err);
+      });
+  });
+
+  it('should return an error if order is not pending', done => {
+    const update = {
+      amount: 26000000.09,
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/order/2/price')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Only pending offers can be updated');
+        done(err);
+      });
+  });
+
+  it('should update the amount if all details are valid', done => {
+    const update = {
+      amount: 26000000.09,
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/order/1/price')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data).to.have.property('newPriceOffered')
+          .eql(update.amount);
+        done(err);
+      });
+  });
+});

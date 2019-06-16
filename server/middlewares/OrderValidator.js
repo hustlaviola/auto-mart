@@ -38,6 +38,32 @@ class OrderValidator {
       return ErrorHandler.validationError(res, 404, 'car record does not exist');
     });
   }
+
+  /**
+ * @method checkOrder
+ * @description Check if order exists and is pending
+ * @static
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {object} next
+ * @returns {object} next
+ * @memberof Validator
+ */
+  static checkOrder(req, res, next) {
+    const { id } = req.params;
+    const query = 'SELECT * FROM orders WHERE id = $1';
+    return pool.query(query, [id], (err, data) => {
+      if (err) return ErrorHandler.databaseError(res);
+      if (data.rowCount < 1) {
+        return ErrorHandler.validationError(res, 404, 'Order record not found');
+      }
+      const order = data.rows[0];
+      if (order.status !== 'pending') {
+        return ErrorHandler.validationError(res, 400, 'Only pending offers can be updated');
+      }
+      return next();
+    });
+  }
 }
 
 export default OrderValidator;
