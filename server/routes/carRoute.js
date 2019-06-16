@@ -26,4 +26,11 @@ carRoute.patch('/car/:id/status',
   CarValidator.validateCarStatus,
   CarController.markAsSold);
 
+carRoute.patch('/car/:id/price',
+  Auth.userAuth,
+  Validator.validateId,
+  Validator.validatePrice,
+  CarValidator.checkCar,
+  CarController.updateCarPrice);
+
 export default carRoute;

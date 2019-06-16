@@ -85,6 +85,28 @@ class CarValidator {
       return next();
     });
   }
+
+  /**
+ * @method checkCar
+ * @description Check if car record exists
+ * @static
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {object} next
+ * @returns {object} next
+ * @memberof CarValidator
+ */
+  static checkCar(req, res, next) {
+    const { id } = req.params;
+    const query = 'SELECT * FROM cars WHERE id = $1';
+    return pool.query(query, [id], (error, data) => {
+      if (error) return ErrorHandler.databaseError(res);
+      if (data.rowCount < 1) {
+        return ErrorHandler.validationError(res, 404, 'Car record not found');
+      }
+      return next();
+    });
+  }
 }
 
 export default CarValidator;

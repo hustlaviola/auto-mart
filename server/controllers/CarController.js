@@ -60,6 +60,31 @@ class CarController {
       });
     });
   }
+
+  /**
+    * @method updateCarPrice
+    * @description Update price of an Ad
+    * @static
+    * @param {object} req - The request object
+    * @param {object} res - The response object
+    * @returns {object} JSON response
+    * @memberof CarController
+    */
+  static updateCarPrice(req, res) {
+    const { id } = req.params;
+    const { amount } = req.body;
+    const updated = new Date();
+    const values = [amount, updated, id];
+    const query = 'UPDATE cars SET price = $1, updated = $2 WHERE id = $3 RETURNING *';
+    return pool.query(query, values, (err, data) => {
+      if (err) return ErrorHandler.databaseError(res);
+      const car = data.rows[0];
+      return res.status(200).send({
+        status: 'success',
+        data: car,
+      });
+    });
+  }
 }
 
 export default CarController;
