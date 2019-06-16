@@ -701,7 +701,7 @@ describe('/GET CAR route', () => {
   it('should return an error if status is not provided in the query', done => {
     chai
       .request(app)
-      .get('/api/v1/car?sttus=available')
+      .get('/api/v1/car?sttus=available&min_price=234567.56')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -814,6 +814,33 @@ describe('/GET CAR route', () => {
       .request(app)
       .get('/api/v1/car?status=available&min_price=200000&max_price=3000000')
       .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.have.property('owner');
+        done(err);
+      });
+  });
+
+  it('should return an error if user is not admin', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car')
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('require admin access');
+        done(err);
+      });
+  });
+
+  it('should retrieve the list of all cars if all details are valid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car')
+      .set('authorization', `Bearer ${adminToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
