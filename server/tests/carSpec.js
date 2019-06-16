@@ -254,3 +254,167 @@ describe('/POST CAR route', () => {
       });
   });
 });
+
+describe('/PATCH CAR route', () => {
+  it('should return an error if user is not authenticated', done => {
+    const update = {
+      status: 'sold',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/1/status')
+      .set('authorization', '')
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('You are not logged in');
+        done(err);
+      });
+  });
+
+  it('should return an error if token cannot be authenticated', done => {
+    const update = {
+      status: 'sold',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/1/status')
+      .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Authentication failed');
+        done(err);
+      });
+  });
+
+  it('should return an error if id is not a number', done => {
+    const update = {
+      status: 'sold',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/t1/status')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid Id, Please input a number');
+        done(err);
+      });
+  });
+
+  it('should return an error if id is badly formatted', done => {
+    const update = {
+      status: 'sold',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/1.01/status')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid id format');
+        done(err);
+      });
+  });
+
+  it('should return an error if status field is empty', done => {
+    const update = {
+      status: '',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/1/status')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('status field cannot be empty');
+        done(err);
+      });
+  });
+
+  it('should return an error if status is not sold', done => {
+    const update = {
+      status: 'slide',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/1/status')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('status must be sold');
+        done(err);
+      });
+  });
+
+  it('should return an error if car record is not found', done => {
+    const update = {
+      status: 'sold',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/16/status')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Car record not found');
+        done(err);
+      });
+  });
+
+  it('should return an error if car is already marked as sold', done => {
+    const update = {
+      status: 'sold',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/2/status')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Car has already been marked as sold');
+        done(err);
+      });
+  });
+
+  it('should mark the car as sold if all credentials are valid', done => {
+    const update = {
+      status: 'sold',
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/car/1/status')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(update)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data).to.have.property('status')
+          .eql('sold');
+        done(err);
+      });
+  });
+});

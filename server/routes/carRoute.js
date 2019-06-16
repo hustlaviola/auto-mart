@@ -20,4 +20,10 @@ carRoute.post('/car',
   CarValidator.validatePostCar,
   CarController.postCar);
 
+carRoute.patch('/car/:id/status',
+  Auth.userAuth,
+  Validator.validateId,
+  CarValidator.validateCarStatus,
+  CarController.markAsSold);
+
 export default carRoute;

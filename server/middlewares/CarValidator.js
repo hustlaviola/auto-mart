@@ -1,4 +1,5 @@
 import ErrorHandler from '../utils/ErrorHandler';
+import pool from '../models/database';
 /**
  * @class CarValidator
  * @description Validates Car information
@@ -49,6 +50,40 @@ class CarValidator {
     if (err) return ErrorHandler.validationError(res, 400, err);
 
     return next();
+  }
+
+  /**
+  * @method validateCarStatus
+  * @description Check for car availability and status validity
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof CarValidator
+  */
+  static validateCarStatus(req, res, next) {
+    const { id } = req.params;
+    const { status } = req.body;
+    let err;
+
+    if (!status) err = 'status field cannot be empty';
+    else if (status !== 'sold') err = 'status must be sold';
+
+    if (err) return ErrorHandler.validationError(res, 400, err);
+
+    const query = 'SELECT * FROM cars WHERE id = $1';
+    return pool.query(query, [id], (error, data) => {
+      if (error) return ErrorHandler.databaseError(res);
+      if (data.rowCount < 1) {
+        return ErrorHandler.validationError(res, 404, 'Car record not found');
+      }
+      const car = data.rows[0];
+      if (car.status === 'sold') {
+        return ErrorHandler.validationError(res, 400, 'Car has already been marked as sold');
+      }
+      return next();
+    });
   }
 }
 

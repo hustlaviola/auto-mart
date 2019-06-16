@@ -35,6 +35,31 @@ class CarController {
       });
     });
   }
+
+  /**
+    * @method markAsSold
+    * @description Update status of Ad
+    * @static
+    * @param {object} req - The request object
+    * @param {object} res - The response object
+    * @returns {object} JSON response
+    * @memberof CarController
+    */
+  static markAsSold(req, res) {
+    const { id } = req.params;
+    const { status } = req.body;
+    const updated = new Date();
+    const values = [status, updated, id];
+    const query = 'UPDATE cars SET status = $1, updated = $2 WHERE id = $3 RETURNING *';
+    return pool.query(query, values, (err, data) => {
+      if (err) return ErrorHandler.databaseError(res);
+      const car = data.rows[0];
+      return res.status(200).send({
+        status: 'success',
+        data: car,
+      });
+    });
+  }
 }
 
 export default CarController;
