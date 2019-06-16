@@ -42,7 +42,7 @@ carRoute.get('/car/:id',
 carRoute.get('/car',
   Auth.userAuth,
   Validator.validateQuery,
-  CarController.getUnsoldCars);
+  CarController.getCars);
 
 carRoute.delete('/car/:id',
   Auth.userAuth,
