@@ -118,7 +118,14 @@ class CarController {
   * @memberof CarController
   */
   static getUnsoldCars(req, res) {
-    const query = 'SELECT * FROM cars WHERE status = \'available\'';
+    const minPrice = Number(req.query.min_price);
+    const maxPrice = Number(req.query.max_price);
+    let query;
+    if (minPrice && maxPrice) {
+      query = `SELECT * FROM cars WHERE status = 'available'
+        AND price >= ${minPrice} AND price <= ${maxPrice}`;
+    } else query = 'SELECT * FROM cars WHERE status = \'available\'';
+
     return pool.query(query, (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
       return res.status(200).send({
