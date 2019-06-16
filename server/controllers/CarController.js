@@ -134,6 +134,27 @@ class CarController {
       });
     });
   }
+
+  /**
+  * @method deleteCarAd
+  * @description Delete a specific car ad
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof CarController
+  */
+  static deleteCarAd(req, res) {
+    const { id } = req.params;
+    const query = 'DELETE FROM cars WHERE id = $1';
+    pool.query(query, [id], err => {
+      if (err) return ErrorHandler.databaseError(res);
+      return res.status(200).send({
+        status: 'success',
+        message: 'Car ad deleted successfully',
+      });
+    });
+  }
 }
 
 export default CarController;
