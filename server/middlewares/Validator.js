@@ -81,6 +81,22 @@ class Validator {
     }
     return next();
   }
+
+  /**
+  * @method checkAdmin
+  * @description Check if user is admin
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof Validator
+  */
+  static checkAdmin(req, res, next) {
+    const { isAdmin } = req.user;
+    if (isAdmin) return next();
+    return ErrorHandler.validationError(res, 401, 'require admin access');
+  }
 }
 
 export default Validator;

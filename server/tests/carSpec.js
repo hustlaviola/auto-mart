@@ -6,7 +6,7 @@ import app from '../app';
 chai.use(chaiHttp);
 
 const { expect } = chai;
-let userToken;
+let userToken; let adminToken;
 
 describe('/POST CAR route', () => {
   before(done => {
@@ -19,6 +19,19 @@ describe('/POST CAR route', () => {
       })
       .end((err, res) => {
         userToken = res.body.data.token;
+        done(err);
+      });
+  });
+  before(done => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'viola2@mail.com',
+        password: 'vvvvvv',
+      })
+      .end((err, res) => {
+        adminToken = res.body.data.token;
         done(err);
       });
   });
@@ -805,6 +818,121 @@ describe('/GET CAR route', () => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body.data[0]).to.have.property('owner');
+        done(err);
+      });
+  });
+});
+
+describe('/DELETE CAR route', () => {
+  it('should return an error if user is not authenticated', done => {
+    chai
+      .request(app)
+      .delete('/api/v1/car/1')
+      .set('authorization', '')
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('You are not logged in');
+        done(err);
+      });
+  });
+
+  it('should return an error if token cannot be authenticated', done => {
+    chai
+      .request(app)
+      .delete('/api/v1/car/1')
+      .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Authentication failed');
+        done(err);
+      });
+  });
+
+  it('should return an error if id is not a number', done => {
+    const car = {
+      id: '1t',
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .set('authorization', `Bearer ${adminToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid Id, Please input a number');
+        done(err);
+      });
+  });
+
+  it('should return an error if id is badly formatted', done => {
+    const car = {
+      id: 1.6,
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .set('authorization', `Bearer ${adminToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid id format');
+        done(err);
+      });
+  });
+
+  it('should return an error if car record does not exist', done => {
+    const car = {
+      id: 48,
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .set('authorization', `Bearer ${adminToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Car record not found');
+        done(err);
+      });
+  });
+
+  it('should return an error if user is not admin', done => {
+    const car = {
+      id: 3,
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('require admin access');
+        done(err);
+      });
+  });
+
+  it('should delete a specific car record if details are valid', done => {
+    const car = {
+      id: 3,
+    };
+    chai
+      .request(app)
+      .delete(`/api/v1/car/${car.id}`)
+      .set('authorization', `Bearer ${adminToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('message')
+          .eql('Car ad deleted successfully');
         done(err);
       });
   });

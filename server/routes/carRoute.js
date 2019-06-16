@@ -44,4 +44,11 @@ carRoute.get('/car',
   Validator.validateQuery,
   CarController.getUnsoldCars);
 
+carRoute.delete('/car/:id',
+  Auth.userAuth,
+  Validator.checkAdmin,
+  Validator.validateId,
+  CarValidator.checkCar,
+  CarController.deleteCarAd);
+
 export default carRoute;
