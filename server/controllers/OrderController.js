@@ -36,6 +36,39 @@ class OrderController {
       });
     });
   }
+
+  /**
+  * @method updateOrder
+  * @description Update price of purchase order
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof OrderController
+  */
+  static updateOrder(req, res) {
+    const { id } = req.params;
+    const { amount } = req.body;
+    const updated = new Date();
+    const values = [amount, updated, id];
+    const sql = 'SELECT amount FROM orders WHERE id = $1';
+    const query = 'UPDATE orders SET amount = $1, updated = $2 WHERE id = $3 RETURNING *';
+    return pool.query(sql, [id], (error, info) => {
+      if (error) return ErrorHandler.databaseError(res);
+      const offer = info.rows[0];
+      const oldPriceOffered = offer.amount;
+      return pool.query(query, values, (err, data) => {
+        if (err) return ErrorHandler.databaseError(res);
+        const order = data.rows[0]; const { status } = order; const newPriceOffered = order.amount;
+        return res.status(200).send({
+          status: 'success',
+          data: {
+            id: order.id, carId: order.car_id, status, oldPriceOffered, newPriceOffered, updated,
+          },
+        });
+      });
+    });
+  }
 }
 
 export default OrderController;
