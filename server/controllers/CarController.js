@@ -85,6 +85,28 @@ class CarController {
       });
     });
   }
+
+  /**
+  * @method getCar
+  * @description Retrieve a specific car
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof CarController
+  */
+  static getCar(req, res) {
+    const { id } = req.params;
+    const query = 'SELECT * FROM cars WHERE id = $1';
+    return pool.query(query, [id], (err, data) => {
+      if (err) return ErrorHandler.databaseError(res);
+      const car = data.rows[0];
+      return res.status(200).send({
+        status: 'success',
+        data: car,
+      });
+    });
+  }
 }
 
 export default CarController;
