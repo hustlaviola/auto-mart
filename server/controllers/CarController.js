@@ -17,9 +17,10 @@ class CarController {
   * @memberof CarController
   */
   static postCar(req, res) {
-    const {
-      state, amount, manufacturer, model, bodyType,
-    } = req.body;
+    const { amount } = req.body;
+    let { state, manufacturer, model, bodyType } = req.body;
+    state = state.toLowerCase(); manufacturer = manufacturer.toLowerCase();
+    model = model.toLowerCase(); bodyType = bodyType.toLowerCase();
     const { id } = req.user;
 
     const values = [id, state, amount, manufacturer, model, bodyType];
@@ -118,18 +119,19 @@ class CarController {
   * @memberof CarController
   */
   static getCars(req, res) {
-    const { status, manufacturer } = req.query;
-    const bodyType = req.query.body_type;
-    const minPrice = Number(req.query.min_price);
-    const maxPrice = Number(req.query.max_price);
+    const { status } = req.query; let { manufacturer } = req.query;
+    let bodyType = req.query.body_type;
+    const minPrice = Number(req.query.min_price); const maxPrice = Number(req.query.max_price);
     let query;
     if (!status) query = 'SELECT * FROM cars';
     else if (minPrice && maxPrice) {
       query = `SELECT * FROM cars WHERE status = 'available'
         AND price >= ${minPrice} AND price <= ${maxPrice}`;
     } else if (manufacturer) {
+      manufacturer = manufacturer.toLowerCase();
       query = `SELECT * FROM cars WHERE status = 'available' AND manufacturer = '${manufacturer}'`;
     } else if (bodyType) {
+      bodyType = bodyType.toLowerCase();
       query = `SELECT * FROM cars WHERE status = 'available'
         AND body_type = '${bodyType}'`;
     } else query = 'SELECT * FROM cars WHERE status = \'available\'';

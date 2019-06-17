@@ -858,7 +858,7 @@ describe('/GET CAR route', () => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body.data[0]).to.have.property('manufacturer')
-          .eql('Toyota');
+          .eql('toyota');
         done(err);
       });
   });
@@ -877,7 +877,7 @@ describe('/GET CAR route', () => {
       });
   });
 
-  it('should retrieve all unsold cars of a specific make if details are valid', done => {
+  it('should retrieve all unsold cars of a specific body_type if details are valid', done => {
     chai
       .request(app)
       .get('/api/v1/car?status=available&body_type=Sedan')
@@ -886,7 +886,7 @@ describe('/GET CAR route', () => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body.data[0]).to.have.property('body_type')
-          .eql('Sedan');
+          .eql('sedan');
         done(err);
       });
   });

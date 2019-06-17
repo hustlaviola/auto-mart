@@ -76,9 +76,9 @@ const createCar = `
   VALUES(1,
     'used',
     349956.45,
-    'Toyota',
-    'Yaris',
-    'Sedan')
+    'toyota',
+    'yaris',
+    'sedan')
   RETURNING *;
   
   INSERT INTO cars(owner,
@@ -92,9 +92,9 @@ const createCar = `
     'new',
     'sold',
     757644.44,
-    'Porsche',
-    '911 Carrera',
-    'Sedan')
+    'porsche',
+    '911 carrera',
+    'sedan')
   RETURNING *;
 
   INSERT INTO cars(owner,
@@ -106,9 +106,9 @@ const createCar = `
   VALUES(2,
     'new',
     222990.65,
-    'McLaren',
-    '720 S',
-    'Convertible')
+    'mcLaren',
+    '720 s',
+    'convertible')
   RETURNING *;
   `;
 

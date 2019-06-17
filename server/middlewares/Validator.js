@@ -75,7 +75,7 @@ class Validator {
       }
       return Validator.checkAdmin(req, res, next);
     }
-    if (status !== 'available') {
+    if (status.toLowerCase() !== 'available') {
       return ErrorHandler.validationError(res, 400, 'status must be \'available\'');
     }
     let err;
