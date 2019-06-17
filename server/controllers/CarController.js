@@ -118,7 +118,7 @@ class CarController {
   * @memberof CarController
   */
   static getCars(req, res) {
-    const { status } = req.query;
+    const { status, manufacturer } = req.query;
     const minPrice = Number(req.query.min_price);
     const maxPrice = Number(req.query.max_price);
     let query;
@@ -126,6 +126,8 @@ class CarController {
     else if (minPrice && maxPrice) {
       query = `SELECT * FROM cars WHERE status = 'available'
         AND price >= ${minPrice} AND price <= ${maxPrice}`;
+    } else if (manufacturer) {
+      query = `SELECT * FROM cars WHERE status = 'available' AND manufacturer = '${manufacturer}'`;
     } else query = 'SELECT * FROM cars WHERE status = \'available\'';
 
     return pool.query(query, (err, data) => {
