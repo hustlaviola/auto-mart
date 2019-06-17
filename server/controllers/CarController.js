@@ -119,7 +119,7 @@ class CarController {
   * @memberof CarController
   */
   static getCars(req, res) {
-    const { status } = req.query; let { manufacturer } = req.query;
+    const { status } = req.query; let { manufacturer, state } = req.query;
     let bodyType = req.query.body_type;
     const minPrice = Number(req.query.min_price); const maxPrice = Number(req.query.max_price);
     let query;
@@ -132,8 +132,10 @@ class CarController {
       query = `SELECT * FROM cars WHERE status = 'available' AND manufacturer = '${manufacturer}'`;
     } else if (bodyType) {
       bodyType = bodyType.toLowerCase();
-      query = `SELECT * FROM cars WHERE status = 'available'
-        AND body_type = '${bodyType}'`;
+      query = `SELECT * FROM cars WHERE status = 'available' AND body_type = '${bodyType}'`;
+    } else if (state) {
+      state = state.toLowerCase();
+      query = `SELECT * FROM cars WHERE status = 'available' AND state = '${state}'`;
     } else query = 'SELECT * FROM cars WHERE status = \'available\'';
 
     return pool.query(query, (err, data) => {
