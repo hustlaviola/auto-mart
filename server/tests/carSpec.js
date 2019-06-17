@@ -862,6 +862,34 @@ describe('/GET CAR route', () => {
         done(err);
       });
   });
+
+  it('should return an error if body-type is invalid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&body_type=Sytan')
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid bodyType');
+        done(err);
+      });
+  });
+
+  it('should retrieve all unsold cars of a specific make if details are valid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&body_type=Sedan')
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.have.property('body_type')
+          .eql('Sedan');
+        done(err);
+      });
+  });
 });
 
 describe('/DELETE CAR route', () => {

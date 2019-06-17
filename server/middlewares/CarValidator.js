@@ -107,6 +107,25 @@ class CarValidator {
       return next();
     });
   }
+
+  /**
+  * @method validateBodyType
+  * @description Check if car state is valid
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof CarValidator
+  */
+  static validateBodyType(req, res, next) {
+    const bodyType = req.query.body_type;
+    const types = ['sedan', 'truck', 'trailer', 'hatchback', 'suv', 'convertible', 'coupe', 'van'];
+    if (!types.includes(bodyType.toLowerCase())) {
+      return ErrorHandler.validationError(res, 400, 'Invalid bodyType');
+    }
+    return next();
+  }
 }
 
 export default CarValidator;
