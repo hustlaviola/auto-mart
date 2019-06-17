@@ -119,6 +119,7 @@ class CarController {
   */
   static getCars(req, res) {
     const { status, manufacturer } = req.query;
+    const bodyType = req.query.body_type;
     const minPrice = Number(req.query.min_price);
     const maxPrice = Number(req.query.max_price);
     let query;
@@ -128,6 +129,9 @@ class CarController {
         AND price >= ${minPrice} AND price <= ${maxPrice}`;
     } else if (manufacturer) {
       query = `SELECT * FROM cars WHERE status = 'available' AND manufacturer = '${manufacturer}'`;
+    } else if (bodyType) {
+      query = `SELECT * FROM cars WHERE status = 'available'
+        AND body_type = '${bodyType}'`;
     } else query = 'SELECT * FROM cars WHERE status = \'available\'';
 
     return pool.query(query, (err, data) => {

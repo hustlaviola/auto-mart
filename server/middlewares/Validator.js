@@ -1,6 +1,8 @@
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
 
+import CarValidator from './CarValidator';
+
 /**
  * @class Validator
  * @description Validates credentials
@@ -64,10 +66,11 @@ class Validator {
   */
   static validateQuery(req, res, next) {
     const { status, manufacturer } = req.query;
+    const bodyType = req.query.body_type;
     const minPrice = Number(req.query.min_price);
     const maxPrice = Number(req.query.max_price);
     if (!status) {
-      if (req.query.min_price || req.query.max_price || manufacturer) {
+      if (req.query.min_price || req.query.max_price || manufacturer || bodyType) {
         return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
       }
       return Validator.checkAdmin(req, res, next);
@@ -84,6 +87,7 @@ class Validator {
       else if (maxPrice <= minPrice) err = 'max_price must be greater than min_price';
       if (err) return ErrorHandler.validationError(res, 400, err);
     }
+    if (bodyType) return CarValidator.validateBodyType(req, res, next);
     return next();
   }
 
