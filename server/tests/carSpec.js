@@ -848,6 +848,20 @@ describe('/GET CAR route', () => {
         done(err);
       });
   });
+
+  it('should retrieve all unsold cars of a specific make if details are valid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&manufacturer=Toyota')
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.have.property('manufacturer')
+          .eql('Toyota');
+        done(err);
+      });
+  });
 });
 
 describe('/DELETE CAR route', () => {

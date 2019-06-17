@@ -63,11 +63,11 @@ class Validator {
   * @memberof Validator
   */
   static validateQuery(req, res, next) {
-    const { status } = req.query;
+    const { status, manufacturer } = req.query;
     const minPrice = Number(req.query.min_price);
     const maxPrice = Number(req.query.max_price);
     if (!status) {
-      if (req.query.min_price || req.query.max_price) {
+      if (req.query.min_price || req.query.max_price || manufacturer) {
         return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
       }
       return Validator.checkAdmin(req, res, next);
