@@ -17,10 +17,13 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validateState(req, res, next) {
+    const queryState = req.query.state;
     const { state } = req.body;
-
+    if (queryState) {
+      if (queryState.toLowerCase() === 'used') return next();
+      return ErrorHandler.validationError(res, 400, 'state must be used');
+    }
     let err;
-
     if (!state) err = 'car state field cannot be empty';
     else if (!((state === 'new') || (state === 'used'))) {
       err = 'state can either be \'new\' or \'used\'';

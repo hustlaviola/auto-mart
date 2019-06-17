@@ -65,12 +65,10 @@ class Validator {
   * @memberof Validator
   */
   static validateQuery(req, res, next) {
-    const { status, manufacturer } = req.query;
-    const bodyType = req.query.body_type;
-    const minPrice = Number(req.query.min_price);
-    const maxPrice = Number(req.query.max_price);
+    const { status, manufacturer, state } = req.query; const bodyType = req.query.body_type;
+    const minPrice = Number(req.query.min_price); const maxPrice = Number(req.query.max_price);
     if (!status) {
-      if (req.query.min_price || req.query.max_price || manufacturer || bodyType) {
+      if (req.query.min_price || req.query.max_price || manufacturer || bodyType || state) {
         return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
       }
       return Validator.checkAdmin(req, res, next);
@@ -88,6 +86,7 @@ class Validator {
       if (err) return ErrorHandler.validationError(res, 400, err);
     }
     if (bodyType) return CarValidator.validateBodyType(req, res, next);
+    if (state) return CarValidator.validateState(req, res, next);
     return next();
   }
 
