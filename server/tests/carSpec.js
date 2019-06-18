@@ -900,12 +900,12 @@ describe('/GET CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('state must be used');
+          .eql('state can either be \'new\' or \'used\'');
         done(err);
       });
   });
 
-  it('should retrieve all unsold cars of a specific state if details are valid', done => {
+  it('should retrieve all used unsold cars if details are valid', done => {
     chai
       .request(app)
       .get('/api/v1/car?status=available&state=used')
@@ -915,6 +915,20 @@ describe('/GET CAR route', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.data[0]).to.have.property('state')
           .eql('used');
+        done(err);
+      });
+  });
+
+  it('should retrieve all new unsold cars if details are valid', done => {
+    chai
+      .request(app)
+      .get('/api/v1/car?status=available&state=new')
+      .set('authorization', `Bearer ${userToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.have.property('state')
+          .eql('new');
         done(err);
       });
   });
