@@ -1,0 +1,37 @@
+import pool from '../models/database';
+import ErrorHandler from '../utils/ErrorHandler';
+
+/**
+ * @class FlagController
+ * @description
+ * @exports FlagController
+ */
+class FlagController {
+  /**
+  * @method postFlag
+  * @description Flag an ad
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @returns {object} JSON response
+  * @memberof FlagController
+  */
+  static postFlag(req, res) {
+    const { carId } = req.body; let { reason, description } = req.body;
+    reason = reason.trim(); reason = reason.replace(/  +/g, ' ');
+    description = description.trim(); description = description.replace(/  +/g, ' ');
+    const values = [carId, reason, description];
+    const query = `INSERT INTO flags(car_id, reason, description)
+    VALUES($1, $2, $3) RETURNING *`;
+    return pool.query(query, values, (err, data) => {
+      if (err) return ErrorHandler.databaseError(res);
+      const flag = data.rows[0];
+      return res.status(201).send({
+        status: 'success',
+        data: flag,
+      });
+    });
+  }
+}
+
+export default FlagController;
