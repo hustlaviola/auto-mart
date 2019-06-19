@@ -159,7 +159,7 @@ class CarController {
   static deleteCarAd(req, res) {
     const { id } = req.params;
     const query = 'DELETE FROM cars WHERE id = $1';
-    pool.query(query, [id], err => {
+    return pool.query(query, [id], err => {
       if (err) return ErrorHandler.databaseError(res);
       return res.status(200).send({
         status: 'success',

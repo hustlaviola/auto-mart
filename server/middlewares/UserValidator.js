@@ -21,7 +21,7 @@ class UserValidator {
   static validateExistingUser(req, res, next) {
     const { email } = req.body;
     const query = 'SELECT email FROM users WHERE email = $1';
-    pool.query(query, [email], (err, data) => {
+    return pool.query(query, [email], (err, data) => {
       if (err) {
         return ErrorHandler.databaseError(res);
       }
@@ -133,7 +133,7 @@ class UserValidator {
 
     const query = 'SELECT * FROM users WHERE email = $1';
     const value = [email];
-    pool.query(query, value, (err, data) => {
+    return pool.query(query, value, (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
       const user = data.rows[0];
       if (!user) {

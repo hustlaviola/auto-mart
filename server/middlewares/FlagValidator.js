@@ -34,7 +34,7 @@ class FlagValidator {
     else if (description.length > 750) err = 'description cannot be more than 750 characters';
     if (err) return ErrorHandler.validationError(res, 400, err);
     const query = 'SELECT * FROM cars WHERE id = $1';
-    pool.query(query, [carId], (error, data) => {
+    return pool.query(query, [carId], (error, data) => {
       if (error) return ErrorHandler.databaseError(res);
       if (data.rowCount) return next();
       return ErrorHandler.validationError(res, 404, 'car record does not exist');

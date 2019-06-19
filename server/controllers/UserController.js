@@ -25,7 +25,7 @@ class UserController {
     const query = `INSERT INTO users(email, first_name, last_name,
       password, address) VALUES($1, $2, $3, $4, $5) RETURNING *`;
     const values = [email, firstname, lastname, hashedPassword, address];
-    pool.query(query, values, (err, data) => {
+    return pool.query(query, values, (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
 
       const user = data.rows[0];
@@ -54,7 +54,7 @@ class UserController {
   static signIn(req, res) {
     const { email } = req.body;
     const query = 'SELECT * FROM users WHERE email = $1';
-    pool.query(query, [email], (err, data) => {
+    return pool.query(query, [email], (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
       const user = data.rows[0];
       const result = {

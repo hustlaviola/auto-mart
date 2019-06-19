@@ -22,13 +22,12 @@ app.use('/api/v1', carRoute);
 app.use('/api/v1', orderRoute);
 app.use('/api/v1', flagRoute);
 
-app.all('/*', (req, res) => ErrorHandler.routeError(res));
-
 app.get('/', (req, res) => {
   res.status(200).send({
     message: 'Welcome to Auto-Mart',
   });
 });
+app.all('/*', (req, res) => ErrorHandler.routeError(res));
 
 const { PORT } = process.env;
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
