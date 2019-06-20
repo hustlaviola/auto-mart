@@ -536,6 +536,6 @@ Response spec:
 
     npm test
 
-[gh-pages](https://hustlaviola.github.io/auto-mart/)
+[gh-pages](https://hustlaviola.github.io/auto-mart/UI)
 
 [Pivotal Tracker Board](https://www.pivotaltracker.com/n/projects/2346157)
