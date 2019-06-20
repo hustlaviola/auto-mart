@@ -18,8 +18,10 @@ class FlagController {
   */
   static postFlag(req, res) {
     const { carId } = req.body; let { reason, description } = req.body;
-    reason = reason.trim(); reason = reason.replace(/  +/g, ' ');
-    description = description.trim(); description = description.replace(/  +/g, ' ');
+    reason = reason.trim().replace(/  +/g, ' ').replace(/\s\s+/g, `
+`);
+    description = description.trim().replace(/  +/g, ' ').replace(/\s\s+/g, `
+`);
     const values = [carId, reason, description];
     const query = `INSERT INTO flags(car_id, reason, description)
     VALUES($1, $2, $3) RETURNING *`;

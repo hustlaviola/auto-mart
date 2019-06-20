@@ -111,7 +111,7 @@ describe('/POST ORDER route', () => {
         expect(res).to.have.status(404);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('car record does not exist');
+          .eql('Car record not found');
         done(err);
       });
   });

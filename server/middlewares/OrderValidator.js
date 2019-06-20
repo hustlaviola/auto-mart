@@ -1,6 +1,7 @@
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
 import pool from '../models/database';
+import CarValidator from './CarValidator';
 
 /**
  * @class OrderValidator
@@ -31,12 +32,7 @@ class OrderValidator {
 
     if (err) return ErrorHandler.validationError(res, 400, err);
 
-    const query = 'SELECT * FROM cars WHERE id = $1';
-    return pool.query(query, [carId], (error, data) => {
-      if (error) return ErrorHandler.databaseError(res);
-      if (data.rowCount) return next();
-      return ErrorHandler.validationError(res, 404, 'car record does not exist');
-    });
+    return CarValidator.checkCar(req, res, next);
   }
 
   /**

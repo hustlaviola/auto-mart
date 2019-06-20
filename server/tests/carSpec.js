@@ -195,6 +195,29 @@ describe('/POST CAR route', () => {
       });
   });
 
+  it('should return an error if manufacturer is greater than 14 characters', done => {
+    const amount = 23346.89;
+    const car = {
+      state: 'new',
+      amount,
+      manufacturer: 'Lambobmwtoyotacruiser',
+      model: 'Yaris',
+      bodyType: 'Sedan',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/car')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(car)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('manufacturer cannot be more than 14 chars');
+        done(err);
+      });
+  });
+
   it('should return an error if model field is empty', done => {
     const amount = 23346.89;
     const car = {
@@ -218,6 +241,29 @@ describe('/POST CAR route', () => {
       });
   });
 
+  it('should return an error if model is more than 50 characters', done => {
+    const amount = 23346.89;
+    const car = {
+      state: 'new',
+      amount,
+      manufacturer: 'Toyota',
+      model: 'lamborghinidiablobutthisisgettingtoolongsowhatdowedo',
+      bodyType: 'Sedan',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/car')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(car)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('model cannot be more than 50 chars');
+        done(err);
+      });
+  });
+
   it('should return an error if body type field is empty', done => {
     const amount = 23346.89;
     const car = {
@@ -237,6 +283,29 @@ describe('/POST CAR route', () => {
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
           .eql('bodyType field cannot be empty');
+        done(err);
+      });
+  });
+
+  it('should return an error if body-type is invalid', done => {
+    const amount = 23346.89;
+    const car = {
+      state: 'new',
+      amount,
+      manufacturer: 'Toyota',
+      model: 'Yaris',
+      bodyType: 'sedcv',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/car')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(car)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Invalid bodyType');
         done(err);
       });
   });

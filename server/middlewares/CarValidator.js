@@ -17,15 +17,16 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validateState(req, res, next) {
-    const queryState = req.query.state;
+    let queryState = req.query.state;
     const { state } = req.body;
     if (queryState) {
-      if (queryState.toLowerCase() === 'used' || queryState.toLowerCase() === 'new') return next();
+      queryState = queryState.toLowerCase().trim();
+      if (queryState === 'used' || queryState === 'new') return next();
       return ErrorHandler.validationError(res, 400, 'state can either be \'new\' or \'used\'');
     }
     let err;
-    if (!state) err = 'car state field cannot be empty';
-    else if (!((state === 'new') || (state === 'used'))) {
+    if (!state || !state.trim()) err = 'car state field cannot be empty';
+    else if (!((state.trim().toLowerCase() === 'new') || (state.trim().toLowerCase() === 'used'))) {
       err = 'state can either be \'new\' or \'used\'';
     }
     if (err) return ErrorHandler.validationError(res, 400, err);
@@ -44,15 +45,16 @@ class CarValidator {
   */
   static validatePostCar(req, res, next) {
     const { manufacturer, model, bodyType } = req.body;
-
     let err;
 
-    if (!manufacturer) err = 'manufacturer field cannot be empty';
-    else if (!model) err = 'model field cannot be empty';
-    else if (!bodyType) err = 'bodyType field cannot be empty';
+    if (!manufacturer || !manufacturer.trim()) err = 'manufacturer field cannot be empty';
+    else if (manufacturer.trim().length > 14) err = 'manufacturer cannot be more than 14 chars';
+    else if (!model || !model.trim()) err = 'model field cannot be empty';
+    else if (model.trim().length > 50) err = 'model cannot be more than 50 chars';
+    else if (!bodyType || !bodyType.trim()) err = 'bodyType field cannot be empty';
     if (err) return ErrorHandler.validationError(res, 400, err);
 
-    return next();
+    return CarValidator.validateBodyType(req, res, next);
   }
 
   /**
@@ -70,17 +72,14 @@ class CarValidator {
     const { status } = req.body;
     let err;
 
-    if (!status) err = 'status field cannot be empty';
-    else if (status !== 'sold') err = 'status must be sold';
+    if (!status || !status.trim()) err = 'status field cannot be empty';
+    else if (status.toLowerCase().trim() !== 'sold') err = 'status must be sold';
 
     if (err) return ErrorHandler.validationError(res, 400, err);
 
     const query = 'SELECT * FROM cars WHERE id = $1';
     return pool.query(query, [id], (error, data) => {
       if (error) return ErrorHandler.databaseError(res);
-      if (data.rowCount < 1) {
-        return ErrorHandler.validationError(res, 404, 'Car record not found');
-      }
       const car = data.rows[0];
       if (car.status === 'sold') {
         return ErrorHandler.validationError(res, 400, 'Car has already been marked as sold');
@@ -100,7 +99,9 @@ class CarValidator {
  * @memberof CarValidator
  */
   static checkCar(req, res, next) {
-    const { id } = req.params;
+    const idParams = req.params.id; const idBody = req.body.carId; let id;
+    if (idParams) id = idParams;
+    else id = idBody;
     const query = 'SELECT * FROM cars WHERE id = $1';
     return pool.query(query, [id], (error, data) => {
       if (error) return ErrorHandler.databaseError(res);
@@ -122,9 +123,12 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validateBodyType(req, res, next) {
-    const bodyType = req.query.body_type;
+    const bodyTypeQuery = req.query.body_type; const bodyTypeBody = req.body.bodyType;
+    let bodyType;
+    if (bodyTypeQuery) bodyType = bodyTypeQuery;
+    else bodyType = bodyTypeBody;
     const types = ['sedan', 'truck', 'trailer', 'hatchback', 'suv', 'convertible', 'coupe', 'van'];
-    if (!types.includes(bodyType.toLowerCase())) {
+    if (!types.includes(bodyType.trim().toLowerCase())) {
       return ErrorHandler.validationError(res, 400, 'Invalid bodyType');
     }
     return next();

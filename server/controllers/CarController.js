@@ -19,8 +19,8 @@ class CarController {
   static postCar(req, res) {
     const { amount } = req.body;
     let { state, manufacturer, model, bodyType } = req.body;
-    state = state.toLowerCase(); manufacturer = manufacturer.toLowerCase();
-    model = model.toLowerCase(); bodyType = bodyType.toLowerCase();
+    state = state.toLowerCase().trim(); manufacturer = manufacturer.toLowerCase().trim();
+    model = model.toLowerCase().trim(); bodyType = bodyType.toLowerCase().trim();
     const { id } = req.user;
 
     const values = [id, state, amount, manufacturer, model, bodyType];
@@ -48,7 +48,8 @@ class CarController {
     */
   static markAsSold(req, res) {
     const { id } = req.params;
-    const { status } = req.body;
+    let { status } = req.body;
+    status = status.toLowerCase().trim();
     const updated = new Date();
     const values = [status, updated, id];
     const query = 'UPDATE cars SET status = $1, updated = $2 WHERE id = $3 RETURNING *';
@@ -128,13 +129,13 @@ class CarController {
       query = `SELECT * FROM cars WHERE status = 'available'
         AND price >= ${minPrice} AND price <= ${maxPrice}`;
     } else if (manufacturer) {
-      manufacturer = manufacturer.toLowerCase();
+      manufacturer = manufacturer.toLowerCase().trim();
       query = `SELECT * FROM cars WHERE status = 'available' AND manufacturer = '${manufacturer}'`;
     } else if (bodyType) {
-      bodyType = bodyType.toLowerCase();
+      bodyType = bodyType.toLowerCase().trim();
       query = `SELECT * FROM cars WHERE status = 'available' AND body_type = '${bodyType}'`;
     } else if (state) {
-      state = state.toLowerCase();
+      state = state.toLowerCase().trim();
       query = `SELECT * FROM cars WHERE status = 'available' AND state = '${state}'`;
     } else query = 'SELECT * FROM cars WHERE status = \'available\'';
 

@@ -18,16 +18,16 @@ class UserController {
   * @memberof UserController
   */
   static signUp(req, res) {
-    const {
-      email, firstname, lastname, password, address,
-    } = req.body;
+    let { email, firstname, lastname, address } = req.body;
+    const { password } = req.body;
+    email = email.trim(); firstname = firstname.trim(); lastname = lastname.trim();
+    address = address.trim().replace(/  +/g, ' ').replace(/\s\s+/g, '\n');
     const hashedPassword = Helper.hashPassword(password);
     const query = `INSERT INTO users(email, first_name, last_name,
       password, address) VALUES($1, $2, $3, $4, $5) RETURNING *`;
     const values = [email, firstname, lastname, hashedPassword, address];
     return pool.query(query, values, (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
-
       const user = data.rows[0];
       const result = {
         id: user.id,
@@ -54,7 +54,7 @@ class UserController {
   static signIn(req, res) {
     const { email } = req.body;
     const query = 'SELECT * FROM users WHERE email = $1';
-    return pool.query(query, [email], (err, data) => {
+    return pool.query(query, [email.trim()], (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
       const user = data.rows[0];
       const result = {

@@ -19,18 +19,12 @@ class UserValidator {
   * @memberof UserValidator
   */
   static validateExistingUser(req, res, next) {
-    const { email } = req.body;
+    let { email } = req.body; email = email.trim();
     const query = 'SELECT email FROM users WHERE email = $1';
     return pool.query(query, [email], (err, data) => {
-      if (err) {
-        return ErrorHandler.databaseError(res);
-      }
-      const result = data.rows[0];
-      if (result) {
-        if (result.email === email) {
-          return ErrorHandler.validationError(res, 409,
-            'email already exists');
-        }
+      if (err) return ErrorHandler.databaseError(res);
+      if (data.rowCount) {
+        return ErrorHandler.validationError(res, 409, 'email already exists');
       }
       return next();
     });
@@ -52,7 +46,7 @@ class UserValidator {
 
     let error;
 
-    if (!email) error = 'email field cannot be empty';
+    if (!email || !email.trim()) error = 'email field cannot be empty';
     else if (!regEx.email.test(email)) error = 'Invalid email format';
     else if (!password) error = 'password field cannot be empty';
     else if (password.length < 6) error = 'password must be at least 6 characters';
@@ -73,10 +67,8 @@ class UserValidator {
   */
   static validateName(req, res, next) {
     const regEx = Helper.regEx();
-    const { firstname, lastname } = req.body;
-
-    let err;
-
+    let { firstname, lastname } = req.body; let err;
+    firstname = firstname.trim(); lastname = lastname.trim();
     if (!firstname) err = 'firstname';
     else if (!lastname) err = 'lastname';
 
@@ -108,7 +100,8 @@ class UserValidator {
   * @memberof UserValidator
   */
   static validateAddress(req, res, next) {
-    const { address } = req.body;
+    let { address } = req.body;
+    address = address.trim().replace(/  +/g, ' ').replace(/\s\s+/g, '\n');
 
     if (address) {
       if (address.length > 255) {
@@ -132,7 +125,7 @@ class UserValidator {
     const { email, password } = req.body;
 
     const query = 'SELECT * FROM users WHERE email = $1';
-    const value = [email];
+    const value = [email.trim()];
     return pool.query(query, value, (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
       const user = data.rows[0];

@@ -23,6 +23,7 @@ carRoute.post('/car',
 carRoute.patch('/car/:id/status',
   Auth.userAuth,
   Validator.validateId,
+  CarValidator.checkCar,
   CarValidator.validateCarStatus,
   CarController.markAsSold);
 

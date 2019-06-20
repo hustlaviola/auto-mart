@@ -1,6 +1,6 @@
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
-import pool from '../models/database';
+import CarValidator from './CarValidator';
 /**
  * @class FlagValidator
  * @description Validates Car information
@@ -23,22 +23,17 @@ class FlagValidator {
     if (!carId) err = 'carId field cannot be empty';
     else if (!regEx.id.test(carId)) err = 'invalid id format';
     if (err) return ErrorHandler.validationError(res, 400, err);
-    if (!reason) err = 'reason field cannot be empty';
-    else if (!description) err = 'description field cannot be empty';
+    if (!reason || !reason.trim()) err = 'reason field cannot be empty';
+    else if (!description || !description.trim()) err = 'description field cannot be empty';
     if (err) return ErrorHandler.validationError(res, 400, err);
-    reason = reason.trim(); reason = reason.replace(/  +/g, ' ');
-    description = description.trim(); description = description.replace(/  +/g, ' ');
-    if (!reason) err = 'reason field cannot be empty';
-    else if (reason.length > 75) err = 'reason cannot be more than 75 characters';
-    else if (!description) err = 'description field cannot be empty';
+    reason = reason.trim(); reason = reason.replace(/  +/g, ' ').replace(/\s\s+/g, '\n');
+    description = description.trim();
+    description = description.replace(/  +/g, ' ').replace(/\s\s+/g, '\n');
+    if (reason.length > 75) err = 'reason cannot be more than 75 characters';
     else if (description.length > 750) err = 'description cannot be more than 750 characters';
     if (err) return ErrorHandler.validationError(res, 400, err);
-    const query = 'SELECT * FROM cars WHERE id = $1';
-    return pool.query(query, [carId], (error, data) => {
-      if (error) return ErrorHandler.databaseError(res);
-      if (data.rowCount) return next();
-      return ErrorHandler.validationError(res, 404, 'car record does not exist');
-    });
+
+    return CarValidator.checkCar(req, res, next);
   }
 }
 
