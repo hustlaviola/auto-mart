@@ -12,7 +12,7 @@ describe('/POST CAR route', () => {
   before(done => {
     chai
       .request(app)
-      .post('/api/v1/auth/login')
+      .post('/api/v1/auth/signin')
       .send({
         email: 'viola1@mail.com',
         password: 'vvvvvv',
@@ -25,7 +25,7 @@ describe('/POST CAR route', () => {
   before(done => {
     chai
       .request(app)
-      .post('/api/v1/auth/login')
+      .post('/api/v1/auth/signin')
       .send({
         email: 'viola2@mail.com',
         password: 'vvvvvv',
