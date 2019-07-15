@@ -16,7 +16,7 @@ const authenticateUser = (userInfo, endpoint) => {
     .then(data => {
       if (data.status === 'success') {
         spin.style.display = 'none';
-        const { token } = data.data[0];
+        const { token } = data.data;
         localStorage.setItem('token', token);
         window.location.href = window.location.href.includes('index')
           ? './login.html' : './home.html';
