@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
 import CarValidator from './CarValidator';
@@ -18,10 +19,10 @@ class FlagValidator {
   * @memberof FlagValidator
   */
   static validatePostFlag(req, res, next) {
-    const regEx = Helper.regEx(); const { carId } = req.body;
+    const regEx = Helper.regEx(); const { car_id } = req.body;
     let { reason, description } = req.body; let err;
-    if (!carId) err = 'carId field cannot be empty';
-    else if (!regEx.id.test(carId)) err = 'invalid id format';
+    if (!car_id) err = 'car_id field cannot be empty';
+    else if (!regEx.id.test(car_id)) err = 'invalid id format';
     if (err) return ErrorHandler.validationError(res, 400, err);
     if (!reason || !reason.trim()) err = 'reason field cannot be empty';
     else if (!description || !description.trim()) err = 'description field cannot be empty';

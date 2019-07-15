@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import ErrorHandler from '../utils/ErrorHandler';
 import pool from '../models/database';
 /**
@@ -44,14 +45,14 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validatePostCar(req, res, next) {
-    const { manufacturer, model, bodyType } = req.body;
+    const { manufacturer, model, body_type } = req.body;
     let err;
 
     if (!manufacturer || !manufacturer.trim()) err = 'manufacturer field cannot be empty';
     else if (manufacturer.trim().length > 14) err = 'manufacturer cannot be more than 14 chars';
     else if (!model || !model.trim()) err = 'model field cannot be empty';
     else if (model.trim().length > 50) err = 'model cannot be more than 50 chars';
-    else if (!bodyType || !bodyType.trim()) err = 'bodyType field cannot be empty';
+    else if (!body_type || !body_type.trim()) err = 'body_type field cannot be empty';
     if (err) return ErrorHandler.validationError(res, 400, err);
 
     return CarValidator.validateBodyType(req, res, next);
@@ -99,7 +100,7 @@ class CarValidator {
  * @memberof CarValidator
  */
   static checkCar(req, res, next) {
-    const idParams = req.params.id; const idBody = req.body.carId; let id;
+    const idParams = req.params.id; const idBody = req.body.car_id; let id;
     if (idParams) id = idParams;
     else id = idBody;
     const query = 'SELECT * FROM cars WHERE id = $1';
@@ -123,13 +124,13 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validateBodyType(req, res, next) {
-    const bodyTypeQuery = req.query.body_type; const bodyTypeBody = req.body.bodyType;
+    const bodyTypeQuery = req.query.body_type; const bodyTypeBody = req.body.body_type;
     let bodyType;
     if (bodyTypeQuery) bodyType = bodyTypeQuery;
     else bodyType = bodyTypeBody;
     const types = ['sedan', 'truck', 'trailer', 'hatchback', 'suv', 'convertible', 'coupe', 'van'];
     if (!types.includes(bodyType.trim().toLowerCase())) {
-      return ErrorHandler.validationError(res, 400, 'Invalid bodyType');
+      return ErrorHandler.validationError(res, 400, 'Invalid body_type');
     }
     return next();
   }

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
 import pool from '../models/database';
@@ -21,12 +22,12 @@ class OrderValidator {
   */
   static validatePostOrder(req, res, next) {
     const regEx = Helper.regEx();
-    const { carId, amount } = req.body;
+    const { car_id, amount } = req.body;
 
     let err;
 
-    if (!carId) err = 'carId field cannot be empty';
-    else if (!regEx.id.test(carId)) err = 'invalid id format';
+    if (!car_id) err = 'car_id field cannot be empty';
+    else if (!regEx.id.test(car_id)) err = 'invalid id format';
     else if (!amount) err = 'amount field cannot be empty';
     else if (!regEx.price.test(amount)) err = 'invalid amount format';
 

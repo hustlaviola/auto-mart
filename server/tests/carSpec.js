@@ -37,13 +37,13 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if user is not authenticated', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -60,13 +60,13 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if token cannot be authenticated', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -83,13 +83,13 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if state field is empty', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: '',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -106,13 +106,13 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if state is neither "new" nor "used"', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'red',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -128,12 +128,12 @@ describe('/POST CAR route', () => {
       });
   });
 
-  it('should return an error if amount field is empty', done => {
+  it('should return an error if price field is empty', done => {
     const car = {
       state: 'new',
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -144,19 +144,19 @@ describe('/POST CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('amount field cannot be empty');
+          .eql('price field cannot be empty');
         done(err);
       });
   });
 
-  it('should return an error if amount is badly formatted', done => {
-    const amount = 23346.809;
+  it('should return an error if price is badly formatted', done => {
+    const price = 23346.809;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -167,19 +167,19 @@ describe('/POST CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('invalid amount format');
+          .eql('invalid price format');
         done(err);
       });
   });
 
   it('should return an error if manufacturer field is empty', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: '',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -196,13 +196,13 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if manufacturer is greater than 14 characters', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: 'Lambobmwtoyotacruiser',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -219,13 +219,13 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if model field is empty', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: '',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -242,13 +242,13 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if model is more than 50 characters', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'lamborghinidiablobutthisisgettingtoolongsowhatdowedo',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -265,13 +265,13 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if body type field is empty', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: '',
+      body_type: '',
     };
     chai
       .request(app)
@@ -282,19 +282,19 @@ describe('/POST CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('bodyType field cannot be empty');
+          .eql('body_type field cannot be empty');
         done(err);
       });
   });
 
   it('should return an error if body-type is invalid', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'new',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: 'sedcv',
+      body_type: 'sedcv',
     };
     chai
       .request(app)
@@ -305,19 +305,19 @@ describe('/POST CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('Invalid bodyType');
+          .eql('Invalid body_type');
         done(err);
       });
   });
 
   it('should create a car sale advertisement if details are valid', done => {
-    const amount = 23346.89;
+    const price = 23346.89;
     const car = {
       state: 'used',
-      amount,
+      price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      bodyType: 'Sedan',
+      body_type: 'Sedan',
     };
     chai
       .request(app)
@@ -329,7 +329,7 @@ describe('/POST CAR route', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.data).to.be.an('object');
         expect(res.body.data).to.have.property('price')
-          .eql(car.amount);
+          .eql(car.price);
         expect(res.body.data).to.have.property('status')
           .eql('available');
         done(err);
@@ -502,7 +502,7 @@ describe('/PATCH CAR route', () => {
 
   it('should return an error if user is not authenticated', done => {
     const update = {
-      amount: 26700000.00,
+      price: 26700000.00,
     };
     chai
       .request(app)
@@ -520,7 +520,7 @@ describe('/PATCH CAR route', () => {
 
   it('should return an error if token cannot be authenticated', done => {
     const update = {
-      amount: 26700000.00,
+      price: 26700000.00,
     };
     chai
       .request(app)
@@ -538,7 +538,7 @@ describe('/PATCH CAR route', () => {
 
   it('should return an error if id is not a number', done => {
     const update = {
-      amount: 26700000.00,
+      price: 26700000.00,
     };
     chai
       .request(app)
@@ -556,7 +556,7 @@ describe('/PATCH CAR route', () => {
 
   it('should return an error if id is in invalid format', done => {
     const update = {
-      amount: 26700000.00,
+      price: 26700000.00,
     };
     chai
       .request(app)
@@ -572,7 +572,7 @@ describe('/PATCH CAR route', () => {
       });
   });
 
-  it('should return an error if amount field is empty', done => {
+  it('should return an error if price field is empty', done => {
     const update = {};
     chai
       .request(app)
@@ -583,14 +583,14 @@ describe('/PATCH CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('amount field cannot be empty');
+          .eql('price field cannot be empty');
         done(err);
       });
   });
 
-  it('should return an error if amount is in invalid format', done => {
+  it('should return an error if price is in invalid format', done => {
     const update = {
-      amount: 26,
+      price: 26,
     };
     chai
       .request(app)
@@ -601,14 +601,14 @@ describe('/PATCH CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('invalid amount format');
+          .eql('invalid price format');
         done(err);
       });
   });
 
   it('should return an error if car record is not found', done => {
     const update = {
-      amount: 26000000.09,
+      price: 26000000.09,
     };
     chai
       .request(app)
@@ -624,9 +624,9 @@ describe('/PATCH CAR route', () => {
       });
   });
 
-  it('should update the amount if all details are valid', done => {
+  it('should update the price if all details are valid', done => {
     const update = {
-      amount: 26000000.09,
+      price: 26000000.09,
     };
     chai
       .request(app)
@@ -637,7 +637,7 @@ describe('/PATCH CAR route', () => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body.data).to.have.property('price')
-          .eql(update.amount);
+          .eql(update.price);
         done(err);
       });
   });
@@ -941,7 +941,7 @@ describe('/GET CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('Invalid bodyType');
+          .eql('Invalid body_type');
         done(err);
       });
   });

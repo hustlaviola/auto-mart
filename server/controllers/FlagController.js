@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import pool from '../models/database';
 import ErrorHandler from '../utils/ErrorHandler';
 
@@ -17,12 +18,12 @@ class FlagController {
   * @memberof FlagController
   */
   static postFlag(req, res) {
-    const { carId } = req.body; let { reason, description } = req.body;
+    const { car_id } = req.body; let { reason, description } = req.body;
     reason = reason.trim().replace(/  +/g, ' ').replace(/\s\s+/g, `
 `);
     description = description.trim().replace(/  +/g, ' ').replace(/\s\s+/g, `
 `);
-    const values = [carId, reason, description];
+    const values = [car_id, reason, description];
     const query = `INSERT INTO flags(car_id, reason, description)
     VALUES($1, $2, $3) RETURNING *`;
     return pool.query(query, values, (err, data) => {

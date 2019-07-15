@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import pool from '../models/database';
 import ErrorHandler from '../utils/ErrorHandler';
 
@@ -17,11 +18,12 @@ class OrderController {
   * @memberof OrderController
   */
   static postOrder(req, res) {
-    const { carId, amount } = req.body; const { id } = req.user; const values = [id, carId, amount];
+    const { car_id, amount } = req.body; const { id } = req.user;
+    const values = [id, car_id, amount];
     const query = `INSERT INTO orders(buyer, car_id, amount)
     VALUES($1, $2, $3) RETURNING *`;
     const sql = 'SELECT * FROM cars WHERE id = $1';
-    return pool.query(sql, [carId], (error, info) => {
+    return pool.query(sql, [car_id], (error, info) => {
       if (error) return ErrorHandler.databaseError(res);
       return pool.query(query, values, (err, data) => {
         if (err) return ErrorHandler.databaseError(res);
@@ -30,7 +32,7 @@ class OrderController {
         return res.status(201).send({
           status: 'success',
           data: {
-            id: order.id, carId: order.car_id, createdOn, status, price, priceOffered,
+            id: order.id, car_id: order.car_id, createdOn, status, price, priceOffered,
           },
         });
       });
@@ -48,9 +50,9 @@ class OrderController {
   */
   static updateOrder(req, res) {
     const { id } = req.params;
-    const { amount } = req.body;
+    const { price } = req.body;
     const updated = new Date();
-    const values = [amount, updated, id];
+    const values = [price, updated, id];
     const sql = 'SELECT amount FROM orders WHERE id = $1';
     const query = 'UPDATE orders SET amount = $1, updated = $2 WHERE id = $3 RETURNING *';
     return pool.query(sql, [id], (error, info) => {

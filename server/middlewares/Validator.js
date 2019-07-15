@@ -21,11 +21,11 @@ class Validator {
   */
   static validatePrice(req, res, next) {
     const regEx = Helper.regEx();
-    const { amount } = req.body;
+    const { price } = req.body;
     let err;
 
-    if (!amount) err = 'amount field cannot be empty';
-    else if (!regEx.price.test(amount)) err = 'invalid amount format';
+    if (!price) err = 'price field cannot be empty';
+    else if (!regEx.price.test(price)) err = 'invalid price format';
 
     if (err) return ErrorHandler.validationError(res, 400, err);
 

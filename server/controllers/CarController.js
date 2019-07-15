@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import pool from '../models/database';
 import ErrorHandler from '../utils/ErrorHandler';
 
@@ -17,13 +18,13 @@ class CarController {
   * @memberof CarController
   */
   static postCar(req, res) {
-    const { amount } = req.body;
-    let { state, manufacturer, model, bodyType } = req.body;
+    const { price } = req.body;
+    let { state, manufacturer, model, body_type } = req.body;
     state = state.toLowerCase().trim(); manufacturer = manufacturer.toLowerCase().trim();
-    model = model.toLowerCase().trim(); bodyType = bodyType.toLowerCase().trim();
+    model = model.toLowerCase().trim(); body_type = body_type.toLowerCase().trim();
     const { id } = req.user;
 
-    const values = [id, state, amount, manufacturer, model, bodyType];
+    const values = [id, state, price, manufacturer, model, body_type];
     const query = `INSERT INTO cars(owner, state, price,
       manufacturer, model, body_type) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
 
@@ -74,9 +75,9 @@ class CarController {
     */
   static updateCarPrice(req, res) {
     const { id } = req.params;
-    const { amount } = req.body;
+    const { price } = req.body;
     const updated = new Date();
-    const values = [amount, updated, id];
+    const values = [price, updated, id];
     const query = 'UPDATE cars SET price = $1, updated = $2 WHERE id = $3 RETURNING *';
     return pool.query(query, values, (err, data) => {
       if (err) return ErrorHandler.databaseError(res);

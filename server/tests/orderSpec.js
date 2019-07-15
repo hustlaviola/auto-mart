@@ -73,14 +73,14 @@ describe('/POST ORDER route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('carId field cannot be empty');
+          .eql('car_id field cannot be empty');
         done(err);
       });
   });
 
   it('should return an error if car id is badly formatted', done => {
     const order = {
-      carId: 3.67,
+      car_id: 3.67,
       amount: 10899838.98,
     };
     chai
@@ -99,7 +99,7 @@ describe('/POST ORDER route', () => {
 
   it('should return an error if car record does not exist', done => {
     const order = {
-      carId: 34,
+      car_id: 34,
       amount: 10899838.98,
     };
     chai
@@ -118,7 +118,7 @@ describe('/POST ORDER route', () => {
 
   it('should return an error if amount field is empty', done => {
     const order = {
-      carId: 1,
+      car_id: 1,
     };
     chai
       .request(app)
@@ -137,7 +137,7 @@ describe('/POST ORDER route', () => {
   it('should return an error if amount is badly formatted', done => {
     const amount = 233;
     const order = {
-      carId: 1,
+      car_id: 1,
       amount,
     };
     chai
@@ -157,7 +157,7 @@ describe('/POST ORDER route', () => {
   it('should create a purchase order if details are valid', done => {
     const amount = 233.76;
     const order = {
-      carId: 1,
+      car_id: 1,
       amount,
     };
     chai
@@ -180,7 +180,7 @@ describe('/POST ORDER route', () => {
 describe('/PATCH ORDER route', () => {
   it('should return an error if user is not authenticated', done => {
     const update = {
-      amount: 26700000.00,
+      price: 26700000.00,
     };
     chai
       .request(app)
@@ -198,7 +198,7 @@ describe('/PATCH ORDER route', () => {
 
   it('should return an error if token cannot be authenticated', done => {
     const update = {
-      amount: 26700000.00,
+      price: 26700000.00,
     };
     chai
       .request(app)
@@ -216,7 +216,7 @@ describe('/PATCH ORDER route', () => {
 
   it('should return an error if id is not a number', done => {
     const update = {
-      amount: 26700000.00,
+      price: 26700000.00,
     };
     chai
       .request(app)
@@ -234,7 +234,7 @@ describe('/PATCH ORDER route', () => {
 
   it('should return an error if id is in invalid format', done => {
     const update = {
-      amount: 26700000.00,
+      price: 26700000.00,
     };
     chai
       .request(app)
@@ -250,7 +250,7 @@ describe('/PATCH ORDER route', () => {
       });
   });
 
-  it('should return an error if amount field is empty', done => {
+  it('should return an error if price field is empty', done => {
     const update = {};
     chai
       .request(app)
@@ -261,14 +261,14 @@ describe('/PATCH ORDER route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('amount field cannot be empty');
+          .eql('price field cannot be empty');
         done(err);
       });
   });
 
-  it('should return an error if amount is in invalid format', done => {
+  it('should return an error if price is in invalid format', done => {
     const update = {
-      amount: 26,
+      price: 26,
     };
     chai
       .request(app)
@@ -279,14 +279,14 @@ describe('/PATCH ORDER route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('invalid amount format');
+          .eql('invalid price format');
         done(err);
       });
   });
 
   it('should return an error if order record is not found', done => {
     const update = {
-      amount: 26000000.09,
+      price: 26000000.09,
     };
     chai
       .request(app)
@@ -304,7 +304,7 @@ describe('/PATCH ORDER route', () => {
 
   it('should return an error if order is not pending', done => {
     const update = {
-      amount: 26000000.09,
+      price: 26000000.09,
     };
     chai
       .request(app)
@@ -320,9 +320,9 @@ describe('/PATCH ORDER route', () => {
       });
   });
 
-  it('should update the amount if all details are valid', done => {
+  it('should update the price if all details are valid', done => {
     const update = {
-      amount: 26000000.09,
+      price: 26000000.09,
     };
     chai
       .request(app)
@@ -333,7 +333,7 @@ describe('/PATCH ORDER route', () => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         expect(res.body.data).to.have.property('newPriceOffered')
-          .eql(update.amount);
+          .eql(update.price);
         done(err);
       });
   });

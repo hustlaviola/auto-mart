@@ -26,7 +26,7 @@ describe('/POST FLAG route', () => {
 
   it('should return an error if user is not authenticated', done => {
     const flag = {
-      carId: 1,
+      car_id: 1,
       reason: 'Lorem ipsum tities',
       description: 'Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd',
     };
@@ -46,7 +46,7 @@ describe('/POST FLAG route', () => {
 
   it('should return an error if token cannot be authenticated', done => {
     const flag = {
-      carId: 1,
+      car_id: 1,
       reason: 'Lorem ipsum tities',
       description: 'Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd',
     };
@@ -78,14 +78,14 @@ describe('/POST FLAG route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('carId field cannot be empty');
+          .eql('car_id field cannot be empty');
         done(err);
       });
   });
 
   it('should return an error if car id is badly formatted', done => {
     const flag = {
-      carId: 1.67,
+      car_id: 1.67,
       reason: 'Lorem ipsum tities',
       description: 'Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd',
     };
@@ -105,7 +105,7 @@ describe('/POST FLAG route', () => {
 
   it('should return an error if car record does not exist', done => {
     const flag = {
-      carId: 91,
+      car_id: 91,
       reason: 'Lorem ipsum tities',
       description: 'Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd',
     };
@@ -125,7 +125,7 @@ describe('/POST FLAG route', () => {
 
   it('should return an error if reason field is empty', done => {
     const flag = {
-      carId: 1,
+      car_id: 1,
       description: 'Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd',
     };
     chai
@@ -144,7 +144,7 @@ describe('/POST FLAG route', () => {
 
   it('should return an error if reason is more than 75 characters', done => {
     const flag = {
-      carId: 1,
+      car_id: 1,
       reason: 'Lorem ipsum tities jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf gffgghh',
       description: 'Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd',
     };
@@ -164,7 +164,7 @@ describe('/POST FLAG route', () => {
 
   it('should return an error if description field is empty', done => {
     const flag = {
-      carId: 1,
+      car_id: 1,
       reason: 'Lorem ipsum tities',
     };
     chai
@@ -183,7 +183,7 @@ describe('/POST FLAG route', () => {
 
   it('should return an error if description is more than 750 characters', done => {
     const flag = {
-      carId: 1,
+      car_id: 1,
       reason: 'Lorem ipsum tities',
       description: `Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd
       Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd
@@ -212,7 +212,7 @@ describe('/POST FLAG route', () => {
 
   it('should flag an ad if details are valid', done => {
     const flag = {
-      carId: 1,
+      car_id: 1,
       reason: 'Lorem ipsum tities',
       description: 'Ljsjfkfd jfjfjdjfjdf dfjdjfjddfj fkdfjjfd jfdjfjfjdfj eefjefjjjjf fjdskfdfd',
     };
