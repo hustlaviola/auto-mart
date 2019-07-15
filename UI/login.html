@@ -38,7 +38,7 @@
     <div class="container flex flex-center">
       <div class="login">
         <h3 class="mt-2">Login here</h3>
-        <form class="flex-column mt-2">
+        <form class="flex-column mt-2 auth-form">
           <input
             type="email"
             placeholder="Email.."
@@ -54,7 +54,11 @@
             class="form-unit mb-2"
             required
           />
-          <button type="submit" id="login-btn" class="btn btn-primary mt-3" onclick="login(event)">Login</button>
+          <button type="submit" id="login-btn" class="btn btn-primary mt-3 mb-2">Login</button>
+          <p class="error"></p>
+          <div class="spin flex flex-center">
+            <img src="./assets/img/spinner.gif" alt="">
+          </div>
         </form>
         <a href="reset.html"
           ><p class="switch mt-1 mb-1">Forgot password?</p></a
@@ -62,5 +66,6 @@
       </div>
     </div>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/auth.js"></script>
   </body>
 </html>
