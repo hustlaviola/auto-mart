@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger.json';
 import userRoute from './routes/userRoute';
@@ -8,6 +9,7 @@ import orderRoute from './routes/orderRoute';
 import flagRoute from './routes/flagRoute';
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 app.use(
