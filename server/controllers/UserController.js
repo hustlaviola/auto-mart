@@ -35,9 +35,11 @@ class UserController {
         isAdmin: user.is_admin,
       };
       const token = Helper.generateToken(result);
+      // eslint-disable-next-line camelcase
+      const { id, first_name, last_name, is_admin } = user;
       return res.status(201).send({
         status: 'success',
-        data: { token, id: user.id, firstname, lastname, email },
+        data: { token, id, first_name, last_name, email, is_admin },
       });
     });
   }
@@ -63,9 +65,11 @@ class UserController {
         isAdmin: user.is_admin,
       };
       const token = Helper.generateToken(result);
+      // eslint-disable-next-line camelcase
+      const { id, first_name, last_name, is_admin } = user;
       return res.status(200).send({
         status: 'success',
-        data: { token, id: user.id, firstname: user.first_name, lastname: user.last_name, email },
+        data: { token, id, first_name, last_name, email, is_admin },
       });
     });
   }
