@@ -457,6 +457,10 @@ textarea {
   border-radius: 5px;
 }
 
+.spin {
+  display: none;
+}
+
 .switch {
   color: var(--primary-text);
 }
