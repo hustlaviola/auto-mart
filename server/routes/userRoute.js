@@ -12,7 +12,7 @@ userRoute.post('/auth/signup',
   UserValidator.validateExistingUser,
   UserController.signUp);
 
-userRoute.post('/auth/login',
+userRoute.post('/auth/signin',
   UserValidator.auth,
   UserValidator.validateSignIn,
   UserController.signIn);

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Helper from '../utils/Helper';
 import pool from '../models/database';
 import ErrorHandler from '../utils/ErrorHandler';
@@ -18,14 +19,14 @@ class UserController {
   * @memberof UserController
   */
   static signUp(req, res) {
-    let { email, firstname, lastname, address } = req.body;
+    let { email, first_name, last_name, address } = req.body;
     const { password } = req.body;
-    email = email.trim(); firstname = firstname.trim(); lastname = lastname.trim();
-    address = address.trim().replace(/  +/g, ' ').replace(/\s\s+/g, '\n');
+    email = email.trim(); first_name = first_name.trim(); last_name = last_name.trim();
+    if (address) address = address.trim().replace(/  +/g, ' ').replace(/\s\s+/g, '\n');
     const hashedPassword = Helper.hashPassword(password);
     const query = `INSERT INTO users(email, first_name, last_name,
       password, address) VALUES($1, $2, $3, $4, $5) RETURNING *`;
-    const values = [email, firstname, lastname, hashedPassword, address];
+    const values = [email, first_name, last_name, hashedPassword, address];
     return pool.query(query, values, (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
       const user = data.rows[0];
@@ -35,11 +36,9 @@ class UserController {
         isAdmin: user.is_admin,
       };
       const token = Helper.generateToken(result);
-      // eslint-disable-next-line camelcase
-      const { id, first_name, last_name, is_admin } = user;
       return res.status(201).send({
         status: 'success',
-        data: { token, id, first_name, last_name, email, is_admin },
+        data: { token, ...user },
       });
     });
   }
@@ -66,10 +65,9 @@ class UserController {
       };
       const token = Helper.generateToken(result);
       // eslint-disable-next-line camelcase
-      const { id, first_name, last_name, is_admin } = user;
       return res.status(200).send({
         status: 'success',
-        data: { token, id, first_name, last_name, email, is_admin },
+        data: { token, ...user },
       });
     });
   }

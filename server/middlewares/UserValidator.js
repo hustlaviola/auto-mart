@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import pool from '../models/database';
 import Helper from '../utils/Helper';
 import ErrorHandler from '../utils/ErrorHandler';
@@ -67,20 +68,20 @@ class UserValidator {
   */
   static validateName(req, res, next) {
     const regEx = Helper.regEx();
-    let { firstname, lastname } = req.body; let err;
-    firstname = firstname.trim(); lastname = lastname.trim();
-    if (!firstname) err = 'firstname';
-    else if (!lastname) err = 'lastname';
+    let { first_name, last_name } = req.body; let err;
+    first_name = first_name.trim(); last_name = last_name.trim();
+    if (!first_name) err = 'first_name';
+    else if (!last_name) err = 'last_name';
 
     if (err) return ErrorHandler.validationError(res, 400, `${err} field cannot be empty`);
 
-    if (!regEx.name.test(firstname)) err = 'firstname';
-    else if (!regEx.name.test(lastname)) err = 'lastname';
+    if (!regEx.name.test(first_name)) err = 'first_name';
+    else if (!regEx.name.test(last_name)) err = 'last_name';
 
     if (err) return ErrorHandler.validationError(res, 400, `${err} must be alphabets only`);
 
-    if (firstname.length < 3 || firstname.length > 30) err = 'firstname';
-    else if (lastname.length < 3 || lastname.length > 30) err = 'lastname';
+    if (first_name.length < 3 || first_name.length > 30) err = 'first_name';
+    else if (last_name.length < 3 || last_name.length > 30) err = 'last_name';
 
     if (err) {
       return ErrorHandler.validationError(res, 400,
@@ -101,9 +102,9 @@ class UserValidator {
   */
   static validateAddress(req, res, next) {
     let { address } = req.body;
-    address = address.trim().replace(/  +/g, ' ').replace(/\s\s+/g, '\n');
 
     if (address) {
+      address = address.trim().replace(/  +/g, ' ').replace(/\s\s+/g, '\n');
       if (address.length > 255) {
         return ErrorHandler.validationError(res, 400, 'address must not be greater than 255 chars');
       }
