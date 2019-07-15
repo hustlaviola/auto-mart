@@ -17,9 +17,15 @@ const authenticateUser = (userInfo, endpoint) => {
       if (data.status === 'success') {
         spin.style.display = 'none';
         const { token } = data.data;
+        const isAdmin = data.data.is_admin;
         localStorage.setItem('token', token);
-        window.location.href = window.location.href.includes('index')
-          ? './login.html' : './home.html';
+        if (isAdmin) {
+          window.location.href = window.location.href.includes('index')
+            ? './login.html' : './admin.html';
+        } else {
+          window.location.href = window.location.href.includes('index')
+            ? './login.html' : './home.html';
+        }
       } else {
         spin.style.display = 'none';
         errorMessage.textContent = data.error;
