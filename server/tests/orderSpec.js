@@ -332,7 +332,7 @@ describe('/PATCH ORDER route', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.data).to.have.property('newPriceOffered')
+        expect(res.body.data).to.have.property('new_price_offered')
           .eql(update.price);
         done(err);
       });

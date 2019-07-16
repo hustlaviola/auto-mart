@@ -1111,7 +1111,7 @@ describe('/DELETE CAR route', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.property('message')
+        expect(res.body.data).to.have.property('message')
           .eql('Car ad deleted successfully');
         done(err);
       });
