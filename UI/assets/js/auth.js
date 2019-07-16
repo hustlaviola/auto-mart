@@ -20,11 +20,11 @@ const authenticateUser = (userInfo, endpoint) => {
         const isAdmin = data.data.is_admin;
         localStorage.setItem('token', token);
         if (isAdmin) {
-          window.location.href = window.location.href.includes('index')
-            ? './login.html' : './admin.html';
+          window.location.href = window.location.href.includes('login')
+            ? './admin.html' : './login.html';
         } else {
-          window.location.href = window.location.href.includes('index')
-            ? './login.html' : './home.html';
+          window.location.href = window.location.href.includes('login')
+            ? './home.html' : './login.html';
         }
       } else {
         spin.style.display = 'none';
@@ -39,14 +39,14 @@ const authenticateUser = (userInfo, endpoint) => {
 document.querySelector('.auth-form').addEventListener('submit', event => {
   event.preventDefault();
 
-  let endpoint = 'login';
+  let endpoint = 'signin';
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const userDetails = {
     email, password,
   };
 
-  if (window.location.href.includes('index')) {
+  if (!window.location.href.includes('login')) {
     endpoint = 'signup';
 
     const firstname = document.getElementById('firstname').value;
