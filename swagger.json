@@ -1,768 +1,908 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers",
-      "version": "1.0.0",
-      "title": "Auto Mart",
-      "termsOfService": "http://swagger.io/terms/",
-      "contact": {
-        "email": "hustlaviola@gmail.com"
-      },
-      "license": {
-        "name": "Apache 2.0",
-        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-      }
+  "swagger": "2.0",
+  "info": {
+    "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers",
+    "version": "1.0.0",
+    "title": "Auto Mart",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "hustlaviola@gmail.com"
     },
-    "host": "automobilemart.herokuapp.com",
-    "basePath": "/api/v1",
-    "tags": [
-      {
-        "name": "user",
-        "description": "Create account and login"
-      },
-      {
-        "name": "cars",
-        "description": "Post car sale advertisement"
-      },
-      {
-        "name": "orders",
-        "description": "Make a purchase order for car items"
-      }
-    ],
-    "schemes": [
-      "https",
-      "http"
-    ],
-    "paths": {
-      "/auth/signup": {
-        "post": {
-          "tags": [
-            "auth"
-          ],
-          "summary": "Create a new user",
-          "description": "This endpoint registers a new user",
-          "operationId": "createUser",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Information needed to create a user",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Signup"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/AuthResponse"
-              }
-            },
-            "400": {
-              "description": "email field cannot be empty"
-            }
-          }
-        }
-      },
-      "/auth/login": {
-        "post": {
-          "tags": [
-            "auth"
-          ],
-          "summary": "Login a user",
-          "description": "This endpoint signs in a user",
-          "operationId": "loginUser",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Information needed for login",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Login"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/AuthResponse"
-              }
-            },
-            "400": {
-              "description": "email field cannot be empty"
-            }
-          }
-        }
-      },
-      "/car": {
-        "post": {
-          "tags": [
-            "cars"
-          ],
-          "summary": "Post a car sale advertisement",
-          "description": "This endpoint posts a car sale advertisement",
-          "operationId": "postCar",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Information needed to create a car ad",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/PostCar"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/CarResponse"
-              }
-            },
-            "400": {
-              "description": "manufacturer field cannot be empty"
-            }
-          }
-        },
-        "get": {
-          "tags": [
-            "car"
-          ],
-          "summary": "Retrieve all unsold cars within a price range",
-          "description": "Status must be available, minimum and maximum price must be specified",
-          "operationId": "getUnsoldWithinRange",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "status",
-              "in": "query",
-              "description": "Status values that need to be considered for filter",
-              "required": true,
-              "type": "string",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "available"
-                ],
-                "default": "available"
-              }
-            },
-            {
-              "name": "min_price",
-              "in": "query",
-              "description": "Minimum price to be considered for filter",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "name": "max_price",
-              "in": "query",
-              "description": "Maximum price to be considered for filter",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/GetCars"
-                }
-              }
-            },
-            "400": {
-              "description": "query 'min_price' must be provided"
-            }
-          }
-        }
-      },
-      "/car/{id}/status": {
-        "patch": {
-          "tags": [
-            "cars"
-          ],
-          "summary": "Update status of a specific car",
-          "description": "This endpoint updates the status of a specific car",
-          "operationId": "patchCarStatus",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of car to update",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "description": "New status of the car",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/PatchCarStatus"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/CarResponse"
-              }
-            },
-            "400": {
-              "description": "invalid id format"
-            },
-            "404": {
-              "description": "car record does not exist"
-            }
-          }
-        }
-      },
-      "/car/{id}/price": {
-        "patch": {
-          "tags": [
-            "cars"
-          ],
-          "summary": "Update price of a specific car ad",
-          "description": "This endpoint updates the price of a specific car ad",
-          "operationId": "patchCarPrice",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of car to update",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "description": "New price of the car ad",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/PatchPrice"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/CarResponse"
-              }
-            },
-            "400": {
-              "description": "invalid id format"
-            },
-            "404": {
-              "description": "car record does not exist"
-            }
-          }
-        }
-      },
-      "/car/{id}": {
-        "get": {
-          "tags": [
-            "cars"
-          ],
-          "summary": "Retrieve a specific car record",
-          "description": "This endpoint fetches a specific car ad record",
-          "operationId": "getCar",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of car ad to return",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/CarResponse"
-              }
-            },
-            "400": {
-              "description": "invalid id format"
-            },
-            "404": {
-              "description": "car record does not exist"
-            }
-          }
-        },
-        "delete": {
-          "tags": [
-            "cars"
-          ],
-          "summary": "Deletes a car ad",
-          "description": "This endpoint deletes a car ad",
-          "operationId": "deleteCar",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "Car id to delete",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Car Ad successfully deleted"
-            },
-            "400": {
-              "description": "invalid id format"
-            },
-            "404": {
-              "description": "car record does not exist"
-            }
-          }
-        }
-      },
-      "/order": {
-        "post": {
-          "tags": [
-            "orders"
-          ],
-          "summary": "Make a purchase order",
-          "description": "This endpoint creates a purchase order for a car",
-          "operationId": "postOrder",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Information needed to make a purchase order",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/PostOrder"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/PostOrderResponse"
-              }
-            },
-            "400": {
-              "description": "amount field cannot be empty"
-            }
-          }
-        }
-      },
-      "/order/{id}/price": {
-        "patch": {
-          "tags": [
-            "orders"
-          ],
-          "summary": "Update price of a specific order",
-          "description": "This endpoint updates the price of a specific order",
-          "operationId": "patchOrderPrice",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of order to update",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "description": "New price of the order",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/PatchPrice"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "schema": {
-                "$ref": "#/definitions/PatchOrderPriceResponse"
-              }
-            },
-            "400": {
-              "description": "invalid id format"
-            },
-            "404": {
-              "description": "car record does not exist"
-            }
-          }
-        }
-      }
-    },
-    "definitions": {
-      "Signup": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string",
-            "format": "password"
-          },
-          "address": {
-            "type": "string"
-          }
-        }
-      },
-      "Login": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string",
-            "format": "password"
-          }
-        }
-      },
-      "AuthResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
-          },
-          "data": {
-            "type": "object",
-            "items": {
-              "properties": {
-                "token": {
-                  "type": "string"
-                },
-                "id": {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                "firstName": {
-                  "type": "string"
-                },
-                "lastName": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "PostCar": {
-        "type": "object",
-        "properties": {
-          "state": {
-            "type": "string",
-            "description": "Either new or used",
-            "enum": [
-              "new",
-              "used"
-            ]
-          },
-          "price": {
-            "type": "number",
-            "format": "float"
-          },
-          "manufacturer": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "bodyType": {
-            "type": "string"
-          }
-        }
-      },
-      "CarResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
-          },
-          "data": {
-            "type": "object",
-            "items": {
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "createdOn": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "price": {
-                  "type": "number",
-                  "format": "float"
-                },
-                "manufacturer": {
-                  "type": "string"
-                },
-                "model": {
-                  "type": "string"
-                },
-                "bodyType": {
-                  "type": "string"
-                },
-                "state": {
-                  "type": "string",
-                  "description": "Either new or used",
-                  "enum": [
-                    "new",
-                    "used"
-                  ]
-                },
-                "status": {
-                  "type": "string",
-                  "description": "Either available or sold",
-                  "enum": [
-                    "available",
-                    "sold"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
-      "GetCars": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "properties": {
-                "id": {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                "owner": {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                "createdOn": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "state": {
-                  "type": "string",
-                  "description": "Either new or used",
-                  "enum": [
-                    "new",
-                    "used"
-                  ]
-                },
-                "status": {
-                  "type": "string",
-                  "description": "Either available or sold",
-                  "enum": [
-                    "available",
-                    "sold"
-                  ]
-                },
-                "price": {
-                  "type": "number",
-                  "format": "float"
-                },
-                "manufacturer": {
-                  "type": "string"
-                },
-                "model": {
-                  "type": "string"
-                },
-                "bodyType": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "PatchCarStatus": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
-          }
-        }
-      },
-      "PatchPrice": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "type": "number",
-            "format": "float"
-          }
-        }
-      },
-      "PostOrder": {
-        "type": "object",
-        "properties": {
-          "carId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "amount": {
-            "type": "number",
-            "format": "float"
-          }
-        }
-      },
-      "PatchOrderPriceResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "carId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "status": {
-            "type": "string",
-            "description": "Either accepted, pending or rejected",
-            "enum": [
-              "accepted",
-              "pending",
-              "rejected"
-            ]
-          },
-          "oldPriceOffered": {
-            "type": "number",
-            "format": "float"
-          },
-          "newPriceOffered": {
-            "type": "number",
-            "format": "float"
-          },
-          "updatedOn": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "PostOrderResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "carId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "createdOn": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "status": {
-            "type": "string",
-            "description": "Either accepted, pending or rejected",
-            "enum": [
-              "accepted",
-              "pending",
-              "rejected"
-            ]
-          },
-          "price": {
-            "type": "number",
-            "format": "float"
-          },
-          "priceOffered": {
-            "type": "number",
-            "format": "float"
-          }
-        }
-      }
-    },
-    "externalDocs": {
-      "description": "Find out more about Swagger",
-      "url": "http://swagger.io"
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
+  },
+  "host": "automobilemart.herokuapp.com",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Create account and login"
+    },
+    {
+      "name": "cars",
+      "description": "Post car sale advertisement"
+    },
+    {
+      "name": "orders",
+      "description": "Make a purchase order for car items"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Create a new user",
+        "description": "This endpoint registers a new user",
+        "operationId": "createUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Information needed to create a user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "400": {
+            "description": "email field cannot be empty"
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login a user",
+        "description": "This endpoint signs in a user",
+        "operationId": "loginUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Information needed for login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "400": {
+            "description": "email field cannot be empty"
+          }
+        }
+      }
+    },
+    "/car": {
+      "post": {
+        "tags": [
+          "cars"
+        ],
+        "summary": "Post a car sale advertisement",
+        "description": "This endpoint posts a car sale advertisement",
+        "operationId": "postCar",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Information needed to create a car ad",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostCar"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CarResponse"
+            }
+          },
+          "400": {
+            "description": "manufacturer field cannot be empty"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "cars"
+        ],
+        "summary": "Retrieve car records",
+        "description": "Retrieve relevant car records using queries provided",
+        "operationId": "getCars",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": false,
+            "type": "string",
+            "items": {
+              "type": "string",
+              "enum": [
+                "available"
+              ],
+              "default": "available"
+            }
+          },
+          {
+            "name": "min_price",
+            "in": "query",
+            "description": "Minimum price to be considered for filter",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "max_price",
+            "in": "query",
+            "description": "Maximum price to be considered for filter",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "manufacturer",
+            "in": "query",
+            "description": "Make of the car to be considered for filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "body_type",
+            "in": "query",
+            "description": "Body-type of the car to be considered for filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "State of the car to be considered for filter",
+            "required": false,
+            "type": "string",
+            "items": {
+              "type": "string",
+              "enum": [
+                "new",
+                "used"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GetCars"
+              }
+            }
+          },
+          "400": {
+            "description": "query 'min_price' must be provided"
+          }
+        }
+      }
+    },
+    "/car/{id}/status": {
+      "patch": {
+        "tags": [
+          "cars"
+        ],
+        "summary": "Update status of a specific car",
+        "description": "This endpoint updates the status of a specific car",
+        "operationId": "patchCarStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of car to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "New status of the car",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PatchCarStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CarResponse"
+            }
+          },
+          "400": {
+            "description": "invalid id format"
+          },
+          "404": {
+            "description": "car record does not exist"
+          }
+        }
+      }
+    },
+    "/car/{id}/price": {
+      "patch": {
+        "tags": [
+          "cars"
+        ],
+        "summary": "Update price of a specific car ad",
+        "description": "This endpoint updates the price of a specific car ad",
+        "operationId": "patchCarPrice",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of car to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "New price of the car ad",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PatchPrice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CarResponse"
+            }
+          },
+          "400": {
+            "description": "invalid id format"
+          },
+          "404": {
+            "description": "car record does not exist"
+          }
+        }
+      }
+    },
+    "/car/{id}": {
+      "get": {
+        "tags": [
+          "cars"
+        ],
+        "summary": "Retrieve a specific car record",
+        "description": "This endpoint fetches a specific car ad record",
+        "operationId": "getCar",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of car ad to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CarResponse"
+            }
+          },
+          "400": {
+            "description": "invalid id format"
+          },
+          "404": {
+            "description": "car record does not exist"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cars"
+        ],
+        "summary": "Deletes a car ad",
+        "description": "This endpoint deletes a car ad",
+        "operationId": "deleteCar",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Car id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car Ad successfully deleted"
+          },
+          "400": {
+            "description": "invalid id format"
+          },
+          "404": {
+            "description": "car record does not exist"
+          }
+        }
+      }
+    },
+    "/order": {
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Make a purchase order",
+        "description": "This endpoint creates a purchase order for a car",
+        "operationId": "postOrder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Information needed to make a purchase order",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostOrder"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PostOrderResponse"
+            }
+          },
+          "400": {
+            "description": "amount field cannot be empty"
+          }
+        }
+      }
+    },
+    "/order/{id}/price": {
+      "patch": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Update price of a specific order",
+        "description": "This endpoint updates the price of a specific order",
+        "operationId": "patchOrderPrice",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of order to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "New price of the order",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PatchPrice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PatchOrderPriceResponse"
+            }
+          },
+          "400": {
+            "description": "invalid id format"
+          },
+          "404": {
+            "description": "car record does not exist"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Signup": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        }
+      }
+    },
+    "AuthResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "items": {
+            "properties": {
+              "token": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "PostCar": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "Either new or used",
+          "enum": [
+            "new",
+            "used"
+          ]
+        },
+        "price": {
+          "type": "number",
+          "format": "float"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "body_type": {
+          "type": "string"
+        }
+      }
+    },
+    "CarResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "items": {
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "email": {
+                "type": "string"
+              },
+              "created_on": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "price": {
+                "type": "number",
+                "format": "float"
+              },
+              "manufacturer": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "body_type": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string",
+                "description": "Either new or used",
+                "enum": [
+                  "new",
+                  "used"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "description": "Either available or sold",
+                "enum": [
+                  "available",
+                  "sold"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "GetCars": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "owner": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "created_on": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "state": {
+                "type": "string",
+                "description": "Either new or used",
+                "enum": [
+                  "new",
+                  "used"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "description": "Either available or sold",
+                "enum": [
+                  "available",
+                  "sold"
+                ]
+              },
+              "price": {
+                "type": "number",
+                "format": "float"
+              },
+              "manufacturer": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "body_type": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "PatchCarStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "PatchPrice": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "PostOrder": {
+      "type": "object",
+      "properties": {
+        "car_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "PatchOrderPriceResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "car_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string",
+          "description": "Either accepted, pending or rejected",
+          "enum": [
+            "accepted",
+            "pending",
+            "rejected"
+          ]
+        },
+        "old_price_offered": {
+          "type": "number",
+          "format": "float"
+        },
+        "new_price_offered": {
+          "type": "number",
+          "format": "float"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "PostOrderResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "car_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Either accepted, pending or rejected",
+          "enum": [
+            "accepted",
+            "pending",
+            "rejected"
+          ]
+        },
+        "price": {
+          "type": "number",
+          "format": "float"
+        },
+        "price_offered": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
   }
+}
