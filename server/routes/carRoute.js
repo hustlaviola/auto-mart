@@ -41,6 +41,7 @@ carRoute.get('/car/:id',
   CarController.getCar);
 
 carRoute.get('/car',
+  Auth.userAuth,
   Validator.validateQuery,
   CarController.getCars);
 
