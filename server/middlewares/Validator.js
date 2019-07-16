@@ -71,7 +71,7 @@ class Validator {
       if (req.query.min_price || req.query.max_price || manufacturer || bodyType || state) {
         return ErrorHandler.validationError(res, 400, 'query \'status\' must be provided');
       }
-      return Validator.checkAdmin(req, res, next);
+      return next();
     }
     if (status.toLowerCase() !== 'available') {
       return ErrorHandler.validationError(res, 400, 'status must be \'available\'');

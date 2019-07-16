@@ -891,19 +891,19 @@ describe('/GET CAR route', () => {
       });
   });
 
-  it('should return an error if user is not admin', done => {
-    chai
-      .request(app)
-      .get('/api/v1/car')
-      .set('authorization', `Bearer ${userToken}`)
-      .end((err, res) => {
-        expect(res).to.have.status(401);
-        expect(res.body).to.be.an('object');
-        expect(res.body).to.have.property('error')
-          .eql('require admin access');
-        done(err);
-      });
-  });
+  // it('should return an error if user is not admin', done => {
+  //   chai
+  //     .request(app)
+  //     .get('/api/v1/car')
+  //     .set('authorization', `Bearer ${userToken}`)
+  //     .end((err, res) => {
+  //       expect(res).to.have.status(401);
+  //       expect(res.body).to.be.an('object');
+  //       expect(res.body).to.have.property('error')
+  //         .eql('require admin access');
+  //       done(err);
+  //     });
+  // });
 
   it('should retrieve the list of all cars if all details are valid', done => {
     chai
