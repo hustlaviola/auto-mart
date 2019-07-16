@@ -15,7 +15,6 @@ class ErrorHandler {
    * @memberof ErrorHandler
    */
   static validationError(res, code, message) {
-    console.log(message);
     return res.status(code).send({
       status: 'error',
       error: message,
