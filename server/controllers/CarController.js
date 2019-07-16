@@ -165,7 +165,7 @@ class CarController {
       if (err) return ErrorHandler.databaseError(res);
       return res.status(200).send({
         status: 'success',
-        message: 'Car ad deleted successfully',
+        data: { message: 'Car ad deleted successfully' },
       });
     });
   }

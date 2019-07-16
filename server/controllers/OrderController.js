@@ -27,12 +27,12 @@ class OrderController {
       if (error) return ErrorHandler.databaseError(res);
       return pool.query(query, values, (err, data) => {
         if (err) return ErrorHandler.databaseError(res);
-        const car = info.rows[0]; const order = data.rows[0]; const priceOffered = amount;
-        const createdOn = order.updated; const { status } = order; const { price } = car;
+        const car = info.rows[0]; const order = data.rows[0]; const price_offered = amount;
+        const created_on = order.updated; const { status } = order; const { price } = car;
         return res.status(201).send({
           status: 'success',
           data: {
-            id: order.id, car_id: order.car_id, createdOn, status, price, priceOffered,
+            id: order.id, car_id: order.car_id, created_on, status, price, price_offered,
           },
         });
       });
@@ -58,14 +58,15 @@ class OrderController {
     return pool.query(sql, [id], (error, info) => {
       if (error) return ErrorHandler.databaseError(res);
       const offer = info.rows[0];
-      const oldPriceOffered = offer.amount;
+      const old_price_offered = offer.amount;
       return pool.query(query, values, (err, data) => {
         if (err) return ErrorHandler.databaseError(res);
-        const order = data.rows[0]; const { status } = order; const newPriceOffered = order.amount;
+        const order = data.rows[0]; const { status } = order; const { car_id } = order;
+        const new_price_offered = order.amount;
         return res.status(200).send({
           status: 'success',
           data: {
-            id: order.id, carId: order.car_id, status, oldPriceOffered, newPriceOffered, updated,
+            id: order.id, car_id, status, old_price_offered, new_price_offered, updated,
           },
         });
       });
