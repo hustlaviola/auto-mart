@@ -294,7 +294,7 @@ describe('/POST CAR route', () => {
       price,
       manufacturer: 'Toyota',
       model: 'Yaris',
-      body_type: 'sedcv',
+      body_type: 'lamborghinidiablobutthisisgettingtoolongsowhatdowedo',
     };
     chai
       .request(app)
@@ -305,7 +305,7 @@ describe('/POST CAR route', () => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error')
-          .eql('Invalid body_type');
+          .eql('body_type cannot be more than 50 chars');
         done(err);
       });
   });

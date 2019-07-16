@@ -53,9 +53,10 @@ class CarValidator {
     else if (!model || !model.trim()) err = 'model field cannot be empty';
     else if (model.trim().length > 50) err = 'model cannot be more than 50 chars';
     else if (!body_type || !body_type.trim()) err = 'body_type field cannot be empty';
+    else if (body_type.trim().length > 50) err = 'body_type cannot be more than 50 chars';
     if (err) return ErrorHandler.validationError(res, 400, err);
 
-    return CarValidator.validateBodyType(req, res, next);
+    return next();
   }
 
   /**
