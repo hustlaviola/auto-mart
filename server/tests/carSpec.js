@@ -150,7 +150,7 @@ describe('/POST CAR route', () => {
   });
 
   it('should return an error if price is badly formatted', done => {
-    const price = 23346.809;
+    const price = '23346.8r09';
     const car = {
       state: 'new',
       price,
@@ -590,7 +590,7 @@ describe('/PATCH CAR route', () => {
 
   it('should return an error if price is in invalid format', done => {
     const update = {
-      price: 26,
+      price: '23346.8r09',
     };
     chai
       .request(app)

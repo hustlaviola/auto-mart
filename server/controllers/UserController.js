@@ -64,7 +64,6 @@ class UserController {
         isAdmin: user.is_admin,
       };
       const token = Helper.generateToken(result);
-      // eslint-disable-next-line camelcase
       return res.status(200).send({
         status: 'success',
         data: { token, ...user },

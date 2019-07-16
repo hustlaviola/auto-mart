@@ -135,7 +135,7 @@ describe('/POST ORDER route', () => {
   });
 
   it('should return an error if amount is badly formatted', done => {
-    const amount = 233;
+    const amount = '23346.8r09';
     const order = {
       car_id: 1,
       amount,
@@ -268,7 +268,7 @@ describe('/PATCH ORDER route', () => {
 
   it('should return an error if price is in invalid format', done => {
     const update = {
-      price: 26,
+      price: '23346.8r09',
     };
     chai
       .request(app)
