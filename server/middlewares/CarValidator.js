@@ -70,17 +70,19 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validateCarStatus(req, res, next) {
-    const { id } = req.params;
+    let carId;
     const { status } = req.body;
+    if (req.url.includes('order')) carId = req.body.car_id;
+    else carId = req.params.id;
     let err;
+    if (!req.url.includes('order')) {
+      if (!status || !status.trim()) err = 'status field cannot be empty';
+      else if (status.toLowerCase().trim() !== 'sold') err = 'status must be sold';
 
-    if (!status || !status.trim()) err = 'status field cannot be empty';
-    else if (status.toLowerCase().trim() !== 'sold') err = 'status must be sold';
-
-    if (err) return ErrorHandler.validationError(res, 400, err);
-
+      if (err) return ErrorHandler.validationError(res, 400, err);
+    }
     const query = 'SELECT * FROM cars WHERE id = $1';
-    return pool.query(query, [id], (error, data) => {
+    return pool.query(query, [carId], (error, data) => {
       if (error) return ErrorHandler.databaseError(res);
       const car = data.rows[0];
       if (car.status === 'sold') {

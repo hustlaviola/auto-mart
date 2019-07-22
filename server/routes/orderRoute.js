@@ -2,6 +2,7 @@ import express from 'express';
 import Auth from '../middlewares/Auth';
 import OrderValidator from '../middlewares/OrderValidator';
 import Validator from '../middlewares/Validator';
+import CarValidator from '../middlewares/CarValidator';
 import OrderController from '../controllers/OrderController';
 
 const orderRoute = express.Router();
@@ -9,6 +10,7 @@ const orderRoute = express.Router();
 orderRoute.post('/order',
   Auth.userAuth,
   OrderValidator.validatePostOrder,
+  CarValidator.validateCarStatus,
   OrderController.postOrder);
 
 orderRoute.patch('/order/:id/price',

@@ -6,7 +6,8 @@ import app from '../app';
 chai.use(chaiHttp);
 
 const { expect } = chai;
-let userToken; let adminToken;
+let userToken;
+let adminToken;
 
 describe('/POST CAR route', () => {
   before(done => {
@@ -471,7 +472,7 @@ describe('/PATCH CAR route', () => {
     chai
       .request(app)
       .patch('/api/v1/car/2/status')
-      .set('authorization', `Bearer ${userToken}`)
+      .set('authorization', `Bearer ${adminToken}`)
       .send(update)
       .end((err, res) => {
         expect(res).to.have.status(400);

@@ -47,9 +47,10 @@ class OrderValidator {
  * @memberof Validator
  */
   static checkOrder(req, res, next) {
-    const { id } = req.params;
-    const query = 'SELECT * FROM orders WHERE id = $1';
-    return pool.query(query, [id], (err, data) => {
+    const { id } = req.user;
+    const orderId = req.params.id;
+    const query = 'SELECT * FROM orders WHERE id = $1 and buyer = $2';
+    return pool.query(query, [orderId, id], (err, data) => {
       if (err) return ErrorHandler.databaseError(res);
       if (data.rowCount < 1) {
         return ErrorHandler.validationError(res, 404, 'Order record not found');

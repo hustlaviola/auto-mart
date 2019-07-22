@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
+import pool from '../models/database';
 
 import CarValidator from './CarValidator';
 
@@ -104,6 +106,31 @@ class Validator {
     const { isAdmin } = req.user;
     if (isAdmin) return next();
     return ErrorHandler.validationError(res, 401, 'require admin access');
+  }
+
+  /**
+  * @method checkUser
+  * @description Check if user has the authorization to perform the action
+  * @static
+  * @param {object} req - The request object
+  * @param {object} res - The response object
+  * @param {object} next
+  * @returns {object} next
+  * @memberof Validator
+  */
+  static checkUser(req, res, next) {
+    const { id } = req.user;
+    const car_id = req.params.id;
+    const query = 'SELECT * FROM cars WHERE id = $1';
+    return pool.query(query, [car_id], (error, data) => {
+      if (error) return ErrorHandler.databaseError(res);
+      const car = data.rows[0];
+      if (id !== car.owner) {
+        return ErrorHandler.validationError(res, 401,
+          'you cannot update others car records');
+      }
+      return next();
+    });
   }
 }
 

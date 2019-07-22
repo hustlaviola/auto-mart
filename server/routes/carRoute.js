@@ -24,6 +24,7 @@ carRoute.patch('/car/:id/status',
   Auth.userAuth,
   Validator.validateId,
   CarValidator.checkCar,
+  Validator.checkUser,
   CarValidator.validateCarStatus,
   CarController.markAsSold);
 
@@ -32,6 +33,7 @@ carRoute.patch('/car/:id/price',
   Validator.validateId,
   Validator.validatePrice,
   CarValidator.checkCar,
+  Validator.checkUser,
   CarController.updateCarPrice);
 
 carRoute.get('/car/:id',

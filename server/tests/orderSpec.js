@@ -8,6 +8,8 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 let userToken;
+let userToken3;
+let adminToken;
 
 describe('/POST ORDER route', () => {
   before(done => {
@@ -20,6 +22,32 @@ describe('/POST ORDER route', () => {
       })
       .end((err, res) => {
         userToken = res.body.data.token;
+        done(err);
+      });
+  });
+  before(done => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'viola3@mail.com',
+        password: 'vvvvvv',
+      })
+      .end((err, res) => {
+        userToken3 = res.body.data.token;
+        done(err);
+      });
+  });
+  before(done => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'viola2@mail.com',
+        password: 'vvvvvv',
+      })
+      .end((err, res) => {
+        adminToken = res.body.data.token;
         done(err);
       });
   });
@@ -118,7 +146,7 @@ describe('/POST ORDER route', () => {
 
   it('should return an error if amount field is empty', done => {
     const order = {
-      car_id: 1,
+      car_id: 4,
     };
     chai
       .request(app)
@@ -137,7 +165,7 @@ describe('/POST ORDER route', () => {
   it('should return an error if amount is badly formatted', done => {
     const amount = '23346.8r09';
     const order = {
-      car_id: 1,
+      car_id: 4,
       amount,
     };
     chai
@@ -154,10 +182,30 @@ describe('/POST ORDER route', () => {
       });
   });
 
+  it('should return an error if car is already sold', done => {
+    const amount = 22343;
+    const order = {
+      car_id: 2,
+      amount,
+    };
+    chai
+      .request(app)
+      .post('/api/v1/order')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(order)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('Car has already been marked as sold');
+        done(err);
+      });
+  });
+
   it('should create a purchase order if details are valid', done => {
     const amount = 233.76;
     const order = {
-      car_id: 1,
+      car_id: 4,
       amount,
     };
     chai
@@ -272,7 +320,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/1/price')
+      .patch('/api/v1/order/2/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -291,7 +339,7 @@ describe('/PATCH ORDER route', () => {
     chai
       .request(app)
       .patch('/api/v1/order/17/price')
-      .set('authorization', `Bearer ${userToken}`)
+      .set('authorization', `Bearer ${userToken3}`)
       .send(update)
       .end((err, res) => {
         expect(res).to.have.status(404);
@@ -309,7 +357,7 @@ describe('/PATCH ORDER route', () => {
     chai
       .request(app)
       .patch('/api/v1/order/2/price')
-      .set('authorization', `Bearer ${userToken}`)
+      .set('authorization', `Bearer ${adminToken}`)
       .send(update)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -327,7 +375,7 @@ describe('/PATCH ORDER route', () => {
     chai
       .request(app)
       .patch('/api/v1/order/1/price')
-      .set('authorization', `Bearer ${userToken}`)
+      .set('authorization', `Bearer ${userToken3}`)
       .send(update)
       .end((err, res) => {
         expect(res).to.have.status(200);
