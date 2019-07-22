@@ -120,12 +120,19 @@ class Validator {
   */
   static checkUser(req, res, next) {
     const { id } = req.user;
-    const car_id = req.params.id;
+    let carId;
+    if (req.params.id) carId = req.params.id;
+    else carId = req.body.car_id;
     const query = 'SELECT * FROM cars WHERE id = $1';
-    return pool.query(query, [car_id], (error, data) => {
+    return pool.query(query, [carId], (error, data) => {
       if (error) return ErrorHandler.databaseError(res);
       const car = data.rows[0];
-      if (id !== car.owner) {
+      if (req.url.includes('order')) {
+        if (id === car.owner) {
+          return ErrorHandler.validationError(res, 400,
+            'you cannot purchase your own car');
+        }
+      } else if (id !== car.owner) {
         return ErrorHandler.validationError(res, 401,
           'you cannot update others car records');
       }

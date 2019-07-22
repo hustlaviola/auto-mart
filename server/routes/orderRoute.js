@@ -10,6 +10,7 @@ const orderRoute = express.Router();
 orderRoute.post('/order',
   Auth.userAuth,
   OrderValidator.validatePostOrder,
+  Validator.checkUser,
   CarValidator.validateCarStatus,
   OrderController.postOrder);
 

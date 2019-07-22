@@ -202,6 +202,26 @@ describe('/POST ORDER route', () => {
       });
   });
 
+  it('should return an error if you are bidding on your own car', done => {
+    const amount = 22343;
+    const order = {
+      car_id: 4,
+      amount,
+    };
+    chai
+      .request(app)
+      .post('/api/v1/order')
+      .set('authorization', `Bearer ${userToken}`)
+      .send(order)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('error')
+          .eql('you cannot purchase your own car');
+        done(err);
+      });
+  });
+
   it('should create a purchase order if details are valid', done => {
     const amount = 233.76;
     const order = {
@@ -211,7 +231,7 @@ describe('/POST ORDER route', () => {
     chai
       .request(app)
       .post('/api/v1/order')
-      .set('authorization', `Bearer ${userToken}`)
+      .set('authorization', `Bearer ${userToken3}`)
       .send(order)
       .end((err, res) => {
         expect(res).to.have.status(201);
