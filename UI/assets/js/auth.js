@@ -49,8 +49,8 @@ document.querySelector('.auth-form').addEventListener('submit', event => {
   if (!window.location.href.includes('login')) {
     endpoint = 'signup';
 
-    const firstname = document.getElementById('firstname').value;
-    const lastname = document.getElementById('lastname').value;
+    const first_name = document.getElementById('firstname').value;
+    const last_name = document.getElementById('lastname').value;
     const confirmpassword = document.getElementById('confirmpassword').value;
     const address = document.getElementById('address').value;
 
@@ -59,7 +59,7 @@ document.querySelector('.auth-form').addEventListener('submit', event => {
       return;
     }
     Object.assign(userDetails, {
-      firstname, lastname, address,
+      first_name, last_name, address,
     });
   }
 
