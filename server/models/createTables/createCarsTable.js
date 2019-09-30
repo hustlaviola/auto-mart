@@ -3,6 +3,7 @@ const createCarsTable = `
     id SERIAL PRIMARY KEY NOT NULL,
     owner INTEGER NOT NULL,
     created_on TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    image_url VARCHAR(1600),
     state VARCHAR(4) NOT NULL,
     status VARCHAR(9) DEFAULT 'available',
     price FLOAT NOT NULL,

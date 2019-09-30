@@ -5,7 +5,7 @@ import FlagController from '../controllers/FlagController';
 
 const flagRoute = express.Router();
 
-flagRoute.post('/flag',
+flagRoute.post('/flags',
   Auth.userAuth,
   FlagValidator.validatePostFlag,
   FlagController.postFlag);

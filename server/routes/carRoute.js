@@ -1,5 +1,6 @@
 import express from 'express';
 import Auth from '../middlewares/Auth';
+import { multerUploads } from '../middlewares/multer';
 import Validator from '../middlewares/Validator';
 import CarValidator from '../middlewares/CarValidator';
 import CarController from '../controllers/CarController';
@@ -13,14 +14,15 @@ carRoute.get('/', (req, res) => {
   });
 });
 
-carRoute.post('/car',
+carRoute.post('/cars',
   Auth.userAuth,
+  multerUploads,
   CarValidator.validateState,
   Validator.validatePrice,
   CarValidator.validatePostCar,
   CarController.postCar);
 
-carRoute.patch('/car/:id/status',
+carRoute.patch('/cars/:id/status',
   Auth.userAuth,
   Validator.validateId,
   CarValidator.checkCar,
@@ -28,7 +30,7 @@ carRoute.patch('/car/:id/status',
   CarValidator.validateCarStatus,
   CarController.markAsSold);
 
-carRoute.patch('/car/:id/price',
+carRoute.patch('/cars/:id/price',
   Auth.userAuth,
   Validator.validateId,
   Validator.validatePrice,
@@ -36,18 +38,18 @@ carRoute.patch('/car/:id/price',
   Validator.checkUser,
   CarController.updateCarPrice);
 
-carRoute.get('/car/:id',
+carRoute.get('/cars/:id',
   Auth.userAuth,
   Validator.validateId,
   CarValidator.checkCar,
   CarController.getCar);
 
-carRoute.get('/car',
+carRoute.get('/cars',
   Auth.userAuth,
   Validator.validateQuery,
   CarController.getCars);
 
-carRoute.delete('/car/:id',
+carRoute.delete('/cars/:id',
   Auth.userAuth,
   Validator.checkAdmin,
   Validator.validateId,

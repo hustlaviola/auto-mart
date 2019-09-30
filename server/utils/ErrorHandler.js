@@ -35,6 +35,21 @@ class ErrorHandler {
       error: 'The requested url was not found on this server',
     });
   }
+
+  /**
+   * @method databaseError
+   * @description An handler for database error
+   * @static
+   * @param {object} res - Response object
+   * @returns {object} JSON response
+   * @memberof ErrorHandler
+   */
+  static databaseError(res) {
+    return res.status(500).send({
+      status: 'error',
+      error: 'Database Error',
+    });
+  }
 }
 
 export default ErrorHandler;

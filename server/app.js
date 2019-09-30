@@ -1,7 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
+import path from 'path';
 import swaggerDocument from '../swagger.json';
+import { cloudinaryConfig } from './config/cloudinaryConfig';
 import userRoute from './routes/userRoute';
 import ErrorHandler from './utils/ErrorHandler';
 import carRoute from './routes/carRoute';
@@ -17,6 +19,10 @@ app.use(
     extended: true,
   }),
 );
+
+app.use('*', cloudinaryConfig);
+
+app.use(express.static(path.join(__dirname, '../UI')));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', userRoute);

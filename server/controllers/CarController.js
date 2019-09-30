@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
 import pool from '../models/database';
+import { uploader } from '../config/cloudinaryConfig';
+import { dataUri } from '../middlewares/multer';
 import ErrorHandler from '../utils/ErrorHandler';
 
 /**
@@ -17,16 +19,24 @@ class CarController {
   * @returns {object} JSON response
   * @memberof CarController
   */
-  static postCar(req, res) {
+  static async postCar(req, res) {
+    let image_url;
+    console.log(req.file);
+    if (req.file) {
+      const file = dataUri(req).content;
+      const result = await uploader.upload(file);
+      image_url = result.url;
+    }
+    console.log(image_url);
     const { price } = req.body;
     let { state, manufacturer, model, body_type } = req.body;
     state = state.toLowerCase().trim(); manufacturer = manufacturer.toLowerCase().trim();
     model = model.toLowerCase().trim(); body_type = body_type.toLowerCase().trim();
     const { id } = req.user;
 
-    const values = [id, state, price, manufacturer, model, body_type];
+    const values = [id, state, price, manufacturer, model, body_type, image_url];
     const query = `INSERT INTO cars(owner, state, price,
-      manufacturer, model, body_type) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
+      manufacturer, model, body_type, image_url) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
 
     return pool.query(query, values, (err, data) => {
       if (err) return ErrorHandler.databaseError(res);

@@ -18,6 +18,7 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validateState(req, res, next) {
+    console.log(req.file);
     let queryState = req.query.state;
     const { state } = req.body;
     if (queryState) {

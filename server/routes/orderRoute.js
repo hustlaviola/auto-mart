@@ -7,14 +7,14 @@ import OrderController from '../controllers/OrderController';
 
 const orderRoute = express.Router();
 
-orderRoute.post('/order',
+orderRoute.post('/orders',
   Auth.userAuth,
   OrderValidator.validatePostOrder,
   Validator.checkUser,
   CarValidator.validateCarStatus,
   OrderController.postOrder);
 
-orderRoute.patch('/order/:id/price',
+orderRoute.patch('/orders/:id/price',
   Auth.userAuth,
   Validator.validateId,
   Validator.validatePrice,

@@ -48,7 +48,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', '')
       .send(car)
       .end((err, res) => {
@@ -71,7 +71,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .send(car)
       .end((err, res) => {
@@ -94,7 +94,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -117,7 +117,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -138,7 +138,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -161,7 +161,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -184,7 +184,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -207,7 +207,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -230,7 +230,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -253,7 +253,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -276,7 +276,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -299,7 +299,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -322,7 +322,7 @@ describe('/POST CAR route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/car')
+      .post('/api/v1/cars')
       .set('authorization', `Bearer ${userToken}`)
       .send(car)
       .end((err, res) => {
@@ -345,7 +345,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/status')
+      .patch('/api/v1/cars/1/status')
       .set('authorization', '')
       .send(update)
       .end((err, res) => {
@@ -363,7 +363,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/status')
+      .patch('/api/v1/cars/1/status')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .send(update)
       .end((err, res) => {
@@ -381,7 +381,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/t1/status')
+      .patch('/api/v1/cars/t1/status')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -399,7 +399,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1.01/status')
+      .patch('/api/v1/cars/1.01/status')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -417,7 +417,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/status')
+      .patch('/api/v1/cars/1/status')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -435,7 +435,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/status')
+      .patch('/api/v1/cars/1/status')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -453,7 +453,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/16/status')
+      .patch('/api/v1/cars/16/status')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -471,7 +471,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/2/status')
+      .patch('/api/v1/cars/2/status')
       .set('authorization', `Bearer ${adminToken}`)
       .send(update)
       .end((err, res) => {
@@ -489,7 +489,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/status')
+      .patch('/api/v1/cars/1/status')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -507,7 +507,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/price')
+      .patch('/api/v1/cars/1/price')
       .set('authorization', '')
       .send(update)
       .end((err, res) => {
@@ -525,7 +525,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/price')
+      .patch('/api/v1/cars/1/price')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .send(update)
       .end((err, res) => {
@@ -543,7 +543,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/t1/price')
+      .patch('/api/v1/cars/t1/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -561,7 +561,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/5.6/price')
+      .patch('/api/v1/cars/5.6/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -577,7 +577,7 @@ describe('/PATCH CAR route', () => {
     const update = {};
     chai
       .request(app)
-      .patch('/api/v1/car/1/price')
+      .patch('/api/v1/cars/1/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -595,7 +595,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/price')
+      .patch('/api/v1/cars/1/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -613,7 +613,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/17/price')
+      .patch('/api/v1/cars/17/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -631,7 +631,7 @@ describe('/PATCH CAR route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/car/1/price')
+      .patch('/api/v1/cars/1/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -648,7 +648,7 @@ describe('/GET CAR route', () => {
   it('should return an error if user is not authenticated', done => {
     chai
       .request(app)
-      .get('/api/v1/car/1')
+      .get('/api/v1/cars/1')
       .set('authorization', '')
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -662,7 +662,7 @@ describe('/GET CAR route', () => {
   it('should return an error if token cannot be authenticated', done => {
     chai
       .request(app)
-      .get('/api/v1/car/1')
+      .get('/api/v1/cars/1')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -679,7 +679,7 @@ describe('/GET CAR route', () => {
     };
     chai
       .request(app)
-      .get(`/api/v1/car/${car.id}`)
+      .get(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -696,7 +696,7 @@ describe('/GET CAR route', () => {
     };
     chai
       .request(app)
-      .get(`/api/v1/car/${car.id}`)
+      .get(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -713,7 +713,7 @@ describe('/GET CAR route', () => {
     };
     chai
       .request(app)
-      .get(`/api/v1/car/${car.id}`)
+      .get(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(404);
@@ -730,7 +730,7 @@ describe('/GET CAR route', () => {
     };
     chai
       .request(app)
-      .get(`/api/v1/car/${car.id}`)
+      .get(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -743,7 +743,7 @@ describe('/GET CAR route', () => {
   it('should return an error if user is not authenticated', done => {
     chai
       .request(app)
-      .get('/api/v1/car')
+      .get('/api/v1/cars')
       .set('authorization', '')
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -757,7 +757,7 @@ describe('/GET CAR route', () => {
   it('should return an error if token cannot be authenticated', done => {
     chai
       .request(app)
-      .get('/api/v1/car')
+      .get('/api/v1/cars')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -771,7 +771,7 @@ describe('/GET CAR route', () => {
   it('should return an error if status is not provided in the query', done => {
     chai
       .request(app)
-      .get('/api/v1/car?sttus=available&min_price=234567.56')
+      .get('/api/v1/cars?sttus=available&min_price=234567.56')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -785,7 +785,7 @@ describe('/GET CAR route', () => {
   it('should return an error if status is not equal to available', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=sold')
+      .get('/api/v1/cars?status=sold')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -799,7 +799,7 @@ describe('/GET CAR route', () => {
   it('should retrieve all unsold cars if details are valid', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available')
+      .get('/api/v1/cars?status=available')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -812,7 +812,7 @@ describe('/GET CAR route', () => {
   it('should return an error if min_price is not provided', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&max_price=2000000')
+      .get('/api/v1/cars?status=available&max_price=2000000')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -826,7 +826,7 @@ describe('/GET CAR route', () => {
   it('should return an error if min_price is not a number', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&min_price=20t0000&max_price=2050000')
+      .get('/api/v1/cars?status=available&min_price=20t0000&max_price=2050000')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -840,7 +840,7 @@ describe('/GET CAR route', () => {
   it('should return an error if max_price is not provided', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&min_price=2000000')
+      .get('/api/v1/cars?status=available&min_price=2000000')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -854,7 +854,7 @@ describe('/GET CAR route', () => {
   it('should return an error if max_price is not a number', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&min_price=200000&max_price=20t0000')
+      .get('/api/v1/cars?status=available&min_price=200000&max_price=20t0000')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -868,7 +868,7 @@ describe('/GET CAR route', () => {
   it('should return an error if max_price is not greater than min_price', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&min_price=2000000&max_price=1000000')
+      .get('/api/v1/cars?status=available&min_price=2000000&max_price=1000000')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -882,7 +882,7 @@ describe('/GET CAR route', () => {
   it('should retrieve all unsold cars within the price range if all details are valid', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&min_price=200000&max_price=3000000')
+      .get('/api/v1/cars?status=available&min_price=200000&max_price=3000000')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -895,7 +895,7 @@ describe('/GET CAR route', () => {
   // it('should return an error if user is not admin', done => {
   //   chai
   //     .request(app)
-  //     .get('/api/v1/car')
+  //     .get('/api/v1/cars')
   //     .set('authorization', `Bearer ${userToken}`)
   //     .end((err, res) => {
   //       expect(res).to.have.status(401);
@@ -909,7 +909,7 @@ describe('/GET CAR route', () => {
   it('should retrieve the list of all cars if all details are valid', done => {
     chai
       .request(app)
-      .get('/api/v1/car')
+      .get('/api/v1/cars')
       .set('authorization', `Bearer ${adminToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -922,7 +922,7 @@ describe('/GET CAR route', () => {
   it('should retrieve all unsold cars of a specific make if details are valid', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&manufacturer=Toyota')
+      .get('/api/v1/cars?status=available&manufacturer=Toyota')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -936,7 +936,7 @@ describe('/GET CAR route', () => {
   it('should return an error if body-type is invalid', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&body_type=Sytan')
+      .get('/api/v1/cars?status=available&body_type=Sytan')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -950,7 +950,7 @@ describe('/GET CAR route', () => {
   it('should retrieve all unsold cars of a specific body_type if details are valid', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&body_type=Sedan')
+      .get('/api/v1/cars?status=available&body_type=Sedan')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -964,7 +964,7 @@ describe('/GET CAR route', () => {
   it('should return an error if state is invalid', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&state=Sytan')
+      .get('/api/v1/cars?status=available&state=Sytan')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -978,7 +978,7 @@ describe('/GET CAR route', () => {
   it('should retrieve all used unsold cars if details are valid', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&state=used')
+      .get('/api/v1/cars?status=available&state=used')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -992,7 +992,7 @@ describe('/GET CAR route', () => {
   it('should retrieve all new unsold cars if details are valid', done => {
     chai
       .request(app)
-      .get('/api/v1/car?status=available&state=new')
+      .get('/api/v1/cars?status=available&state=new')
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -1008,7 +1008,7 @@ describe('/DELETE CAR route', () => {
   it('should return an error if user is not authenticated', done => {
     chai
       .request(app)
-      .delete('/api/v1/car/1')
+      .delete('/api/v1/cars/1')
       .set('authorization', '')
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -1022,7 +1022,7 @@ describe('/DELETE CAR route', () => {
   it('should return an error if token cannot be authenticated', done => {
     chai
       .request(app)
-      .delete('/api/v1/car/1')
+      .delete('/api/v1/cars/1')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -1039,7 +1039,7 @@ describe('/DELETE CAR route', () => {
     };
     chai
       .request(app)
-      .delete(`/api/v1/car/${car.id}`)
+      .delete(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${adminToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -1056,7 +1056,7 @@ describe('/DELETE CAR route', () => {
     };
     chai
       .request(app)
-      .delete(`/api/v1/car/${car.id}`)
+      .delete(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${adminToken}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -1073,7 +1073,7 @@ describe('/DELETE CAR route', () => {
     };
     chai
       .request(app)
-      .delete(`/api/v1/car/${car.id}`)
+      .delete(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${adminToken}`)
       .end((err, res) => {
         expect(res).to.have.status(404);
@@ -1090,7 +1090,7 @@ describe('/DELETE CAR route', () => {
     };
     chai
       .request(app)
-      .delete(`/api/v1/car/${car.id}`)
+      .delete(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -1107,7 +1107,7 @@ describe('/DELETE CAR route', () => {
     };
     chai
       .request(app)
-      .delete(`/api/v1/car/${car.id}`)
+      .delete(`/api/v1/cars/${car.id}`)
       .set('authorization', `Bearer ${adminToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);

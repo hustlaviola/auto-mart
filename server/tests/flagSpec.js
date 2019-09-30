@@ -32,7 +32,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', '')
       .send(flag)
       .end((err, res) => {
@@ -52,7 +52,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .send(flag)
       .end((err, res) => {
@@ -71,7 +71,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', `Bearer ${userToken}`)
       .send(flag)
       .end((err, res) => {
@@ -91,7 +91,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', `Bearer ${userToken}`)
       .send(flag)
       .end((err, res) => {
@@ -111,7 +111,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', `Bearer ${userToken}`)
       .send(flag)
       .end((err, res) => {
@@ -130,7 +130,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', `Bearer ${userToken}`)
       .send(flag)
       .end((err, res) => {
@@ -150,7 +150,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', `Bearer ${userToken}`)
       .send(flag)
       .end((err, res) => {
@@ -169,7 +169,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', `Bearer ${userToken}`)
       .send(flag)
       .end((err, res) => {
@@ -198,7 +198,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', `Bearer ${userToken}`)
       .send(flag)
       .end((err, res) => {
@@ -218,7 +218,7 @@ describe('/POST FLAG route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/flag')
+      .post('/api/v1/flags')
       .set('authorization', `Bearer ${userToken}`)
       .send(flag)
       .end((err, res) => {

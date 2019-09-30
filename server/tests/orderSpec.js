@@ -58,7 +58,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', '')
       .send(order)
       .end((err, res) => {
@@ -76,7 +76,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .send(order)
       .end((err, res) => {
@@ -94,7 +94,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', `Bearer ${userToken}`)
       .send(order)
       .end((err, res) => {
@@ -113,7 +113,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', `Bearer ${userToken}`)
       .send(order)
       .end((err, res) => {
@@ -132,7 +132,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', `Bearer ${userToken}`)
       .send(order)
       .end((err, res) => {
@@ -150,7 +150,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', `Bearer ${userToken}`)
       .send(order)
       .end((err, res) => {
@@ -170,7 +170,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', `Bearer ${userToken}`)
       .send(order)
       .end((err, res) => {
@@ -190,7 +190,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', `Bearer ${userToken}`)
       .send(order)
       .end((err, res) => {
@@ -210,7 +210,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', `Bearer ${userToken}`)
       .send(order)
       .end((err, res) => {
@@ -230,7 +230,7 @@ describe('/POST ORDER route', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/order')
+      .post('/api/v1/orders')
       .set('authorization', `Bearer ${userToken3}`)
       .send(order)
       .end((err, res) => {
@@ -252,7 +252,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/1/price')
+      .patch('/api/v1/orders/1/price')
       .set('authorization', '')
       .send(update)
       .end((err, res) => {
@@ -270,7 +270,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/1/price')
+      .patch('/api/v1/orders/1/price')
       .set('authorization', 'urgjrigriirkjwUHJFRFFJrgfr')
       .send(update)
       .end((err, res) => {
@@ -288,7 +288,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/t1/price')
+      .patch('/api/v1/orders/t1/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -306,7 +306,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/5.6/price')
+      .patch('/api/v1/orders/5.6/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -322,7 +322,7 @@ describe('/PATCH ORDER route', () => {
     const update = {};
     chai
       .request(app)
-      .patch('/api/v1/order/1/price')
+      .patch('/api/v1/orders/1/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -340,7 +340,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/2/price')
+      .patch('/api/v1/orders/2/price')
       .set('authorization', `Bearer ${userToken}`)
       .send(update)
       .end((err, res) => {
@@ -358,7 +358,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/17/price')
+      .patch('/api/v1/orders/17/price')
       .set('authorization', `Bearer ${userToken3}`)
       .send(update)
       .end((err, res) => {
@@ -376,7 +376,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/2/price')
+      .patch('/api/v1/orders/2/price')
       .set('authorization', `Bearer ${adminToken}`)
       .send(update)
       .end((err, res) => {
@@ -394,7 +394,7 @@ describe('/PATCH ORDER route', () => {
     };
     chai
       .request(app)
-      .patch('/api/v1/order/1/price')
+      .patch('/api/v1/orders/1/price')
       .set('authorization', `Bearer ${userToken3}`)
       .send(update)
       .end((err, res) => {
