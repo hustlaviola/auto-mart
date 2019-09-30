@@ -1,5 +1,8 @@
+/* eslint-disable camelcase */
 const spin = document.querySelector('.spin');
 const errorMessage = document.querySelector('.error');
+
+const isIndex = window.location.href.includes('index') || window.location.pathname === '/';
 
 const authenticateUser = (userInfo, endpoint) => {
   const url = `https://automobilemart.herokuapp.com/api/v1/auth/${endpoint}`;
@@ -18,7 +21,7 @@ const authenticateUser = (userInfo, endpoint) => {
         spin.style.display = 'none';
         const { token } = data.data;
         localStorage.setItem('token', token);
-        window.location.href = window.location.href.includes('index')
+        window.location.href = isIndex
           ? './login.html' : './home.html';
       } else {
         spin.style.display = 'none';
@@ -33,27 +36,27 @@ const authenticateUser = (userInfo, endpoint) => {
 document.querySelector('.auth-form').addEventListener('submit', event => {
   event.preventDefault();
 
-  let endpoint = 'login';
+  let endpoint = 'signin';
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const userDetails = {
     email, password,
   };
 
-  if (window.location.href.includes('index')) {
+  if (isIndex) {
     endpoint = 'signup';
 
-    const firstname = document.getElementById('firstname').value;
-    const lastname = document.getElementById('lastname').value;
-    const confirmpassword = document.getElementById('confirmpassword').value;
+    const first_name = document.getElementById('firstname').value;
+    const last_name = document.getElementById('lastname').value;
+    const confirm_password = document.getElementById('confirmpassword').value;
     const address = document.getElementById('address').value;
 
-    if (password !== confirmpassword) {
+    if (password !== confirm_password) {
       errorMessage.textContent = 'password does not match';
       return;
     }
     Object.assign(userDetails, {
-      firstname, lastname, address,
+      first_name, last_name, address,
     });
   }
 

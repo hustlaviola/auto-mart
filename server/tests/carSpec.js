@@ -319,6 +319,7 @@ describe('/POST CAR route', () => {
       manufacturer: 'Toyota',
       model: 'Yaris',
       body_type: 'Sedan',
+      description: 'Brand new zero mileage',
     };
     chai
       .request(app)

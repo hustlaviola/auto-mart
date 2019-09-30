@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import ErrorHandler from '../utils/ErrorHandler';
 import Helper from '../utils/Helper';
-import pool from '../models/database';
+import pool from '../config/database';
 import CarValidator from './CarValidator';
 
 /**

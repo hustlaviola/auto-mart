@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import pool from '../models/database';
+import pool from '../config/database';
 import { uploader } from '../config/cloudinaryConfig';
 import { dataUri } from '../middlewares/multer';
 import ErrorHandler from '../utils/ErrorHandler';
@@ -21,25 +21,29 @@ class CarController {
   */
   static async postCar(req, res) {
     let image_url;
-    console.log(req.file);
     if (req.file) {
       const file = dataUri(req).content;
       const result = await uploader.upload(file);
       image_url = result.url;
     }
-    console.log(image_url);
     const { price } = req.body;
-    let { state, manufacturer, model, body_type } = req.body;
+    let {
+      state, manufacturer, model, body_type, description,
+    } = req.body;
     state = state.toLowerCase().trim(); manufacturer = manufacturer.toLowerCase().trim();
     model = model.toLowerCase().trim(); body_type = body_type.toLowerCase().trim();
+    // eslint-disable-next-line no-nested-ternary
+    description = description && description.trim()
+      ? description.trim().replace(/  +/g, ' ') : undefined;
+
     const { id } = req.user;
 
-    const values = [id, state, price, manufacturer, model, body_type, image_url];
-    const query = `INSERT INTO cars(owner, state, price,
-      manufacturer, model, body_type, image_url) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+    const values = [id, state, price, manufacturer, model, body_type, image_url, description];
+    const query = `INSERT INTO cars(owner, state, price, manufacturer, model,
+      body_type, image_url, description) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
 
     return pool.query(query, values, (err, data) => {
-      if (err) return ErrorHandler.databaseError(res);
+      if (err) ErrorHandler.databaseError(res);
       const car = data.rows[0];
       return res.status(201).send({
         status: 'success',
