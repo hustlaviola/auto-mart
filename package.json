@@ -27,7 +27,6 @@
   "homepage": "https://github.com/hustlaviola/Auto-Mart#readme",
   "devDependencies": {
     "@babel/node": "^7.4.5",
-    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/register": "^7.4.4",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
@@ -45,6 +44,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/runtime-corejs3": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "bcrypt": "^3.0.6",
     "cloudinary": "^1.15.0",
     "cors": "^2.8.5",

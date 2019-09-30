@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import ErrorHandler from '../utils/ErrorHandler';
-import pool from '../models/database';
+import pool from '../config/database';
 /**
  * @class CarValidator
  * @description Validates Car information
@@ -18,7 +18,6 @@ class CarValidator {
   * @memberof CarValidator
   */
   static validateState(req, res, next) {
-    console.log(req.file);
     let queryState = req.query.state;
     const { state } = req.body;
     if (queryState) {

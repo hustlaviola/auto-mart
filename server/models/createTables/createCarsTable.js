@@ -10,6 +10,7 @@ const createCarsTable = `
     manufacturer VARCHAR(50) NOT NULL,
     model VARCHAR(50) NOT NULL,
     body_type VARCHAR(50) NOT NULL,
+    description VARCHAR(1600),
     updated TIMESTAMP WITH TIME ZONE DEFAULT now(),
     FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
   );

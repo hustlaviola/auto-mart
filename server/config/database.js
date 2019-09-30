@@ -11,7 +11,7 @@ const dbConnection = () => {
   if (NODE_ENV === 'test') {
     dbURL = process.env.DATABASE_TEST_URL;
   } else if (NODE_ENV === 'development') {
-    dbURL = process.env.DATABASE_TEST_URL;
+    dbURL = process.env.DATABASE_DEV_URL;
   } else {
     dbURL = process.env.DATABASE_URL;
   }

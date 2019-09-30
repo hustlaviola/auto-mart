@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import pool from '../models/database';
+import pool from '../config/database';
 import ErrorHandler from '../utils/ErrorHandler';
 
 /**

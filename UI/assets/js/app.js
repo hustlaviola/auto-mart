@@ -145,3 +145,14 @@ const signUp = event => {
   event.preventDefault();
   window.location.href = 'login.html';
 };
+
+const { href } = window.location;
+const pathName = window.location.pathname;
+const isToken = localStorage.getItem('token');
+const indexOrLogin = (href.includes('index') || href.includes('login')) || pathName === '/';
+
+if (indexOrLogin && isToken) {
+  localStorage.removeItem('token');
+}
+
+if (!isToken && !indexOrLogin) window.location.href = './login.html';

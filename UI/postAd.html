@@ -42,11 +42,11 @@
     <div class="flex flex-center">
       <div class="login mb-5">
         <h3 class="mt-2">Place your Ad here</h3>
-        <form class="flex-column mt-2">
+        <form class="post-car-form flex-column mt-2">
           <input
             type="text"
             placeholder="Make(Manufacturer).."
-            id="email"
+            id="manufacturer"
             class="form-unit"
             autofocus
             required
@@ -54,40 +54,46 @@
           <input
             type="text"
             placeholder="Model.."
-            id="password"
+            id="model"
             class="form-unit mb-2"
             required
           />
-          <select class="mb-2">
+          <select id="body-type" class="mb-2">
             <option selected hidden>Body Type</option>
-            <option value="">Hatchback</option>
-            <option value="">SUV</option>
-            <option value="">Convertible</option>
-            <option value="">Sedan</option>
-            <option value="">Coupe</option>
-            <option value="">Truck</option>
-            <option value="">Trailer</option>
-            <option value="">Van</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="SUV">SUV</option>
+            <option value="Convertible">Convertible</option>
+            <option value="Sedan">Sedan</option>
+            <option value="Coupe">Coupe</option>
+            <option value="Truck">Truck</option>
+            <option value="Trailer">Trailer</option>
+            <option value="Van">Van</option>
           </select>
-          <select class="mb-2">
+          <select id="state" class="mb-2">
             <option selected hidden>State</option>
-            <option value="">New</option>
-            <option value="">Used</option>
+            <option value="New">New</option>
+            <option value="Used">Used</option>
           </select>
-          <input type="file" name="attachment" accept="image/*" multiple />
+          <input id="image" type="file" name="attachment" accept="image/*" multiple />
           <input
             type="text"
             placeholder="Price(e.g 1000000)"
-            id="password"
+            id="price"
             class="form-unit mb-2"
             required
           />
-          <textarea placeholder="Description.."></textarea>
+          <textarea id="description" placeholder="Description.."></textarea>
+          <p class="error"></p>
+          <div class="spin flex flex-center">
+            <img src="./assets/img/spinner.gif" alt="">
+          </div>
           <button type="submit" class="btn btn-primary mt-2 mb-2">
             Place Ad
           </button>
         </form>
       </div>
     </div>
+    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/postCar.js"></script>
   </body>
 </html>

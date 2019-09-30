@@ -1,4 +1,4 @@
-import pool from '../models/database';
+import pool from '../config/database';
 import createSeedsQuery from './createSeeds';
 import dropTablesQuery from '../models/dropTables';
 import createTablesQuery from '../models/createTables/createTables';
